@@ -4,6 +4,7 @@ class Example extends Phaser.Scene
     {
         this.load.image('lizardHead', 'assets/lizardHead.png');
         this.load.image('lizardTail', 'assets/lizardTail.png');
+        this.load.aseprite('bodySegment','assets/sprites/bodysegment.png','assets/sprites/bodysegment.json');
     }
 
     create ()
@@ -20,6 +21,8 @@ class Example extends Phaser.Scene
     update()
     {   
         updateLizard(this);
+        
+        this.lizardHead.isMoving = false; //If the lizard actually is moving, this will be overridden, then the value will be used to evaluate whether or not to play the idling animation in the next frame
         //keyboard controls
        if(this.cursors.left.isDown){
             this.moveLizard(-1,0);
@@ -48,6 +51,7 @@ class Example extends Phaser.Scene
             }
             
         }
+        
     }
 }
 
@@ -57,6 +61,7 @@ const config = {
     height: 600,
     backgroundColor: '#EEEEEE',
     parent: 'game',
+    pixelArt:true,
     physics: {
         default: 'matter' ,
         matter:{
