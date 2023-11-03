@@ -2,9 +2,9 @@ class Example extends Phaser.Scene
 {
     preload ()
     {
-        this.load.image('lizardHead', 'assets/lizardHead.png');
-        this.load.image('lizardTail', 'assets/lizardTail.png');
-        this.load.aseprite('bodySegment','assets/sprites/bodysegment.png','assets/sprites/bodysegment.json');
+        this.load.image('lizardHead', '/assets/lizardHead.png');
+        this.load.image('lizardTail', '/assets/lizardTail.png');
+        this.load.aseprite('bodySegment','/assets/sprites/bodysegment.png','/assets/sprites/bodysegment.json');
     }
 
     create ()
