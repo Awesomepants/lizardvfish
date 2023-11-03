@@ -185,7 +185,6 @@ function updateLizard(scene){
         }
     }
     if(!scene.lizardHead.isMoving){
-        console.log("idling...")
         scene.lizardHead.play("Idle");
         scene.lizardTail.play("Idle");
     }
