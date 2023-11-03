@@ -123,13 +123,11 @@ function updateLizard(scene){
             scene.lizardTail.setAngle(0);
             scene.lizardHead.setVerticalFlip(true);
             scene.lizardHead.setHorizontalFlip(true);
-            //scene.lizardTail.flipX = false;
-            //console.log("thisContext");
             
         } else {
             
             scene.lizardHead.setAngle(180);
-            scene.lizardTail.setAngle(0);
+            scene.lizardTail.setAngle(180);
             scene.lizardHead.setVerticalFlip(false);
             scene.lizardHead.setHorizontalFlip(true);
         }
