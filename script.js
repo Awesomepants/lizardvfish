@@ -10,6 +10,7 @@ class Example extends Phaser.Scene
     create ()
     {
         this.matter.world.setBounds();
+        this.add.image(10,10,"lizardHead");
 
         //  Our two bodies which will be connected by a constraint (aka a Joint or a Spring)
         createLizard(this);
