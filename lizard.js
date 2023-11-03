@@ -1,6 +1,13 @@
 function createLizard(scene){
     scene.lizardHead = scene.matter.add.image(420, 100, 'lizardHead', null, { shape: 'circle', friction: 0, restitution: 0.6 });
     scene.lizardTail = scene.matter.add.image(400, 200, 'lizardTail', null, { shape: 'circle', friction: 0, restitution: 0.6 });
+    scene.matter.add.constraint(scene.lizardHead, scene.lizardTail, 40, 0.2);
+    scene.lizardTail2 = scene.matter.add.circle(380,200,10);
+    scene.matter.add.constraint(scene.lizardTail, scene.lizardTail2, 40, 0.8);
+    scene.lizardTail3 = scene.matter.add.circle(360,200,5);
+    scene.matter.add.constraint(scene.lizardTail2, scene.lizardTail3, 40, 0.8);
+    console.log(scene.lizardTail2);
+    
     scene.lizardHead.setFrictionAir(0.02);
     scene.lizardHead.verticalFlip = false;
     scene.lizardHead.horizontalFlip = false;
@@ -27,13 +34,12 @@ function createLizard(scene){
     scene.lizardHead.body.label = "lizardHead";
     scene.lizardHead.sticking = {isSticking:false, x:0, y:0};
     scene.graphics = scene.add.graphics();
-    scene.lizardBody = new Phaser.Geom.Line(
-       scene.lizardHead.x,
-       scene.lizardHead.y,
-       scene.lizardTail.x,
-       scene.lizardTail.y
-    );//new Phaser.Geom.Polygon(scene, [[scene.lizardHead.getTopCenter().x,scene.lizardHead.getTopCenter().y],[scene.lizardTail.getTopCenter().x,scene.lizardTail.getTopCenter().y],/*tip of tail*/[scene.lizardTail.getBottomCenter().x,scene.lizardTail.getBottomCenter.y],[scene.lizardHead.getTopCenter.x,scene.lizardHead.getTopCenter.y]])
-    scene.matter.add.constraint(scene.lizardHead, scene.lizardTail, 40, 0.2);
+    scene.lizardBody = new Phaser.Curves.CubicBezier(
+       scene.lizardHead.getCenter(),
+       scene.lizardTail.getCenter(),
+       new Phaser.Math.Vector2(scene.lizardTail2.position.x,scene.lizardTail2.position.y),
+       new Phaser.Math.Vector2(scene.lizardTail3.position.x,scene.lizardTail3.position.y)
+    );
     scene.matter.add.mouseSpring();
     scene.moveLizard = (x,y) => {
         let force = 0.0005;
@@ -54,13 +60,11 @@ function createLizard(scene){
     
     scene.matter.world.on("collisionend",(e,o1,o2) => {
         if(o1.label === "lizardHead" || o2.label === "lizardHead"){
-            //console.log("lizardHead lifted");
             scene.lizardHead.sticking.isSticking = false;
         }
     })
     scene.matter.world.on("collisionactive",(e,o1,o2) => {
         if(o1.label === "lizardHead" || o2.label === "lizardHead"){
-            //console.log("lizardHead is touching");
             const collisionNormal = e.pairs[0].collision.normal;
             scene.lizardHead.sticking.isSticking = true;
             scene.lizardHead.sticking.x=collisionNormal.x;
@@ -74,18 +78,17 @@ function updateLizard(scene){
     //draw the lizard body
     scene.graphics.clear();
     scene.graphics.fillStyle(0x00aa00);
-    scene.lizardBody.setTo(
-            scene.lizardHead.x,
-            scene.lizardHead.y,
-            scene.lizardTail.x,
-            scene.lizardTail.y
-         
-     );
      scene.graphics.setDepth(-1);
      scene.graphics.lineStyle(20,0x00000,1);
-    scene.graphics.strokeLineShape(scene.lizardBody);
+     scene.lizardBody = new Phaser.Curves.Spline([
+        scene.lizardHead.getCenter(),
+        scene.lizardTail.getCenter(),
+        new Phaser.Math.Vector2(scene.lizardTail2.position.x,scene.lizardTail2.position.y),
+        new Phaser.Math.Vector2(scene.lizardTail3.position.x,scene.lizardTail3.position.y)]
+     );
+     //console.log(scene.lizardBody);
+    scene.lizardBody.draw(scene.graphics);
 
-    //console.log(scene.lizardHead.getTopCenter());
 
     //apply the "sticking" force for the lizard
     const lizardFlipped = scene.lizardHead.x > scene.lizardTail.x;
@@ -100,14 +103,12 @@ function updateLizard(scene){
             scene.lizardHead.setAngle(0);
             scene.lizardTail.setAngle(0);
             scene.lizardHead.setVerticalFlip(true);
-            console.log("flipped");
             scene.lizardHead.setHorizontalFlip(true);
             
         } else {
             scene.lizardHead.setAngle(180);
             scene.lizardTail.setAngle(0);
             scene.lizardHead.setVerticalFlip(false);
-            console.log("notflipped");
             scene.lizardHead.setHorizontalFlip(true);
         }
       } else if (scene.lizardHead.sticking.y === 1){
@@ -115,14 +116,12 @@ function updateLizard(scene){
             scene.lizardHead.setAngle(180);
             scene.lizardTail.setAngle(180);
             scene.lizardHead.setVerticalFlip(true);
-            console.log("flipped");
             scene.lizardHead.setHorizontalFlip(false);
             
         } else {
             scene.lizardHead.setAngle(0);
             scene.lizardTail.setAngle(0);
             scene.lizardHead.setVerticalFlip(false);
-            console.log("notflipped");
             scene.lizardHead.setHorizontalFlip(false);
         }
       } else if (scene.lizardHead.sticking.x === 1){
@@ -130,13 +129,11 @@ function updateLizard(scene){
             scene.lizardHead.setAngle(270);
             scene.lizardTail.setAngle(270);
             scene.lizardHead.setVerticalFlip(false);
-            console.log("flipped");
             scene.lizardHead.setHorizontalFlip(false);
         } else {
             scene.lizardHead.setAngle(90);
             scene.lizardTail.setAngle(90);
             scene.lizardHead.setVerticalFlip(true);
-            console.log("not flipped");
             scene.lizardHead.setHorizontalFlip(false);
         }
         
@@ -145,13 +142,11 @@ function updateLizard(scene){
             scene.lizardHead.setAngle(270);
             scene.lizardTail.setAngle(270);
             scene.lizardHead.setVerticalFlip(true);
-            console.log("flipped");
             scene.lizardHead.setHorizontalFlip(false);
         } else {
             scene.lizardHead.setAngle(90);
             scene.lizardTail.setAngle(90);
             scene.lizardHead.setVerticalFlip(false);
-            console.log("not flipped");
             scene.lizardHead.setHorizontalFlip(false);
         }
         

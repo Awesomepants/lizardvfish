@@ -62,7 +62,8 @@ const config = {
         matter:{
             gravity:{
                 y: 0.1
-            }
+            },
+            debug: false
         }  
     },
     input: {
