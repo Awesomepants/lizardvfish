@@ -1,19 +1,20 @@
 function createLizard(scene){
     
-    scene.lizardHead = scene.matter.add.sprite(420, 100, 'bodySegment', 0, {shape:'circle', friction: 0, restitution: 0.6});
-    scene.lizardTail = scene.matter.add.sprite(400, 200, 'lizardTail', 0, { shape: 'circle', friction: 0, restitution: 0.6 });
-    //scene.lizardHead.setCircle();
+    scene.lizardHead = scene.matter.add.sprite(420, 100, 'bodySegment', 0, {shape:'circle', friction: 0.1, frictionStatic:0.4, slop: 1, mass: 2, inverseMass: 1, restitution: 0});
+    scene.lizardTail = scene.matter.add.sprite(400, 200, 'bodySegment', 0, { shape: 'circle', friction: 0, restitution: 0, mass: 2, inverseMass: 1 });
+    scene.lizardTail.setFrictionAir(0.05);
     scene.matter.add.constraint(scene.lizardHead, scene.lizardTail, 40, 0.2);
-    scene.lizardTail2 = scene.matter.add.circle(380,200,10);
+    scene.lizardTail2 = scene.matter.add.circle(380,200,10, {frictionAir:0.04});
     scene.matter.add.constraint(scene.lizardTail, scene.lizardTail2, 40, 0.8);
     scene.lizardTail3 = scene.matter.add.circle(360,200,5);
+    //scene.lizardTail3.setFrictionAir(0.5);
+    //scene.lizardTail2.setFrictionAir(0.5);
     scene.matter.add.constraint(scene.lizardTail2, scene.lizardTail3, 40, 0.8);
-    console.log(scene.lizardTail2);
     scene.lizardHead.anims.createFromAseprite("bodySegment");
     scene.lizardTail.anims.createFromAseprite("bodySegment");
 
     
-    scene.lizardHead.setFrictionAir(0.02);
+    scene.lizardHead.setFrictionAir(0.01);
     scene.lizardHead.verticalFlip = false;
     scene.lizardHead.horizontalFlip = false;
     scene.lizardHead.setVerticalFlip = (input) => {
@@ -35,7 +36,10 @@ function createLizard(scene){
         }
 
     }
-    scene.lizardTail.setFrictionAir(0.04);
+    scene.lizardHead.stickingBuffer = 0;
+    scene.lizardHead.maxStickingBuffer = 4;
+
+    //scene.lizardTail.setFrictionAir(0.04);
     scene.lizardHead.body.label = "lizardHead";
     scene.lizardHead.sticking = {isSticking:false, x:0, y:0};
     scene.graphics = scene.add.graphics();
@@ -43,9 +47,9 @@ function createLizard(scene){
     scene.matter.add.mouseSpring();
     scene.moveLizard = (x,y) => {
         scene.lizardHead.isMoving = true;
-        let force = 0.0005;
+        let force = 0.001;
         if(scene.lizardHead.sticking.isSticking){
-            force = 0.002;
+            force = 0.01;
             if(scene.lizardHead.anims.currentAnim.key != "Crawl"){
                 scene.lizardHead.play({key:"Crawl", repeat: -1});
                 scene.lizardTail.play({key:"Crawl", repeat: -1, startFrame: 4});
@@ -69,17 +73,28 @@ function createLizard(scene){
     
     scene.matter.world.on("collisionend",(e,o1,o2) => {
         if(o1.label === "lizardHead" || o2.label === "lizardHead"){
-            scene.lizardHead.sticking.isSticking = false;
+            
+            //console.log(scene.lizardHead.stickingBuffer);
+                if(scene.lizardHead.stickingBuffer > scene.lizardHead.maxStickingBuffer){
+                    scene.lizardHead.sticking.isSticking = false;
+                }
+                
+            
+            
         }
     })
     scene.matter.world.on("collisionactive",(e,o1,o2) => {
-        if(o1.label === "lizardHead" || o2.label === "lizardHead"){
+        
+        if((o1.label === "lizardHead" && o2.label === "Rectangle Body") || (o2.label === "lizardHead" && o1.label === "Rectangle Body")){
             const collisionNormal = e.pairs[0].collision.normal;
+            //console.log(o1,o2);
+            scene.lizardHead.stickingBuffer = 0;
             scene.lizardHead.sticking.isSticking = true;
             scene.lizardHead.sticking.x=collisionNormal.x;
             scene.lizardHead.sticking.y=collisionNormal.y;
         }
     })
+    console.log(scene.lizardHead.body);
 
 }
 
@@ -108,11 +123,15 @@ function updateLizard(scene){
      }
     //scene.lizardBody.draw(scene.graphics);
 
-
+    scene.lizardHead.stickingBuffer ++; //this little sticking buffer ensures that the lizard stops sticking to the wall if they're not touching the wall, but gives a few frames of buffer to stop the lizard from constantly sticking/unsticking and becoming frustrating to control
+    if(scene.lizardHead.stickingBuffer > scene.lizardHead.maxStickingBuffer){
+        scene.lizardHead.sticking.isSticking = false;
+    }
     //apply the "sticking" force for the lizard
+    
     const lizardFlipped = scene.lizardHead.x > scene.lizardTail.x;
-    if(scene.lizardHead.sticking.isSticking){
-        const stickingAmount = 0.001;
+    if(scene.lizardHead.sticking.isSticking && scene.lizardHead.stickingBuffer < 4){
+        const stickingAmount = 0.002;
         const stickingVector = new Phaser.Math.Vector2(scene.lizardHead.sticking.x * stickingAmount, scene.lizardHead.sticking.y * stickingAmount);
       scene.lizardHead.applyForce(stickingVector);
       scene.lizardTail.applyForce(stickingVector);

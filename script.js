@@ -3,17 +3,25 @@ class Example extends Phaser.Scene
     preload ()
     {
         this.load.aseprite('bodySegment','assets/sprites/bodysegment.png','assets/sprites/bodysegment.json');
-        this.load.tilemapTiledJSON("sampleMap","assets/maps/prototype.tmj")
+        this.load.tilemapTiledJSON("sampleMap","assets/maps/prototype.tmj");
+        this.load.image("AquaTile","assets/sampleTile.png");
     }
 
     create ()
     {
-        this.matter.world.setBounds();
+        //this.matter.world.setBounds();
+        const map = this.make.tilemap({ key: "sampleMap"});
+        const tileset = map.addTilesetImage("AquaTile");
+        const groundLayer = map.createLayer("Ground", tileset, 0, 0);
+        groundLayer.setCollisionByProperty({ collides: true });
+        this.matter.world.convertTilemapLayer(groundLayer);
+        console.log(groundLayer)
 
         //  Our two bodies which will be connected by a constraint (aka a Joint or a Spring)
         createLizard(this);
        
         this.cursors = this.input.keyboard.createCursorKeys();
+        this.cameras.main.startFollow(this.lizardHead);
         
 
     }
