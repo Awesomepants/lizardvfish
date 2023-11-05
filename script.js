@@ -15,10 +15,8 @@ class Example extends Phaser.Scene
         const groundLayer = map.createLayer("Ground", tileset, 0, 0);
         groundLayer.setCollisionByProperty({ collides: true });
         this.matter.world.convertTilemapLayer(groundLayer);
-        console.log(groundLayer)
-
-        //  Our two bodies which will be connected by a constraint (aka a Joint or a Spring)
-        createLizard(this);
+        //We tried making the lizard a custom class that extended Matter.Sprite, but we got all kinds of errors for some reason so instead we made a function that creates the lizard and returns it (no issue with this)
+        this.lizardHead = createLizard(this, 300, 50);
        
         this.cursors = this.input.keyboard.createCursorKeys();
         this.cameras.main.startFollow(this.lizardHead);
@@ -26,20 +24,20 @@ class Example extends Phaser.Scene
 
     }
     update()
-    {   
-        updateLizard(this);
+    {   //overriding the preUpdate function was a bad idea, so instead the Lizard has a custom function that we call every time the scene updates
+        this.lizardHead.update();
         
         this.lizardHead.isMoving = false; //If the lizard actually is moving, this will be overridden, then the value will be used to evaluate whether or not to play the idling animation in the next frame
         //keyboard controls
        if(this.cursors.left.isDown){
-            this.moveLizard(-1,0);
+            this.lizardHead.moveLizard(-1,0);
        } else if (this.cursors.right.isDown){
-            this.moveLizard(1,0);
+            this.lizardHead.moveLizard(1,0);
        } 
        if (this.cursors.down.isDown){
-        this.moveLizard(0,1);
+        this.lizardHead.moveLizard(0,1);
        } else if (this.cursors.up.isDown){
-        this.moveLizard(0,-1);
+        this.lizardHead.moveLizard(0,-1);
        }
        //gamepad controls
        if (this.input.gamepad.total === 0)
@@ -54,7 +52,7 @@ class Example extends Phaser.Scene
             const axisH = pad.axes[0].getValue();
             const axisV = pad.axes[1].getValue();
             if(axisH || axisV){
-                this.moveLizard(axisH,axisV);
+                this.lizardHead.moveLizard(axisH,axisV);
             }
             
         }
