@@ -24,7 +24,9 @@ class Example extends Phaser.Scene
 
     }
     update()
-    {   //overriding the preUpdate function was a bad idea, so instead the Lizard has a custom function that we call every time the scene updates
+    { 
+        document.getElementById("fpsmeter").innerHTML = `FPS: ${this.sys.game.loop.actualFps}`;
+        //overriding the preUpdate function was a bad idea, so instead the Lizard has a custom function that we call every time the scene updates
         this.lizardHead.update();
         
         this.lizardHead.isMoving = false; //If the lizard actually is moving, this will be overridden, then the value will be used to evaluate whether or not to play the idling animation in the next frame

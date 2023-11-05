@@ -1,4 +1,5 @@
-Add tiles playground
+-Change the removal of the constraint between the lizard and the tiles to be based on the distance between the two rather than the buffer since a collision event has activated, since the collision event emitter is unreliable
+
 Add head
 Add head attack
 Add another tail segment for a total of 3

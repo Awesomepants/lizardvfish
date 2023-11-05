@@ -3,12 +3,12 @@ function createLizard(scene, x, y){
     let lizardButt;
     let stickyConstraint;
     lizard = scene.matter.add.sprite(x, y, 'bodySegment', 0, {shape:'circle', restitution: 0, slop: 1});
-    lizardButt = scene.matter.add.sprite(x - 40, y, 'bodySegment', 0, { shape: 'circle', friction: 0, restitution: 0, mass: 2, inverseMass: 1 });
+    lizardButt = scene.matter.add.sprite(x - 40, y, 'bodySegment', 0, { shape: 'circle', friction: 0, restitution: 0});
     lizardButt.setFrictionAir(0.05);
     scene.matter.add.constraint(lizard, lizardButt, 40, 0.2);
-    lizardButt2 = scene.matter.add.circle(x - 80,y,10, {frictionAir:0.04});
+    const lizardButt2 = scene.matter.add.circle(x - 80,y,10, {frictionAir:0.04});
     scene.matter.add.constraint(lizardButt, lizardButt2, 40, 0.8);
-    lizardButt3 = scene.matter.add.circle(x-120,y,5);
+    const lizardButt3 = scene.matter.add.circle(x-120,y,5);
     scene.matter.add.constraint(lizardButt2, lizardButt3, 40, 0.8);
     lizard.anims.createFromAseprite("bodySegment");
     lizardButt.anims.createFromAseprite("bodySegment");
@@ -97,7 +97,7 @@ function createLizard(scene, x, y){
                 
             } else {
                 //this will be called the first time the lizard collides with the wall, when stickyConstraint is undefined
-                    stickyConstraint = scene.matter.add.constraint(o1,o2,10,0.01);
+                    stickyConstraint = scene.matter.add.constraint(o1,o2,10,0.005);
             }
             
             
@@ -106,8 +106,16 @@ function createLizard(scene, x, y){
         }
     })
     lizard.update = (time, delta) => {
-        if(stickyConstraint && stickyConstraint.type === "constraint" && lizard.stickingBuffer > 5){
-            scene.matter.world.removeConstraint(stickyConstraint);
+        if(stickyConstraint && stickyConstraint.type === "constraint"){
+            //we've verified the constraint isn't null and is indeed a constraint, because we can't remove a constraint that doesn't exist
+            const breakAwayDistance = 60;
+            const xDifference = Math.abs(stickyConstraint.bodyA.position.x - stickyConstraint.bodyB.position.x);
+            const yDifference = Math.abs(stickyConstraint.bodyA.position.y - stickyConstraint.bodyB.position.y);
+            if(xDifference > breakAwayDistance || yDifference > breakAwayDistance){
+                scene.matter.world.removeConstraint(stickyConstraint);
+            }
+            
+            
         }
         //draw the lizard body
     scene.graphics.clear();
