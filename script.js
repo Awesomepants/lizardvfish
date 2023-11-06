@@ -19,7 +19,7 @@ class Example extends Phaser.Scene
         this.lizardHead = createLizard(this, 300, 50);
        
         this.cursors = this.input.keyboard.createCursorKeys();
-        this.cameras.main.startFollow(this.lizardHead);
+        this.cameras.main.startFollow(this.lizardHead, true, 0.2, 0.2);
         
 
     }
@@ -73,7 +73,7 @@ const config = {
         default: 'matter' ,
         matter:{
             gravity:{
-                y: 0
+                y: 0.5
             },
             debug: false
         }  
