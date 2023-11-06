@@ -25,7 +25,7 @@ class Example extends Phaser.Scene
     }
     update()
     { 
-        document.getElementById("fpsmeter").innerHTML = `FPS: ${this.sys.game.loop.actualFps}`;
+        document.getElementById("fpsmeter").innerHTML = `FPS: ${this.sys.game.loop.actualFps} LizardSticking: ${this.lizardHead.sticking.isSticking}`;
         //overriding the preUpdate function was a bad idea, so instead the Lizard has a custom function that we call every time the scene updates
         this.lizardHead.update();
         
@@ -73,7 +73,7 @@ const config = {
         default: 'matter' ,
         matter:{
             gravity:{
-                y: 0.1
+                y: 0
             },
             debug: false
         }  

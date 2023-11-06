@@ -1,5 +1,6 @@
--Change the removal of the constraint between the lizard and the tiles to be based on the distance between the two rather than the buffer since a collision event has activated, since the collision event emitter is unreliable
-
+Timetable
+November 15th: Finish Main Character
+End of november: Finish the rest of the game
 Add head
 Add head attack
 Add another tail segment for a total of 3
