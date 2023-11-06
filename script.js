@@ -19,7 +19,7 @@ class Example extends Phaser.Scene
         this.lizardHead = createLizard(this, 300, 50);
        
         this.cursors = this.input.keyboard.createCursorKeys();
-        this.cameras.main.startFollow(this.lizardHead, true, 0.2, 0.2);
+        this.cameras.main.startFollow(this.lizardHead, true, 0.07, 0.07);
         
 
     }
