@@ -4,10 +4,10 @@ function createLizard(scene, x, y){
     let stickyConstraint;
     let stuckTile;
     const stickyVectorStrength = 0.015;
-    lizard = scene.matter.add.sprite(x, y, 'bodySegment', 0, {slop: 2, shape:'circle', restitution: 0, friction: 0, density: 0.003, frictionAir: 0.1});
+    lizard = scene.matter.add.sprite(x, y, 'bodySegment', 0, {slop: 2, shape:'circle', restitution: 0, friction: 0, density: 0.003, frictionStatic: 0.1, frictionAir: 0.1});
     lizardButt = scene.matter.add.sprite(x - 40, y, 'bodySegment', 0, {slop: 2, shape: 'circle', friction: 0, restitution: 0, density: 0.001, frictionAir: 0.1});
     scene.matter.add.constraint(lizard, lizardButt, 40, 0.9);
-    const tailPhysicsConfig = {friction: 0, density: 0.0001, frictionAir: 0.1}
+    const tailPhysicsConfig = {friction: 0, density: 0.0001, frictionAir: 0.09}
     const lizardTail1 = scene.matter.add.circle(x - 60,y,2, tailPhysicsConfig);
     scene.matter.add.constraint(lizardTail1, lizardButt, 30, 0.9);
     const lizardTail2 = scene.matter.add.circle(x-80,y,2, tailPhysicsConfig);
@@ -53,9 +53,9 @@ function createLizard(scene, x, y){
     scene.matter.add.mouseSpring();
     lizard.moveLizard = (x,y) => {
         lizard.isMoving = true;
-        let force = 0.005;
+        let force = 0.003;
         if(lizard.sticking.isSticking){
-            force = 0.04;
+            force = 0.02;
             if(lizard.anims.currentAnim.key != "Crawl"){
                 lizard.anims.play({key:"Crawl", repeat: -1});
                 lizardButt.play({key:"Crawl", repeat: -1, startFrame: 4});
