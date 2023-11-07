@@ -1,9 +1,11 @@
 Timetable
 November 15th: Finish Main Character
 End of november: Finish the rest of the game
+
+decouple leg display from leg, then rotate leg display to match sticking direction without altering the physics
+
 Add head
 Add head attack
-Add another tail segment for a total of 3
 
 
 Add fish enemy floating around

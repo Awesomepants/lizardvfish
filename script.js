@@ -5,6 +5,8 @@ class Example extends Phaser.Scene
         this.load.aseprite('bodySegment','assets/sprites/bodysegment.png','assets/sprites/bodysegment.json');
         this.load.tilemapTiledJSON("sampleMap","assets/maps/prototype.tmj");
         this.load.image("AquaTile","assets/sampleTile.png");
+        this.load.aseprite('head','assets/sprites/head.png','assets/sprites/head.json');
+        this.load.aseprite('legs','assets/sprites/legs.png','assets/sprites/legs.json');
     }
 
     create ()
@@ -17,6 +19,8 @@ class Example extends Phaser.Scene
         this.matter.world.convertTilemapLayer(groundLayer);
         //We tried making the lizard a custom class that extended Matter.Sprite, but we got all kinds of errors for some reason so instead we made a function that creates the lizard and returns it (no issue with this)
         this.lizardHead = createLizard(this, 300, 50);
+        //createLizard(this, 100, -100);
+        //createLizard(this, 100, -200);
        
         this.cursors = this.input.keyboard.createCursorKeys();
         this.cameras.main.startFollow(this.lizardHead, true, 0.07, 0.07);
@@ -27,7 +31,7 @@ class Example extends Phaser.Scene
     { 
         document.getElementById("fpsmeter").innerHTML = `FPS: ${this.sys.game.loop.actualFps} LizardSticking: ${this.lizardHead.sticking.isSticking}`;
         //overriding the preUpdate function was a bad idea, so instead the Lizard has a custom function that we call every time the scene updates
-        this.lizardHead.update();
+        //this.lizardHead.update();
         
         this.lizardHead.isMoving = false; //If the lizard actually is moving, this will be overridden, then the value will be used to evaluate whether or not to play the idling animation in the next frame
         //keyboard controls
@@ -60,6 +64,7 @@ class Example extends Phaser.Scene
         }
         
     }
+    
 }
 
 const config = {
