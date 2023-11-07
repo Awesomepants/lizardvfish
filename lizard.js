@@ -1,10 +1,11 @@
 function createLizard(scene, x, y){
+    let movingBuffer = 0;
     let lizard;
     let lizardButt;
     let stickyConstraint;
     let stuckTile;
     const stickyVectorStrength = 0.014;
-    const stickyVectorStrengthIdling = 0.06;
+    const stickyVectorStrengthIdling = 0.014;
     lizardHead = scene.matter.add.sprite(x+20,y, 'head', 0, {isSensor: true, frictionAir:0.1, mass: 0, inverseMass: 0, ignoreGravity: true});
     lizard = scene.matter.add.sprite(x, y, 'bodySegment', 0, {slop: 2, shape:'circle', restitution: 0, friction: 0, density: 0.003, frictionStatic: 0, frictionAir: 0.1});
     lizardButt = scene.matter.add.sprite(x - 40, y, 'bodySegment', 0, {slop: 2, shape: 'circle', friction: 0, restitution: 0, density: 0.001, frictionAir: 0.1});
@@ -50,6 +51,7 @@ function createLizard(scene, x, y){
     scene.lizardBody;
     scene.matter.add.mouseSpring();
     lizard.moveLizard = (x,y) => {
+        movingBuffer = 0;
         lizard.isMoving = true;
         let force = 0.0015;
         
@@ -94,11 +96,15 @@ function createLizard(scene, x, y){
             lizard.sticking.y=collisionNormal.y;
             if(stickyConstraint && stickyConstraint.type === "constraint"){
                 //we've verified that stickyConstraint is a constraint and not undefined
-                if(!(stickyConstraint.bodyA.id === o1.id && stickyConstraint.bodyB.id === o2.id)){
+                if(!(stickyConstraint.bodyA.id === o1.id && stickyConstraint.bodyB.id === o2.id )){
                     //we've verified that we're not creating the same constraint again (for memory purposes);
-                    console.log("Creating sticky constraint");
-                    scene.matter.world.removeConstraint(stickyConstraint);
-                    stickyConstraint = scene.matter.add.constraint(o1,o2,30,stickyVectorStrength);
+                    if(lizard.isMoving){
+                        //we only wish to create this if the lizard is in motion
+                        console.log("Creating sticky constraint");
+                        scene.matter.world.removeConstraint(stickyConstraint);
+                        stickyConstraint = scene.matter.add.constraint(o1,o2,30,stickyVectorStrength);
+                    }
+                    
                 }
                 
             } else {
@@ -118,7 +124,7 @@ function createLizard(scene, x, y){
             const breakAwayDistance = 60;
             const xDifference = Math.abs(stickyConstraint.bodyA.position.x - stickyConstraint.bodyB.position.x);
             const yDifference = Math.abs(stickyConstraint.bodyA.position.y - stickyConstraint.bodyB.position.y);
-            if(xDifference > breakAwayDistance || yDifference > breakAwayDistance){
+            if((xDifference > breakAwayDistance || yDifference > breakAwayDistance) && lizard.isMoving){
                 lizard.sticking.isSticking = false;
                 scene.matter.world.removeConstraint(stickyConstraint);
             }
@@ -259,6 +265,12 @@ function createLizard(scene, x, y){
         }
     }
     }
+    scene.matter.world.on("beforeupdate", ()=>{
+        console.log(movingBuffer);
+        
+        movingBuffer++;
+        lizard.isMoving = movingBuffer < 2;
+    })
     scene.matter.world.on("afterupdate", lizard.update);
     lizard.draw = () => {
         
