@@ -4,6 +4,9 @@ function createLizard(scene, x, y){
     let lizardButt;
     let stickyConstraint;
     let stuckTile;
+    const attackThrustAmount = 0.5;
+    const thrustCooldown = 120;
+    let thrustCooldownTimer = 0;
     const stickyVectorStrength = 0.014;
     const stickyVectorStrengthIdling = 0.014;
     lizardHead = scene.matter.add.sprite(x+20,y, 'head', 0, {isSensor: true, frictionAir:0.1, mass: 0, inverseMass: 0, ignoreGravity: true});
@@ -25,6 +28,7 @@ function createLizard(scene, x, y){
     const backLeg = scene.add.sprite(x,y,'legs');
     frontLeg.anims.createFromAseprite("legs");
     backLeg.anims.createFromAseprite("legs");
+    lizardHead.anims.createFromAseprite("head");
 
     lizard.verticalFlip = false;
     lizard.horizontalFlip = false;
@@ -80,6 +84,15 @@ function createLizard(scene, x, y){
         
         
     }
+    lizard.attack = () => {
+        if(thrustCooldownTimer > thrustCooldown){
+            lizardHead.thrust(attackThrustAmount);
+            lizardHead.anims.play("Attack");
+            lizardHead.anims.nextAnim = "Nuetral";
+            thrustCooldownTimer = 0;
+        }
+        
+    }
     
     scene.matter.world.on("collisionstart",(e,o1,o2) => { 
         
@@ -119,6 +132,7 @@ function createLizard(scene, x, y){
         }
     })
     lizard.update = (time, delta) => {
+        thrustCooldownTimer++;
         if(stickyConstraint && stickyConstraint.type === "constraint"){
             //we've verified the constraint isn't null and is indeed a constraint, because we can't remove a constraint that doesn't exist
             const breakAwayDistance = 60;
@@ -252,22 +266,12 @@ function createLizard(scene, x, y){
         }
     }
     if(!lizard.isMoving){
-        if(stickyConstraint){
-            stickyConstraint.stiffness = stickyVectorStrengthIdling;
-            console.log("Stiffening constraints because of idle lizard");
-        }
         frontLeg.play("Idle");
         backLeg.play("Idle");
-    } else {
-        if(stickyConstraint && stickyConstraint.stiffness === stickyVectorStrengthIdling){
-            stickyConstraint.stiffness = stickyVectorStrength;
-            console.log("loosening restraints");
-        }
     }
     }
     scene.matter.world.on("beforeupdate", ()=>{
-        console.log(movingBuffer);
-        
+    
         movingBuffer++;
         lizard.isMoving = movingBuffer < 2;
     })

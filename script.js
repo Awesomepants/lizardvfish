@@ -24,7 +24,6 @@ class Example extends Phaser.Scene
        
         this.cursors = this.input.keyboard.createCursorKeys();
         this.cameras.main.startFollow(this.lizardHead, true, 0.07, 0.07);
-        
 
     }
     update()
@@ -32,6 +31,9 @@ class Example extends Phaser.Scene
         
         document.getElementById("fpsmeter").innerHTML = `FPS: ${this.sys.game.loop.actualFps} LizardSticking: ${this.lizardHead.sticking.isSticking}`;
        //keyboard controls
+       if(this.cursors.space.isDown){
+        this.lizardHead.attack();
+       }
        if(this.cursors.left.isDown){
             this.lizardHead.moveLizard(-1,0);
        } else if (this.cursors.right.isDown){
