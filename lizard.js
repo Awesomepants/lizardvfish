@@ -4,8 +4,8 @@ function createLizard(scene, x, y){
     let lizardButt;
     let stickyConstraint;
     let stuckTile;
-    const attackThrustAmount = 0.5;
-    const thrustCooldown = 120;
+    const attackThrustAmount = 0.4;
+    const thrustCooldown = 60;
     let thrustCooldownTimer = 0;
     const stickyVectorStrength = 0.014;
     const stickyVectorStrengthIdling = 0.014;
@@ -135,7 +135,7 @@ function createLizard(scene, x, y){
         thrustCooldownTimer++;
         if(stickyConstraint && stickyConstraint.type === "constraint"){
             //we've verified the constraint isn't null and is indeed a constraint, because we can't remove a constraint that doesn't exist
-            const breakAwayDistance = 60;
+            const breakAwayDistance = 50;
             const xDifference = Math.abs(stickyConstraint.bodyA.position.x - stickyConstraint.bodyB.position.x);
             const yDifference = Math.abs(stickyConstraint.bodyA.position.y - stickyConstraint.bodyB.position.y);
             if((xDifference > breakAwayDistance || yDifference > breakAwayDistance) && lizard.isMoving){

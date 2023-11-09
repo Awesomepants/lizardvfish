@@ -7,6 +7,7 @@ class Example extends Phaser.Scene
         this.load.image("AquaTile","assets/sampleTile.png");
         this.load.aseprite('head','assets/sprites/head.png','assets/sprites/head.json');
         this.load.aseprite('legs','assets/sprites/legs.png','assets/sprites/legs.json');
+        this.load.aseprite('pirahna','assets/sprites/Pirahna.png','assets/sprites/Pirahna.json')
     }
 
     create ()
@@ -19,18 +20,25 @@ class Example extends Phaser.Scene
         this.matter.world.convertTilemapLayer(groundLayer);
         //We tried making the lizard a custom class that extended Matter.Sprite, but we got all kinds of errors for some reason so instead we made a function that creates the lizard and returns it (no issue with this)
         this.lizardHead = createLizard(this, 300, 50);
+        createPirahna(this, 400,-10);
         //createLizard(this, 100, -100);
         //createLizard(this, 100, -200);
        
         this.cursors = this.input.keyboard.createCursorKeys();
         this.cameras.main.startFollow(this.lizardHead, true, 0.07, 0.07);
-
+        this.input.gamepad.on("down",(pad,button,value)=>{
+            this.lizardHead.attack();
+        })
+        document.getElementById('fullScreenButton').addEventListener('click',()=>{
+            this.scale.startFullScreen();
+        })
     }
     update()
     { 
         
         document.getElementById("fpsmeter").innerHTML = `FPS: ${this.sys.game.loop.actualFps} LizardSticking: ${this.lizardHead.sticking.isSticking}`;
-       //keyboard controls
+       
+        //keyboard controls
        if(this.cursors.space.isDown){
         this.lizardHead.attack();
        }
@@ -68,9 +76,15 @@ class Example extends Phaser.Scene
 
 const config = {
     type: Phaser.WEBGL,
-    width: 800,
-    height: 600,
-    backgroundColor: '#EEEEEE',
+    scale: {
+        mode:Phaser.Scale.FIT,
+        parent:'game',
+        autoCenter: Phaser.Scale.CENTER_BOTH,
+        width: 800,
+        height: 600,
+    },
+    
+    backgroundColor: '#090f33',
     parent: 'game',
     pixelArt:true,
     physics: {
