@@ -7,25 +7,27 @@ class Example extends Phaser.Scene
         this.load.image("AquaTile","assets/sampleTile.png");
         this.load.aseprite('head','assets/sprites/head.png','assets/sprites/head.json');
         this.load.aseprite('legs','assets/sprites/legs.png','assets/sprites/legs.json');
-        this.load.aseprite('pirahna','assets/sprites/Pirahna.png','assets/sprites/Pirahna.json')
+        this.load.aseprite('pirahna','assets/sprites/Pirahna.png','assets/sprites/Pirahna.json');
+        this.load.image('Background','assets/waterBG.png');
     }
 
     create ()
     {
-        
+        this.add.image(400,400,"Background").setScrollFactor(0.01,0.01).setPipeline('Light2D');
         const map = this.make.tilemap({ key: "sampleMap"});
         const tileset = map.addTilesetImage("AquaTile");
         const groundLayer = map.createLayer("Ground", tileset, 0, 0);
         groundLayer.setCollisionByProperty({ collides: true }).setPipeline('Light2D');
         this.lights.enable();
-        this.lights.setAmbientColor(0x808080);
+        this.lights.setAmbientColor(0x3afffb);
+        
         //this.lights.setAmbientColor(0x090f33);
         this.matter.world.convertTilemapLayer(groundLayer);
 
 
         //We tried making the lizard a custom class that extended Matter.Sprite, but we got all kinds of errors for some reason so instead we made a function that creates the lizard and returns it (no issue with this)
         this.lizardHead = createLizard(this, 300, 50);
-        this.lizardLight = this.lights.addLight(0,0,400).setIntensity(5);
+        this.lizardLight = this.lights.addLight(0,0,500).setIntensity(2);
         createPirahna(this, 400,20);
        
         this.cursors = this.input.keyboard.createCursorKeys();

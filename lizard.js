@@ -12,7 +12,6 @@ function createLizard(scene, x, y){
     lizardHead = scene.matter.add.sprite(x+20,y, 'head', 0, {isSensor: true, frictionAir:0.1, mass: 0, inverseMass: 0, ignoreGravity: true});
     lizard = scene.matter.add.sprite(x, y, 'bodySegment', 0, {slop: 2, shape:'circle', restitution: 0, friction: 0, density: 0.003, frictionStatic: 0, frictionAir: 0.1});
     lizardButt = scene.matter.add.sprite(x - 40, y, 'bodySegment', 0, {slop: 2, shape: 'circle', friction: 0, restitution: 0, density: 0.001, frictionAir: 0.1});
-    
     scene.matter.add.constraint(lizard, lizardButt, 40, 0.9);
     scene.matter.add.constraint(lizardHead, lizard, 5, 0.9);
     const tailPhysicsConfig = {friction: 0, density: 0.0001, frictionAir: 0.09}
@@ -24,8 +23,8 @@ function createLizard(scene, x, y){
     scene.matter.add.constraint(lizardTail2, lizardTail3, 15, 0.9);
     const lizardTail4 = scene.matter.add.circle(x-120,y, 2, tailPhysicsConfig);
     scene.matter.add.constraint(lizardTail3, lizardTail4, 15, 0.9);
-    const frontLeg = scene.add.sprite(x,y,'legs');
-    const backLeg = scene.add.sprite(x,y,'legs');
+    const frontLeg = scene.add.sprite(x,y,'legs').setDepth(1);
+    const backLeg = scene.add.sprite(x,y,'legs').setDepth(1);
     frontLeg.anims.createFromAseprite("legs");
     backLeg.anims.createFromAseprite("legs");
     lizardHead.anims.createFromAseprite("head");
@@ -135,7 +134,7 @@ function createLizard(scene, x, y){
         thrustCooldownTimer++;
         if(stickyConstraint && stickyConstraint.type === "constraint"){
             //we've verified the constraint isn't null and is indeed a constraint, because we can't remove a constraint that doesn't exist
-            const breakAwayDistance = 50;
+            const breakAwayDistance = 60;
             const xDifference = Math.abs(stickyConstraint.bodyA.position.x - stickyConstraint.bodyB.position.x);
             const yDifference = Math.abs(stickyConstraint.bodyA.position.y - stickyConstraint.bodyB.position.y);
             if((xDifference > breakAwayDistance || yDifference > breakAwayDistance) && lizard.isMoving){
@@ -148,7 +147,7 @@ function createLizard(scene, x, y){
         //draw the lizard body
     scene.graphics.clear();
     scene.graphics.fillStyle(0x00aa00);
-     scene.graphics.setDepth(-1);
+     scene.graphics.setDepth(0);
      const lizardThiccness = 16;
      let lineWidth = lizardThiccness;
      scene.graphics.lineStyle(lineWidth,0x3d824e,1);
