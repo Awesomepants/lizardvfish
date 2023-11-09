@@ -12,17 +12,21 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        //this.matter.world.setBounds();
+        
         const map = this.make.tilemap({ key: "sampleMap"});
         const tileset = map.addTilesetImage("AquaTile");
         const groundLayer = map.createLayer("Ground", tileset, 0, 0);
-        groundLayer.setCollisionByProperty({ collides: true });
+        groundLayer.setCollisionByProperty({ collides: true }).setPipeline('Light2D');
+        this.lights.enable();
+        this.lights.setAmbientColor(0x808080);
+        //this.lights.setAmbientColor(0x090f33);
         this.matter.world.convertTilemapLayer(groundLayer);
+
+
         //We tried making the lizard a custom class that extended Matter.Sprite, but we got all kinds of errors for some reason so instead we made a function that creates the lizard and returns it (no issue with this)
         this.lizardHead = createLizard(this, 300, 50);
-        createPirahna(this, 400,-10);
-        //createLizard(this, 100, -100);
-        //createLizard(this, 100, -200);
+        this.lizardLight = this.lights.addLight(0,0,400).setIntensity(5);
+        createPirahna(this, 400,20);
        
         this.cursors = this.input.keyboard.createCursorKeys();
         this.cameras.main.startFollow(this.lizardHead, true, 0.07, 0.07);
@@ -35,7 +39,8 @@ class Example extends Phaser.Scene
     }
     update()
     { 
-        
+        this.lizardLight.x = this.lizardHead.x;
+        this.lizardLight.y = this.lizardHead.y;
         document.getElementById("fpsmeter").innerHTML = `FPS: ${this.sys.game.loop.actualFps} LizardSticking: ${this.lizardHead.sticking.isSticking}`;
        
         //keyboard controls
