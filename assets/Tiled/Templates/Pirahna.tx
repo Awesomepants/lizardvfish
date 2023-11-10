@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template>
+ <object name="Pirahna">
+  <properties>
+   <property name="Rotation" type="int" value="90"/>
+  </properties>
+  <point/>
+ </object>
+</template>

@@ -31,9 +31,14 @@ class Example extends Phaser.Scene
         this.lizardHead = createLizard(this, 300, 50);
         this.raycaster.mapGameObjects(this.lizardHead, true);
         this.lizardLight = this.lights.addLight(0,0,500).setIntensity(3);
-        createPirahna(this, 400,20);
-        createPirahna(this,400,50);
-        createPirahna(this,430,20)
+        //console.log();
+        map.objects[0].objects.forEach((object)=> {
+            console.log(object);
+            switch(object.name){
+                case "Pirahna":
+                    createPirahna(this, object.x,object.y,object.properties[0].value);
+            }
+        })
        
         this.cursors = this.input.keyboard.createCursorKeys();
         this.cameras.main.startFollow(this.lizardHead, false, 0.2, 0.2);

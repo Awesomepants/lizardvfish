@@ -28,6 +28,7 @@ function createLizard(scene, x, y){
     frontLeg.anims.createFromAseprite("legs");
     backLeg.anims.createFromAseprite("legs");
     lizardHead.anims.createFromAseprite("head");
+    lizardHead.anims.play("Nuetral");
 
     lizard.verticalFlip = false;
     lizard.horizontalFlip = false;
@@ -138,6 +139,13 @@ function createLizard(scene, x, y){
     }
     lizard.damage = (amount) => {
         console.log(`Lizard go OuchieWawa x${amount}`)
+    }
+    //this is a little stupid but I think it's easier to make the pirahna call the .damage function on any part of the lizard it hits, I want to avoid hard-coding the scene's lizard instance into the pirahna's code in case I ever plan on making a co-op mode with multiple lizards that manage their own seperate health, this way I also can make different body parts have different levels of being vulnerable
+    lizardButt.damage = (amount) => {
+        lizard.damage(amount);
+    }
+    lizardHead.damage = (amount) => {
+        lizard.damage(amount);
     }
     lizard.update = (time, delta) => {
         thrustCooldownTimer++;
