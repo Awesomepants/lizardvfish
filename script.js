@@ -13,13 +13,14 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        this.add.image(400,400,"Background").setScrollFactor(0.01,0.01).setPipeline('Light2D');
+        this.add.image(620,400,"Background").setScrollFactor(0.01,0.01).setPipeline('Light2D').setScale(1.4);
+
         const map = this.make.tilemap({ key: "sampleMap"});
         const tileset = map.addTilesetImage("AquaTile");
         const groundLayer = map.createLayer("Ground", tileset, 0, 0);
         groundLayer.setCollisionByProperty({ collides: true }).setPipeline('Light2D');
         this.lights.enable();
-        this.lights.setAmbientColor(0x3afffb);
+        this.lights.setAmbientColor(0x090f33);
         
         //this.lights.setAmbientColor(0x090f33);
         this.matter.world.convertTilemapLayer(groundLayer);
@@ -27,23 +28,23 @@ class Example extends Phaser.Scene
 
         //We tried making the lizard a custom class that extended Matter.Sprite, but we got all kinds of errors for some reason so instead we made a function that creates the lizard and returns it (no issue with this)
         this.lizardHead = createLizard(this, 300, 50);
-        this.lizardLight = this.lights.addLight(0,0,500).setIntensity(2);
+        this.lizardLight = this.lights.addLight(0,0,500).setIntensity(3);
         createPirahna(this, 400,20);
        
         this.cursors = this.input.keyboard.createCursorKeys();
-        this.cameras.main.startFollow(this.lizardHead, true, 0.07, 0.07);
+        this.cameras.main.startFollow(this.lizardHead, false, 0.2, 0.2);
         this.input.gamepad.on("down",(pad,button,value)=>{
             this.lizardHead.attack();
         })
         document.getElementById('fullScreenButton').addEventListener('click',()=>{
-            this.scale.startFullScreen();
+            this.scale.startFullscreen();
         })
     }
     update()
     { 
         this.lizardLight.x = this.lizardHead.x;
         this.lizardLight.y = this.lizardHead.y;
-        document.getElementById("fpsmeter").innerHTML = `FPS: ${this.sys.game.loop.actualFps} LizardSticking: ${this.lizardHead.sticking.isSticking}`;
+        document.getElementById("fpsmeter").innerHTML = `FPS: ${this.sys.game.loop.actualFps} LizardSticking: ${this.lizardHead.sticking.isSticking} ${this.lizardHead.breakingInformation}`;
        
         //keyboard controls
        if(this.cursors.space.isDown){
@@ -87,8 +88,8 @@ const config = {
         mode:Phaser.Scale.FIT,
         parent:'game',
         autoCenter: Phaser.Scale.CENTER_BOTH,
-        width: 800,
-        height: 600,
+        width: 1280,
+        height: 720,
     },
     
     backgroundColor: '#090f33',

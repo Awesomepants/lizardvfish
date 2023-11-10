@@ -7,14 +7,14 @@ function createLizard(scene, x, y){
     const attackThrustAmount = 0.4;
     const thrustCooldown = 60;
     let thrustCooldownTimer = 0;
-    const stickyVectorStrength = 0.014;
+    const stickyVectorStrength = 0.02;
     const stickyVectorStrengthIdling = 0.014;
-    lizardHead = scene.matter.add.sprite(x+20,y, 'head', 0, {isSensor: true, frictionAir:0.1, mass: 0, inverseMass: 0, ignoreGravity: true});
-    lizard = scene.matter.add.sprite(x, y, 'bodySegment', 0, {slop: 2, shape:'circle', restitution: 0, friction: 0, density: 0.003, frictionStatic: 0, frictionAir: 0.1});
-    lizardButt = scene.matter.add.sprite(x - 40, y, 'bodySegment', 0, {slop: 2, shape: 'circle', friction: 0, restitution: 0, density: 0.001, frictionAir: 0.1});
+    lizardHead = scene.matter.add.sprite(x+20,y, 'head', 0, {isSensor: true, frictionAir:0.01, mass:0, inverseMass:0, ignoreGravity: true, frictionAir:0, label: "lizardSkull"});
+    lizard = scene.matter.add.sprite(x, y, 'bodySegment', 0, {shape:'circle', restitution: 0, friction: 0, density: 0.003, frictionStatic: 0, frictionAir: 0.1, onCollideCallback: collideCallback});
+    lizardButt = scene.matter.add.sprite(x - 40, y, 'bodySegment', 0, {shape: 'circle', friction: 0, restitution: 0, density: 0.002, frictionAir: 0.12});
     scene.matter.add.constraint(lizard, lizardButt, 40, 0.9);
     scene.matter.add.constraint(lizardHead, lizard, 5, 0.9);
-    const tailPhysicsConfig = {friction: 0, density: 0.0001, frictionAir: 0.09}
+    const tailPhysicsConfig = {friction: 0, mass: 0, inverseMass: 0, frictionAir: 0.2}
     const lizardTail1 = scene.matter.add.circle(x - 60,y,2, tailPhysicsConfig);
     scene.matter.add.constraint(lizardTail1, lizardButt, 15, 0.9);
     const lizardTail2 = scene.matter.add.circle(x-80,y,4, tailPhysicsConfig);
@@ -93,15 +93,21 @@ function createLizard(scene, x, y){
         
     }
     
-    scene.matter.world.on("collisionstart",(e,o1,o2) => { 
-        
+    function collideCallback(e){ 
+        const o1 = e.bodyA;
+        const o2 = e.bodyB;
+        if(!o1.isStatic && !o2.isStatic){
+            console.log(e)
+            return;
+        }
         if((o1.label === "lizardHead" && o2.label === "Rectangle Body") || (o2.label === "lizardHead" && o1.label === "Rectangle Body")){
             if(o2.label === "Rectangle Body"){
                 stuckTile = o2;
             } else if (o1.label === "Rectangle Body"){
                 stuckTile = o1;
             }
-            const collisionNormal = e.pairs[0].collision.normal;
+            console.log(e);
+            const collisionNormal = e.collision.normal;
             lizard.stickingBuffer = 0;
             lizard.sticking.isSticking = true;
             lizard.sticking.x=collisionNormal.x;
@@ -129,17 +135,19 @@ function createLizard(scene, x, y){
 
             
         }
-    })
+    }
     lizard.update = (time, delta) => {
         thrustCooldownTimer++;
         if(stickyConstraint && stickyConstraint.type === "constraint"){
             //we've verified the constraint isn't null and is indeed a constraint, because we can't remove a constraint that doesn't exist
-            const breakAwayDistance = 60;
+            const breakAwayDistance = 40;
             const xDifference = Math.abs(stickyConstraint.bodyA.position.x - stickyConstraint.bodyB.position.x);
             const yDifference = Math.abs(stickyConstraint.bodyA.position.y - stickyConstraint.bodyB.position.y);
             if((xDifference > breakAwayDistance || yDifference > breakAwayDistance) && lizard.isMoving){
                 lizard.sticking.isSticking = false;
                 scene.matter.world.removeConstraint(stickyConstraint);
+            } else {
+                lizard.breakingInformation = `X: ${xDifference} Y: ${yDifference}`;
             }
             
             
