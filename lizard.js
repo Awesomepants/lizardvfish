@@ -7,8 +7,9 @@ function createLizard(scene, x, y){
     const attackThrustAmount = 0.4;
     const thrustCooldown = 60;
     let thrustCooldownTimer = 0;
-    const stickyVectorStrength = 0.02;
-    const stickyVectorStrengthIdling = 0.014;
+    const stickyVectorStrengthNotIdling = 0.02;
+    const stickyVectorStrengthIdling = 0.5;
+    let stickyVectorStrength = stickyVectorStrengthNotIdling;
     lizardHead = scene.matter.add.sprite(x+20,y, 'head', 0, {isSensor: true, frictionAir:0.01, mass:0, inverseMass:0, ignoreGravity: true, frictionAir:0, label: "lizardSkull"});
     lizard = scene.matter.add.sprite(x, y, 'bodySegment', 0, {shape:'circle', restitution: 0, friction: 0, density: 0.003, frictionStatic: 0, frictionAir: 0.1, onCollideCallback: collideCallback});
     lizardButt = scene.matter.add.sprite(x - 40, y, 'bodySegment', 0, {shape: 'circle', friction: 0, restitution: 0, density: 0.002, frictionAir: 0.12});
@@ -160,7 +161,11 @@ function createLizard(scene, x, y){
             } else {
                 lizard.breakingInformation = `X: ${xDifference} Y: ${yDifference}`;
             }
-            
+            if(lizard.isMoving){
+                stickyConstraint.stiffness = stickyVectorStrengthNotIdling;
+            } else {
+                stickyConstraint.stiffness = stickyVectorStrengthIdling;
+            }
             
         }
         //draw the lizard body
@@ -207,8 +212,6 @@ function createLizard(scene, x, y){
     if(lizard.stickingBuffer > lizard.maxStickingBuffer){
         //lizard.sticking.isSticking = false;
     }
-    //apply the "sticking" force for the lizard
-    
     const lizardFlipped = lizard.x > lizardButt.x;
     if( lizard.sticking.isSticking){
         const stickingAmount = 0.003;

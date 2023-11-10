@@ -40,7 +40,7 @@ const createPirahna = (scene, x, y, rotation) => {
         notDrowningForce = new Phaser.Math.Vector2(0,-0.004);
     }
     function pirahnaCollision(e){
-        
+            pirahna.rotation += 180;
             switch ("lizardSkull") {
                 case e.bodyA.label:
                     if(e.bodyA.parent.gameObject.anims.currentAnim.key === "Attack"){
@@ -60,6 +60,7 @@ const createPirahna = (scene, x, y, rotation) => {
     }
     scene.matter.world.on("afterupdate",()=>{
             if(!pirahna.dead){
+                pirahna.thrust(0.0001);
                 if(damageCooldown < 20){
                     damageCooldown++;
                 }
