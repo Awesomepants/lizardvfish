@@ -97,7 +97,7 @@ function createLizard(scene, x, y){
         const o1 = e.bodyA;
         const o2 = e.bodyB;
         if(!o1.isStatic && !o2.isStatic){
-            console.log(e)
+            //console.log(e)
             return;
         }
         if((o1.label === "lizardHead" && o2.label === "Rectangle Body") || (o2.label === "lizardHead" && o1.label === "Rectangle Body")){
@@ -106,7 +106,7 @@ function createLizard(scene, x, y){
             } else if (o1.label === "Rectangle Body"){
                 stuckTile = o1;
             }
-            console.log(e);
+            //console.log(e);
             const collisionNormal = e.collision.normal;
             lizard.stickingBuffer = 0;
             lizard.sticking.isSticking = true;
@@ -118,7 +118,7 @@ function createLizard(scene, x, y){
                     //we've verified that we're not creating the same constraint again (for memory purposes);
                     if(lizard.isMoving){
                         //we only wish to create this if the lizard is in motion
-                        console.log("Creating sticky constraint");
+                        //console.log("Creating sticky constraint");
                         scene.matter.world.removeConstraint(stickyConstraint);
                         stickyConstraint = scene.matter.add.constraint(o1,o2,30,stickyVectorStrength);
                     }
@@ -128,13 +128,16 @@ function createLizard(scene, x, y){
             } else {
                 //this will be called the first time the lizard collides with the wall, when stickyConstraint is undefined
                     stickyConstraint = scene.matter.add.constraint(o1,o2,30,stickyVectorStrength);
-                    console.log("creating sticky constraint from the else");
+                    //console.log("creating sticky constraint from the else");
             }
             
             
 
             
         }
+    }
+    lizard.damage = (amount) => {
+        console.log(`Lizard go OuchieWawa x${amount}`)
     }
     lizard.update = (time, delta) => {
         thrustCooldownTimer++;

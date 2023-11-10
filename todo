@@ -1,11 +1,13 @@
-Timetable
-November 15th: Finish Main Character
-End of november: Finish the rest of the game
+Story idea:
+The gecko is in love with an Axolotl. The Axolotl gets kidnapped by an anglerfish and the gecko must go rescue it. Defeating the anglerfish that is holding it captive awakens a kraken, which chases them out of the water
 
-decouple leg display from leg, then rotate leg display to match sticking direction without altering the physics
-
-Add head
-Add head attack
-
-
-Add fish enemy floating around
+Enemy ideas:
+-(done) Pirahna that spins around and attacks you when you are in it's direct line of sight
+-Spiky urchin that is stationary but damages you if you touch it (more of an obstacle than an enemy)
+-A more advanced version of the last pirahna that casts rays in a circle and detects you even if you are not in it's direct line of sight, attacks you at intervals
+-Pirahna that is spiky and shoots a spike at you when you are in it's line of sight
+-Another spiky pirahna that, when it sees you, telegraphs the attack and then shoots a volley of several spikes in your direction, then becomes staggered (to encourage the player to use their crawling abilities to dodge)
+-Jellyfish (tops are harmless, spines on the bottom will hurt you)
+-Big river fish that has high hp and rarely attacks, but maybe you must stop it from doing something (catch up to it before it can do something nefarious)
+-Final boss is an anglerfish
+-Anglerfish boss triggers escape sequence from kraken

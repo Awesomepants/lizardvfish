@@ -14,22 +14,26 @@ class Example extends Phaser.Scene
     create ()
     {
         this.add.image(620,400,"Background").setScrollFactor(0.01,0.01).setPipeline('Light2D').setScale(1.4);
-
+        this.raycaster = this.raycasterPlugin.createRaycaster({debug:false});
         const map = this.make.tilemap({ key: "sampleMap"});
         const tileset = map.addTilesetImage("AquaTile");
         const groundLayer = map.createLayer("Ground", tileset, 0, 0);
         groundLayer.setCollisionByProperty({ collides: true }).setPipeline('Light2D');
         this.lights.enable();
         this.lights.setAmbientColor(0x090f33);
-        
-        //this.lights.setAmbientColor(0x090f33);
+        this.raycaster.mapGameObjects(groundLayer,false,{
+            collisionTiles:[1]
+        })
         this.matter.world.convertTilemapLayer(groundLayer);
 
 
         //We tried making the lizard a custom class that extended Matter.Sprite, but we got all kinds of errors for some reason so instead we made a function that creates the lizard and returns it (no issue with this)
         this.lizardHead = createLizard(this, 300, 50);
+        this.raycaster.mapGameObjects(this.lizardHead, true);
         this.lizardLight = this.lights.addLight(0,0,500).setIntensity(3);
         createPirahna(this, 400,20);
+        createPirahna(this,400,50);
+        createPirahna(this,430,20)
        
         this.cursors = this.input.keyboard.createCursorKeys();
         this.cameras.main.startFollow(this.lizardHead, false, 0.2, 0.2);
@@ -103,6 +107,15 @@ const config = {
             },
             debug: false
         }  
+    },
+    plugins: {
+        scene: [
+            {
+                key: "PhaserRaycaster",
+                plugin: PhaserRaycaster,
+                mapping: 'raycasterPlugin'
+            }
+        ]
     },
     input: {
         gamepad: true
