@@ -1,6 +1,6 @@
 provideDamage = (e) => {
     if(isLizardBodyPart(e.bodyA)){
-        console.log(e.bodyA);
+        //console.log(e.bodyA);
         e.bodyA.parent.gameObject.damage(1);
     } else if(isLizardBodyPart(e.bodyB)){
         e.bodyB.parent.gameObject.damage(1);
@@ -15,6 +15,7 @@ const createPirahna = (scene, x, y, rotation) => {
     pirahna.anims.createFromAseprite('pirahna');
     pirahna.anims.play({key:"Swim", repeat: -1});
     pirahna.rotation = rotation;
+    scene.heroRaycaster.mapGameObjects(pirahna,true);
     const light = scene.lights.addLight(0,0,140).setColor(0x36b5f5).setIntensity(1);
     const raycaster = scene.raycaster;
     let ray = raycaster.createRay();
@@ -35,6 +36,7 @@ const createPirahna = (scene, x, y, rotation) => {
         
     }
     pirahna.die = () => {
+        scene.heroRaycaster.removeMappedObjects(pirahna);
         pirahna.anims.play("Dead");
         pirahna.dead = true;
         notDrowningForce = new Phaser.Math.Vector2(0,-0.004);

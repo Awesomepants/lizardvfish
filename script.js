@@ -15,6 +15,7 @@ class Example extends Phaser.Scene
     {
         this.add.image(620,400,"Background").setScrollFactor(0.01,0.01).setPipeline('Light2D').setScale(1.4);
         this.raycaster = this.raycasterPlugin.createRaycaster({debug:false});
+        this.heroRaycaster = this.raycasterPlugin.createRaycaster({debug:false})
         const map = this.make.tilemap({ key: "sampleMap"});
         const tileset = map.addTilesetImage("AquaTile");
         const groundLayer = map.createLayer("Ground", tileset, 0, 0);
@@ -37,6 +38,7 @@ class Example extends Phaser.Scene
             switch(object.name){
                 case "Pirahna":
                     createPirahna(this, object.x,object.y,object.properties[0].value);
+                    
             }
         })
        

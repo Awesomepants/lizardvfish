@@ -30,7 +30,11 @@ function createLizard(scene, x, y){
     backLeg.anims.createFromAseprite("legs");
     lizardHead.anims.createFromAseprite("head");
     lizardHead.anims.play("Nuetral");
-
+    lizard.bodyParts = {
+        frontLeg: lizard,
+        backLeg: lizardButt,
+        head: lizardHead
+    }
     lizard.verticalFlip = false;
     lizard.horizontalFlip = false;
     lizard.setVerticalFlip = (input) => {
@@ -53,8 +57,8 @@ function createLizard(scene, x, y){
     lizardButt.body.label = "lizardButt"
     lizard.sticking = {isSticking:false, x:0, y:0};
     scene.graphics = scene.add.graphics();
-    scene.lizardBody;
     scene.matter.add.mouseSpring();
+    const ray = scene.heroRaycaster.createRay().setConeDeg(40);
     lizard.moveLizard = (x,y) => {
         movingBuffer = 0;
         lizard.isMoving = true;
@@ -99,7 +103,6 @@ function createLizard(scene, x, y){
         const o1 = e.bodyA;
         const o2 = e.bodyB;
         if(!o1.isStatic && !o2.isStatic){
-            //console.log(e)
             return;
         }
         if((o1.label === "lizardHead" && o2.label === "Rectangle Body") || (o2.label === "lizardHead" && o1.label === "Rectangle Body")){
@@ -108,7 +111,6 @@ function createLizard(scene, x, y){
             } else if (o1.label === "Rectangle Body"){
                 stuckTile = o1;
             }
-            //console.log(e);
             const collisionNormal = e.collision.normal;
             lizard.stickingBuffer = 0;
             lizard.sticking.isSticking = true;
@@ -120,7 +122,6 @@ function createLizard(scene, x, y){
                     //we've verified that we're not creating the same constraint again (for memory purposes);
                     if(lizard.isMoving){
                         //we only wish to create this if the lizard is in motion
-                        //console.log("Creating sticky constraint");
                         scene.matter.world.removeConstraint(stickyConstraint);
                         stickyConstraint = scene.matter.add.constraint(o1,o2,30,stickyVectorStrength);
                     }
@@ -130,7 +131,6 @@ function createLizard(scene, x, y){
             } else {
                 //this will be called the first time the lizard collides with the wall, when stickyConstraint is undefined
                     stickyConstraint = scene.matter.add.constraint(o1,o2,30,stickyVectorStrength);
-                    //console.log("creating sticky constraint from the else");
             }
             
             
@@ -202,8 +202,31 @@ function createLizard(scene, x, y){
     }
      const lizardHeadAngle = getAngle(lizardButt,lizard);
      lizardHead.setAngle(lizardHeadAngle);
-     //frontLeg.setAngle(lizardHeadAngle);
-     //backLeg.setAngle(lizardHeadAngle);
+     //Auto-Aim assist
+     //Detect enemies in line of sight
+        ray.setAngleDeg(lizardHeadAngle);
+        ray.setOrigin(lizardHead.x,lizardHead.y);
+        const findings = ray.castCone();
+        //calculate the nearest enemy
+        let closestDistance = 0;
+        let closestObject;
+        findings.forEach((finding)=> {
+            //wow a real world use for the pythagorean theorem! Glad I stayed in school
+            const coords = finding.segment;
+            const thisDistance = Phaser.Math.Between(coords.x1,coords.y1,coords.x2,coords.y2);
+            if (closestDistance === 0 || thisDistance < closestDistance){
+                closestDistance = thisDistance;
+                closestObject = finding.object;
+            }
+        })
+        //console.log(closestObject);
+        if(closestObject){
+            console.log(closestDistance);
+            const angleBetween = Phaser.Math.Angle.Between(lizardHead.x, lizardHead.y, closestObject.body.position.x, closestObject.body.position.y);
+            //console.log(angleBetween);
+            lizardHead.rotation = angleBetween ;
+        }
+        
      frontLeg.setPosition(lizard.x,lizard.y);
      backLeg.setPosition(lizardButt.x,lizardButt.y);
     //scene.lizardBody.draw(scene.graphics);
