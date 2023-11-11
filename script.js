@@ -9,6 +9,7 @@ class Example extends Phaser.Scene
         this.load.aseprite('legs','assets/sprites/legs.png','assets/sprites/legs.json');
         this.load.aseprite('pirahna','assets/sprites/Pirahna.png','assets/sprites/Pirahna.json');
         this.load.aseprite('spikePirahna','assets/sprites/spikePirahna.png','assets/sprites/spikePirahna.json');
+        this.load.aseprite('multiPirahna','assets/sprites/multiPirahna.png','assets/sprites/multiPirahna.json');
         this.load.image('Background','assets/waterBG.png');
         this.load.image("spike","assets/sprites/spike.png");
     }
@@ -46,6 +47,8 @@ class Example extends Phaser.Scene
                 case "spikePirahna":
                     createPirahna(this, object.x, object.y, object.properties[0].value, {type: "spikePirahna"});
                     break;
+                case "multiPirahna":
+                    createPirahna(this, object.x, object.y, object.properties[0].value, {type: "multiPirahna"});
                     
             }
         })

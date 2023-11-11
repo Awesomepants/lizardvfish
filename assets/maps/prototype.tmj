@@ -215,6 +215,24 @@
                 {
                  "height":0,
                  "id":21,
+                 "name":"multiPirahna",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"Rotation",
+                         "type":"int",
+                         "value":90
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":916,
+                 "y":292
+                }, 
+                {
+                 "height":0,
+                 "id":23,
                  "name":"spikePirahna",
                  "point":true,
                  "properties":[
@@ -227,8 +245,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":936,
-                 "y":732
+                 "x":944,
+                 "y":684
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -237,7 +255,7 @@
          "y":0
         }],
  "nextlayerid":3,
- "nextobjectid":23,
+ "nextobjectid":24,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
