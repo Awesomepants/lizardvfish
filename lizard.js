@@ -58,7 +58,7 @@ function createLizard(scene, x, y){
     lizard.sticking = {isSticking:false, x:0, y:0};
     scene.graphics = scene.add.graphics();
     scene.matter.add.mouseSpring();
-    const ray = scene.heroRaycaster.createRay().setConeDeg(40);
+    const ray = scene.heroRaycaster.createRay().setConeDeg(50);
     lizard.moveLizard = (x,y) => {
         movingBuffer = 0;
         lizard.isMoving = true;
@@ -221,7 +221,6 @@ function createLizard(scene, x, y){
         })
         //console.log(closestObject);
         if(closestObject){
-            console.log(closestDistance);
             const angleBetween = Phaser.Math.Angle.Between(lizardHead.x, lizardHead.y, closestObject.body.position.x, closestObject.body.position.y);
             //console.log(angleBetween);
             lizardHead.rotation = angleBetween ;

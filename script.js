@@ -8,7 +8,9 @@ class Example extends Phaser.Scene
         this.load.aseprite('head','assets/sprites/head.png','assets/sprites/head.json');
         this.load.aseprite('legs','assets/sprites/legs.png','assets/sprites/legs.json');
         this.load.aseprite('pirahna','assets/sprites/Pirahna.png','assets/sprites/Pirahna.json');
+        this.load.aseprite('spikePirahna','assets/sprites/spikePirahna.png','assets/sprites/spikePirahna.json');
         this.load.image('Background','assets/waterBG.png');
+        this.load.image("spike","assets/sprites/spike.png");
     }
 
     create ()
@@ -21,28 +23,39 @@ class Example extends Phaser.Scene
         const groundLayer = map.createLayer("Ground", tileset, 0, 0);
         groundLayer.setCollisionByProperty({ collides: true }).setPipeline('Light2D');
         this.lights.enable();
-        this.lights.setAmbientColor(0x090f33);
+        this.lights.setAmbientColor(0x070918);
         this.raycaster.mapGameObjects(groundLayer,false,{
             collisionTiles:[1]
         })
         this.matter.world.convertTilemapLayer(groundLayer);
 
 
-        //We tried making the lizard a custom class that extended Matter.Sprite, but we got all kinds of errors for some reason so instead we made a function that creates the lizard and returns it (no issue with this)
-        this.lizardHead = createLizard(this, 300, 50);
-        this.raycaster.mapGameObjects(this.lizardHead, true);
-        this.lizardLight = this.lights.addLight(0,0,500).setIntensity(3);
+        
         //console.log();
+        const lizardCoords = {x:0, y:0}
         map.objects[0].objects.forEach((object)=> {
             console.log(object);
             switch(object.name){
+                case "Lizard":
+                lizardCoords.x = object.x,
+                lizardCoords.y = object.y;
+                break;
                 case "Pirahna":
                     createPirahna(this, object.x,object.y,object.properties[0].value);
+                    break;
+                case "spikePirahna":
+                    createPirahna(this, object.x, object.y, object.properties[0].value, {type: "spikePirahna"});
+                    break;
                     
             }
         })
-       
+               //We tried making the lizard a custom class that extended Matter.Sprite, but we got all kinds of errors for some reason so instead we made a function that creates the lizard and returns it (no issue with this)
+        this.lizardHead = createLizard(this, 300, 800);
+        this.raycaster.mapGameObjects(this.lizardHead.bodyParts.head, true);
+        this.lizardLight = this.lights.addLight(0,0,500).setIntensity(3);
         this.cursors = this.input.keyboard.createCursorKeys();
+        //this.cameras.main.x = this.lizardHead.x;
+        //this.cameras.main.y = this.lizardHead.y;
         this.cameras.main.startFollow(this.lizardHead, false, 0.2, 0.2);
         this.input.gamepad.on("down",(pad,button,value)=>{
             this.lizardHead.attack();
