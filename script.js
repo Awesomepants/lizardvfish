@@ -3,7 +3,7 @@ class Example extends Phaser.Scene
     preload ()
     {
         this.load.aseprite('bodySegment','assets/sprites/bodysegment.png','assets/sprites/bodysegment.json');
-        this.load.tilemapTiledJSON("sampleMap","assets/maps/prototype.tmj");
+        this.load.tilemapTiledJSON("sampleMap","assets/maps/Level1.tmj");
         this.load.image("AquaTile","assets/sampleTile.png");
         this.load.aseprite('head','assets/sprites/head.png','assets/sprites/head.json');
         this.load.aseprite('legs','assets/sprites/legs.png','assets/sprites/legs.json');
@@ -12,29 +12,36 @@ class Example extends Phaser.Scene
         this.load.aseprite('multiPirahna','assets/sprites/multiPirahna.png','assets/sprites/multiPirahna.json');
         this.load.image('Background','assets/waterBG.png');
         this.load.image("spike","assets/sprites/spike.png");
+        this.load.aseprite('urchin',"assets/sprites/urchin.png","assets/sprites/urchin.json");
+        this.load.aseprite('lever',"assets/sprites/lever.png","assets/sprites/lever.json");
+        this.load.aseprite('door',"assets/sprites/door.png","assets/sprites/door.json");
     }
 
     create ()
     {
         this.add.image(620,400,"Background").setScrollFactor(0.01,0.01).setPipeline('Light2D').setScale(1.4);
+        //this.lights.enable();
+        this.emitter = new Phaser.Events.EventEmitter();
         this.raycaster = this.raycasterPlugin.createRaycaster({debug:false});
         this.heroRaycaster = this.raycasterPlugin.createRaycaster({debug:false})
         const map = this.make.tilemap({ key: "sampleMap"});
         const tileset = map.addTilesetImage("AquaTile");
         const groundLayer = map.createLayer("Ground", tileset, 0, 0);
         groundLayer.setCollisionByProperty({ collides: true }).setPipeline('Light2D');
-        this.lights.enable();
         this.lights.setAmbientColor(0x070918);
         this.raycaster.mapGameObjects(groundLayer,false,{
             collisionTiles:[1]
         })
         this.matter.world.convertTilemapLayer(groundLayer);
 
-
-        
-        //console.log();
         const lizardCoords = {x:0, y:0}
         map.objects[0].objects.forEach((object)=> {
+            //extrapolate the weird array of properties on this object and convert it to more accessible properties on the object itself
+            if(object.properties){
+                object.properties.forEach((property) => {
+                object[property.name] = property.value;
+            })
+            }
             console.log(object);
             switch(object.name){
                 case "Lizard":
@@ -45,32 +52,61 @@ class Example extends Phaser.Scene
                     createPirahna(this, object.x,object.y,object.properties[0].value);
                     break;
                 case "spikePirahna":
-                    createPirahna(this, object.x, object.y, object.properties[0].value, {type: "spikePirahna"});
+                    createPirahna(this, object.x, object.y, object.rotation, {type: "spikePirahna"});
                     break;
                 case "multiPirahna":
-                    createPirahna(this, object.x, object.y, object.properties[0].value, {type: "multiPirahna"});
-                    
-            }
+                    createPirahna(this, object.x, object.y, object.rotation, {type: "multiPirahna"});
+                    break;
+                case "Urchin":
+                    const urchin = this.matter.add.sprite(object.x,object.y,"urchin",0,{isStatic: true, shape: "circle",restitution:"40",onCollideCallback: provideDamage});
+                    urchin.anims.createFromAseprite("urchin");
+                    urchin.anims.play({key: "Idle", repeat: -1});
+                    this.lights.addLight(object.x,object.y,128,0xbf0b0b,6);
+                    break;
+                case "Lever":
+                    createLever(this, object.x,object.y,object.id);
+                    break;
+                case "Door":
+                    createDoor(this, object.x,object.y,object.Lever,object.rotation);
+                    break;
+                case "Lizard":
+                    lizardCoords.x = object.x;
+                    lizardCoords.y = object.y;
+                    break;
+                case "SceneSwitch":
+                    this.matter.add.rectangle(object.x,object.y, 40,40,{isStatic:true,isSensor:true,onCollideCallback: (e)=>{
+                        if(isLizardBodyPart(e.bodyA) || isLizardBodyPart(e.bodyB)){
+                            console.log(`Switching to scene ${object.Level}`);
+                        }
+                    }});
+                    break;
+            }   
         })
                //We tried making the lizard a custom class that extended Matter.Sprite, but we got all kinds of errors for some reason so instead we made a function that creates the lizard and returns it (no issue with this)
-        this.lizardHead = createLizard(this, 300, 800);
+        this.lizardHead = createLizard(this, lizardCoords.x, lizardCoords.y);
         this.raycaster.mapGameObjects(this.lizardHead.bodyParts.head, true);
         this.lizardLight = this.lights.addLight(0,0,500).setIntensity(3);
+        console.log(this.lizardLight);
         this.cursors = this.input.keyboard.createCursorKeys();
-        //this.cameras.main.x = this.lizardHead.x;
-        //this.cameras.main.y = this.lizardHead.y;
         this.cameras.main.startFollow(this.lizardHead, false, 0.2, 0.2);
+        this.cameras.main.setBounds(0,0,map.width * 32, map.height * 32)
+        this.cameras.main.useBounds = true;
+        this.lights.enable();
+        console.log(this.lights);
         this.input.gamepad.on("down",(pad,button,value)=>{
             this.lizardHead.attack();
         })
         document.getElementById('fullScreenButton').addEventListener('click',()=>{
             this.scale.startFullscreen();
         })
+        
+        //this.lights.debug();
     }
     update()
     { 
         this.lizardLight.x = this.lizardHead.x;
         this.lizardLight.y = this.lizardHead.y;
+        //console.log(this.lizardLight.x, this.lizardLight.y);
         document.getElementById("fpsmeter").innerHTML = `FPS: ${this.sys.game.loop.actualFps} LizardSticking: ${this.lizardHead.sticking.isSticking} ${this.lizardHead.breakingInformation}`;
        
         //keyboard controls
@@ -115,13 +151,14 @@ const config = {
         mode:Phaser.Scale.FIT,
         parent:'game',
         autoCenter: Phaser.Scale.CENTER_BOTH,
-        width: 1280,
-        height: 720,
+        width: 960,
+        height: 640,
     },
     
     backgroundColor: '#090f33',
     parent: 'game',
     pixelArt:true,
+    maxLights:40,
     physics: {
         default: 'matter' ,
         matter:{

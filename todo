@@ -1,13 +1,13 @@
+too many lights is slowing down the game, don't give each urchin it's own light and instead have a seperate light object to light up a few at a time. Also make the lights of a defeated enemy disapear. (During the "Pirahna Swarm" scene, manually stop the pirahnas from making their lights and have a big light in the scene instead)
+urchins have a property to determine whether they have a light or not
+
 Story idea:
 The gecko is in love with an Axolotl. The Axolotl gets kidnapped by an anglerfish and the gecko must go rescue it. Defeating the anglerfish that is holding it captive awakens a kraken, which chases them out of the water
 
 Enemy ideas:
 -(done) Pirahna that spins around and attacks you when you are in it's direct line of sight
--Spiky urchin that is stationary but damages you if you touch it (more of an obstacle than an enemy)
--A more advanced version of the last pirahna that casts rays in a circle and detects you even if you are not in it's direct line of sight, attacks you at intervals (maybe not needed)
--Pirahna that is spiky and shoots a spike at you when you are in it's line of sight
--Another spiky pirahna that, when it sees you, telegraphs the attack and then shoots a volley of several spikes in your direction, then becomes staggered (to encourage the player to use their crawling abilities to dodge)
+-(done)Spiky urchin that is stationary but damages you if you touch it (more of an obstacle than an enemy)
+-(done)Pirahna that is spiky and shoots a spike at you when you are in it's line of sight
 -Jellyfish (tops are harmless, spines on the bottom will hurt you)
--Big river fish that has high hp and rarely attacks, but maybe you must stop it from doing something (catch up to it before it can do something nefarious)
 -Final boss is an anglerfish
 -Anglerfish boss triggers escape sequence from kraken

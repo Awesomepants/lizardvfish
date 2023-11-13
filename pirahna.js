@@ -57,12 +57,12 @@ const createPirahna = (scene, x, y, rotation, config = {type:"pirahna"}) => {
     } else {
         movementSpeed = 0;
     }
-    let notDrowningForce = new Phaser.Math.Vector2(0,-0.0016);
-    const pirahna = scene.matter.add.sprite(x,y,"pirahna",0,{shape: "circle", circleRadius: 25, ignoreGravity: true, frictionAir: 0, restitution: 0.5, onCollideCallback: pirahnaCollision});
+    let notDrowningForce = new Phaser.Math.Vector2(0,-0.00165);
+    const pirahna = scene.matter.add.sprite(x,y,"pirahna",0,{shape: "circle", circleRadius: 25, ignoreGravity: false, frictionAir: 0, restitution: 0.5, onCollideCallback: pirahnaCollision});
     pirahna.spikeCooldown = 0;
     pirahna.anims.createFromAseprite(config.type);
     pirahna.anims.play({key:"Swim", repeat: -1});
-    pirahna.angle = rotation;
+    pirahna.setAngle(rotation);
     if(config.type === "multiPirahna"){
         pirahna.spikeTimer = scene.time.addEvent({
             delay: 2000,
