@@ -26,3 +26,12 @@ const createDoor = (scene, x, y, lever) => {
         }
     })
 }
+const createBubble = (scene,x,y) => {
+    const bubble = scene.matter.add.sprite(x,y,"bubble",0,{isSensor: true, isStatic: true, onCollideCallback:gibvoxygen});
+    function gibvoxygen(e){
+        if(isLizardBodyPart(e.bodyA) || isLizardBodyPart(e.bodyB)){
+            scene.lizardHead.oxygenDepletion.restart();
+            bubble.destroy();
+        }
+    }
+}

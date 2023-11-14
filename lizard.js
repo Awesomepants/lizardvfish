@@ -155,7 +155,10 @@ function createLizard(scene, x, y){
         }
     }
     lizard.die = ()=>{
-        scene.emitter.emit("lizardDeath");
+        if(!lizard.dead){
+            scene.emitter.emit("lizardDeath");
+        }
+        
         lizard.dead = true;
         lizardHead.anims.play("Dead");
         console.log("Oh no I'm dead lol");

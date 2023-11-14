@@ -24,6 +24,7 @@ class Example extends Phaser.Scene
         this.load.aseprite('urchin',"assets/sprites/urchin.png","assets/sprites/urchin.json");
         this.load.aseprite('lever',"assets/sprites/lever.png","assets/sprites/lever.json");
         this.load.aseprite('door',"assets/sprites/door.png","assets/sprites/door.json");
+        this.load.image("bubble","assets/StaticImages/o2bubble.png");
     }
 
     create ()
@@ -31,6 +32,12 @@ class Example extends Phaser.Scene
         this.add.image(620,400,"Background").setScrollFactor(0.01,0.01).setPipeline('Light2D').setScale(1.4);
         //this.lights.enable();
         this.emitter = new Phaser.Events.EventEmitter();
+        this.emitter.on("lizardDeath", ()=>{
+            setTimeout(()=>{
+                this.scene.start("levelGenerator",{map:this.map});
+            }, 3000)
+            
+        })
         this.raycaster = this.raycasterPlugin.createRaycaster({debug:false});
         this.heroRaycaster = this.raycasterPlugin.createRaycaster({debug:false})
         const map = this.make.tilemap({ key: this.map});
@@ -93,6 +100,8 @@ class Example extends Phaser.Scene
                 case "Light":
                     this.lights.addLight(object.x,object.y,object.radius,0xffffff,object.intensity);
                     break;
+                case "Bubble":
+                    createBubble(this,object.x,object.y);
                     
             }   
         })

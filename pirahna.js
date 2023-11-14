@@ -15,11 +15,14 @@ const pirahnaAttack = (pirahna) => {
 const fireSpike = (scene, x, y, direction, force) => {
     let spikeDangerous = true;
     const spike = scene.matter.add.sprite(x, y, "spike", 0, {isSensor: true, onCollideEndCallback: ()=>{
-        spike.body.isSensor = false;
+        if(spikeDangerous){
+            spike.body.isSensor = false;
+        }
+        
         
     },
     onCollideCallback: (e)=>{
-        if(e.bodyA.isSensor || e.bodyB.isSensor){
+        if(!spikeDangerous || e.bodyA.isSensor || e.bodyB.isSensor){
             return;
         } else if (spikeDangerous){
             provideDamage(e);
@@ -29,7 +32,10 @@ const fireSpike = (scene, x, y, direction, force) => {
     spike.setPipeline("Light2D");
     spike.setAngle(direction);
     spike.thrust(force);
-    
+    setTimeout(()=>{
+        spikeDangerous = false;
+        spike.destroy();
+    }, 2000)
 }
 const spikePirahnaAttack = (scene, pirahna) => {
     pirahna.spikeCooldown--;
@@ -92,6 +98,7 @@ const createPirahna = (scene, x, y, rotation, config = {type:"pirahna"}) => {
         
     }
     pirahna.die = () => {
+        createBubble(scene,pirahna.x,pirahna.y);
         scene.heroRaycaster.removeMappedObjects(pirahna);
         pirahna.anims.play("Dead");
         pirahna.dead = true;
