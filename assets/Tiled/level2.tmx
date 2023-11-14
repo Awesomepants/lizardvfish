@@ -602,7 +602,7 @@
    </properties>
    <point/>
   </object>
-  <object id="76" name="spikePirahna" x="592" y="269.333">
+  <object id="76" name="spikePirahna" x="590.667" y="241.333">
    <properties>
     <property name="rotation" type="int" value="0"/>
    </properties>
@@ -620,9 +620,9 @@
    </properties>
    <point/>
   </object>
-  <object id="80" name="spikePirahna" x="250.667" y="238.667">
+  <object id="80" name="spikePirahna" x="277.334" y="248">
    <properties>
-    <property name="rotation" type="int" value="180"/>
+    <property name="rotation" type="int" value="0"/>
    </properties>
    <point/>
   </object>

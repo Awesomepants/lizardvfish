@@ -184,16 +184,21 @@ const config = {
     backgroundColor: '#090f33',
     parent: 'game',
     pixelArt:true,
-    maxLights:40,
+    maxLights:10,
     physics: {
         default: 'matter' ,
         matter:{
             gravity:{
                 y: 0.5
             },
+            fps:{
+                target: 60,
+                forceSetTimeout: true
+            },
             debug: false
         }  
     },
+    
     plugins: {
         scene: [
             {
