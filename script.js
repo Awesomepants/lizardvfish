@@ -1,10 +1,16 @@
 class Example extends Phaser.Scene
-{
+{   
+    init (data){
+        this.map = data.map;
+        if(!data.map){
+            data.map = "sampleMap";
+        }
+    }
     preload ()
     {
         this.load.aseprite('bodySegment','assets/sprites/bodysegment.png','assets/sprites/bodysegment.json');
         this.load.tilemapTiledJSON("sampleMap","assets/maps/Level1.tmj");
-        this.load.image("AquaTile","assets/sampleTile.png");
+        this.load.image("AquaTile","assets/StaticImages/tilesheet.png");
         this.load.aseprite('head','assets/sprites/head.png','assets/sprites/head.json');
         this.load.aseprite('legs','assets/sprites/legs.png','assets/sprites/legs.json');
         this.load.aseprite('pirahna','assets/sprites/Pirahna.png','assets/sprites/Pirahna.json');
@@ -58,7 +64,7 @@ class Example extends Phaser.Scene
                     createPirahna(this, object.x, object.y, object.rotation, {type: "multiPirahna"});
                     break;
                 case "Urchin":
-                    const urchin = this.matter.add.sprite(object.x,object.y,"urchin",0,{isStatic: true, shape: "circle",restitution:"40",onCollideCallback: provideDamage});
+                    const urchin = this.matter.add.sprite(object.x,object.y,"urchin",0,{isStatic: true, shape: "circle",circleRadius: 10,restitution:"40",onCollideCallback: provideDamage});
                     urchin.anims.createFromAseprite("urchin");
                     urchin.anims.play({key: "Idle", repeat: -1});
                     this.lights.addLight(object.x,object.y,128,0xbf0b0b,6);
@@ -80,12 +86,24 @@ class Example extends Phaser.Scene
                         }
                     }});
                     break;
+                case "Light":
+                    this.lights.addLight(object.x,object.y,object.radius,0xffffff,object.intensity);
+                    break;
+                    
             }   
         })
                //We tried making the lizard a custom class that extended Matter.Sprite, but we got all kinds of errors for some reason so instead we made a function that creates the lizard and returns it (no issue with this)
         this.lizardHead = createLizard(this, lizardCoords.x, lizardCoords.y);
+        createHUD(this, this.lizardHead);
         this.raycaster.mapGameObjects(this.lizardHead.bodyParts.head, true);
         this.lizardLight = this.lights.addLight(0,0,500).setIntensity(3);
+        this.lizardLight.setColor(0xffffff);
+        this.emitter.on("lizardHurt",()=>{
+            this.lizardLight.setColor(0xbf0b0b).setIntensity(30);
+            setTimeout(()=>{
+                this.lizardLight.setColor(0xfffff).setIntensity(3);
+            }, 750);
+        })
         console.log(this.lizardLight);
         this.cursors = this.input.keyboard.createCursorKeys();
         this.cameras.main.startFollow(this.lizardHead, false, 0.2, 0.2);
@@ -99,11 +117,15 @@ class Example extends Phaser.Scene
         document.getElementById('fullScreenButton').addEventListener('click',()=>{
             this.scale.startFullscreen();
         })
-        
+        //this allows dynamic graphics without the need for each entity to have it's own graphics object
+        this.matter.world.on("beforeupdate",()=>{
+            this.graphics.clear();
+        })
         //this.lights.debug();
     }
     update()
     { 
+        
         this.lizardLight.x = this.lizardHead.x;
         this.lizardLight.y = this.lizardHead.y;
         //console.log(this.lizardLight.x, this.lizardLight.y);

@@ -15,6 +15,7 @@ function createLizard(scene, x, y){
     lizardButt = scene.matter.add.sprite(x - 40, y, 'bodySegment', 0, {shape: 'circle', friction: 0, restitution: 0, density: 0.002, frictionAir: 0.12});
     scene.matter.add.constraint(lizard, lizardButt, 40, 0.9);
     scene.matter.add.constraint(lizardHead, lizard, 5, 0.9);
+    lizard.dead = false;
     const tailPhysicsConfig = {friction: 0, mass: 0, inverseMass: 0, frictionAir: 0.2}
     const lizardTail1 = scene.matter.add.circle(x - 60,y,2, tailPhysicsConfig);
     scene.matter.add.constraint(lizardTail1, lizardButt, 15, 0.9);
@@ -30,6 +31,18 @@ function createLizard(scene, x, y){
     backLeg.anims.createFromAseprite("legs");
     lizardHead.anims.createFromAseprite("head");
     lizardHead.anims.play("Nuetral");
+    lizard.health = 3;
+    lizard.oxygen = 100;
+    let damageCooldown = 60;
+    lizard.oxygenDepletion = scene.tweens.add({
+        targets: lizard,
+        oxygen: 0,
+        duration: 60000,
+        onComplete: ()=>{
+            lizard.die();
+        }
+    })
+    //when the lizard gets an oxygen power-up use lizard.oxygenDepletion.restart() to make the oxygen full again
     lizard.bodyParts = {
         frontLeg: lizard,
         backLeg: lizardButt,
@@ -60,6 +73,7 @@ function createLizard(scene, x, y){
     scene.matter.add.mouseSpring();
     const ray = scene.heroRaycaster.createRay().setConeDeg(50);
     lizard.moveLizard = (x,y) => {
+        if(!lizard.dead){
         movingBuffer = 0;
         lizard.isMoving = true;
         let force = 0.0015;
@@ -87,10 +101,10 @@ function createLizard(scene, x, y){
             //lizardButt.setAngle(Phaser.Math.RadToDeg(lizardAngle) + 180);
         }
         
-        
+    }
     }
     lizard.attack = () => {
-        if(thrustCooldownTimer > thrustCooldown){
+        if(thrustCooldownTimer > thrustCooldown && !lizard.dead){
             lizardHead.thrust(attackThrustAmount);
             lizardHead.anims.play("Attack");
             lizardHead.anims.nextAnim = "Nuetral";
@@ -138,8 +152,23 @@ function createLizard(scene, x, y){
             
         }
     }
+    lizard.die = ()=>{
+        scene.emitter.emit("lizardDeath");
+        lizard.dead = true;
+        lizardHead.anims.play("Dead");
+        console.log("Oh no I'm dead lol");
+    }
     lizard.damage = (amount) => {
-        console.log(`Lizard go OuchieWawa x${amount}`)
+        console.log(`Lizard go OuchieWawa x${amount}`);
+        if(damageCooldown < 1){
+            damageCooldown = 60;
+            lizard.health --;
+            scene.emitter.emit("lizardHurt");
+            if(lizard.health < 1){
+                lizard.die();
+            } 
+        }
+        
     }
     //this is a little stupid but I think it's easier to make the pirahna call the .damage function on any part of the lizard it hits, I want to avoid hard-coding the scene's lizard instance into the pirahna's code in case I ever plan on making a co-op mode with multiple lizards that manage their own seperate health, this way I also can make different body parts have different levels of being vulnerable
     lizardButt.damage = (amount) => {
@@ -149,6 +178,7 @@ function createLizard(scene, x, y){
         lizard.damage(amount);
     }
     lizard.update = (time, delta) => {
+        damageCooldown--;
         thrustCooldownTimer++;
         if(stickyConstraint && stickyConstraint.type === "constraint"){
             //we've verified the constraint isn't null and is indeed a constraint, because we can't remove a constraint that doesn't exist
@@ -169,7 +199,7 @@ function createLizard(scene, x, y){
             
         }
         //draw the lizard body
-    scene.graphics.clear();
+        
     scene.graphics.fillStyle(0x00aa00);
      scene.graphics.setDepth(0);
      const lizardThiccness = 16;
