@@ -1,4 +1,4 @@
-function createLizard(scene, x, y){
+function createLizard(scene, x, y, xOrient, yOrient){
     let movingBuffer = 0;
     let lizard;
     let lizardButt;
@@ -10,20 +10,20 @@ function createLizard(scene, x, y){
     const stickyVectorStrengthNotIdling = 0.02;
     const stickyVectorStrengthIdling = 0.5;
     let stickyVectorStrength = stickyVectorStrengthNotIdling;
-    lizardHead = scene.matter.add.sprite(x+20,y, 'head', 0, {isSensor: true, frictionAir:0.01, mass:0, inverseMass:0, ignoreGravity: true, frictionAir:0, label: "lizardSkull"});
+    lizardHead = scene.matter.add.sprite(x+(20 * xOrient),y+(20 * yOrient), 'head', 0, {isSensor: true, frictionAir:0.01, mass:0, inverseMass:0, ignoreGravity: true, frictionAir:0, label: "lizardSkull"});
     lizard = scene.matter.add.sprite(x, y, 'bodySegment', 0, {shape:'circle', restitution: 0, friction: 0, density: 0.003, frictionStatic: 0, frictionAir: 0.1, onCollideCallback: collideCallback});
-    lizardButt = scene.matter.add.sprite(x - 40, y, 'bodySegment', 0, {shape: 'circle', friction: 0, restitution: 0, density: 0.002, frictionAir: 0.12});
+    lizardButt = scene.matter.add.sprite(x - (40*xOrient), y - (40*yOrient), 'bodySegment', 0, {shape: 'circle', friction: 0, restitution: 0, density: 0.002, frictionAir: 0.12});
     scene.matter.add.constraint(lizard, lizardButt, 40, 0.9);
     scene.matter.add.constraint(lizardHead, lizard, 5, 0.9);
     lizard.dead = false;
     const tailPhysicsConfig = {friction: 0, mass: 0, inverseMass: 0, frictionAir: 0.2}
-    const lizardTail1 = scene.matter.add.circle(x - 60,y,2, tailPhysicsConfig);
+    const lizardTail1 = scene.matter.add.circle(x - (60 * xOrient),y+(60*yOrient),2, tailPhysicsConfig);
     scene.matter.add.constraint(lizardTail1, lizardButt, 15, 0.9);
-    const lizardTail2 = scene.matter.add.circle(x-80,y,4, tailPhysicsConfig);
+    const lizardTail2 = scene.matter.add.circle(x-(80+xOrient),y-(80+yOrient),4, tailPhysicsConfig);
     scene.matter.add.constraint(lizardTail1, lizardTail2, 15, 0.9);
-    const lizardTail3 = scene.matter.add.circle(x-100,y,2, tailPhysicsConfig);
+    const lizardTail3 = scene.matter.add.circle(x-(100+xOrient),y-(100+yOrient),2, tailPhysicsConfig);
     scene.matter.add.constraint(lizardTail2, lizardTail3, 15, 0.9);
-    const lizardTail4 = scene.matter.add.circle(x-120,y, 2, tailPhysicsConfig);
+    const lizardTail4 = scene.matter.add.circle(x-(120*xOrient),y-(120*yOrient), 2, tailPhysicsConfig);
     scene.matter.add.constraint(lizardTail3, lizardTail4, 15, 0.9);
     const frontLeg = scene.add.sprite(x,y,'legs').setDepth(1);
     const backLeg = scene.add.sprite(x,y,'legs').setDepth(1);

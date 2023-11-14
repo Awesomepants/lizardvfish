@@ -13,6 +13,10 @@ class Example extends Phaser.Scene
         this.load.aseprite('bodySegment','assets/sprites/bodysegment.png','assets/sprites/bodysegment.json');
         this.load.tilemapTiledJSON("Level1","assets/maps/Level1.tmj");
         this.load.tilemapTiledJSON("Level2","assets/maps/Level2.tmj");
+        this.load.tilemapTiledJSON("Level3","assets/maps/Level3.tmj");
+        this.load.tilemapTiledJSON("Level4","assets/maps/Level4.tmj");
+        this.load.tilemapTiledJSON("Level5","assets/maps/Level5.tmj");
+        this.load.tilemapTiledJSON("Level6","assets/maps/Level6.tmj");
         this.load.image("AquaTile","assets/StaticImages/tilesheet.png");
         this.load.aseprite('head','assets/sprites/head.png','assets/sprites/head.json');
         this.load.aseprite('legs','assets/sprites/legs.png','assets/sprites/legs.json');
@@ -25,6 +29,7 @@ class Example extends Phaser.Scene
         this.load.aseprite('lever',"assets/sprites/lever.png","assets/sprites/lever.json");
         this.load.aseprite('door',"assets/sprites/door.png","assets/sprites/door.json");
         this.load.image("bubble","assets/StaticImages/o2bubble.png");
+        this.load.aseprite("enemyDoor","assets/sprites/enemydoor.png","assets/sprites/enemydoor.json");
     }
 
     create ()
@@ -50,7 +55,7 @@ class Example extends Phaser.Scene
         })
         this.matter.world.convertTilemapLayer(groundLayer);
 
-        const lizardCoords = {x:0, y:0}
+        const lizardCoords = {x:0, y:0, xOrient: 1, yOrient: 1}
         map.objects[0].objects.forEach((object)=> {
             //extrapolate the weird array of properties on this object and convert it to more accessible properties on the object itself
             if(object.properties){
@@ -65,25 +70,26 @@ class Example extends Phaser.Scene
                 lizardCoords.y = object.y;
                 break;
                 case "Pirahna":
-                    createPirahna(this, object.x,object.y,object.properties[0].value);
+                    createPirahna(this, object.x,object.y,object.rotation, {type: "pirahna", id: object.id});
                     break;
                 case "spikePirahna":
-                    createPirahna(this, object.x, object.y, object.rotation, {type: "spikePirahna"});
+                    createPirahna(this, object.x, object.y, object.rotation, {type: "spikePirahna", id: object.id});
                     break;
                 case "multiPirahna":
-                    createPirahna(this, object.x, object.y, object.rotation, {type: "multiPirahna"});
+                    const multiBoy = createPirahna(this, object.x, object.y, object.rotation, {type: "multiPirahna", id: object.id});
+                    multiBoy.health = 4;
                     break;
                 case "Urchin":
                     const urchin = this.matter.add.sprite(object.x,object.y,"urchin",0,{isStatic: true, shape: "circle",circleRadius: 10,restitution:"40",onCollideCallback: provideDamage});
                     urchin.anims.createFromAseprite("urchin");
                     urchin.anims.play({key: "Idle", repeat: -1});
-                    this.lights.addLight(object.x,object.y,128,0xbf0b0b,6);
+                    //this.lights.addLight(object.x,object.y,128,0xbf0b0b,6);
                     break;
                 case "Lever":
                     createLever(this, object.x,object.y,object.id,object.rotation);
                     break;
                 case "Door":
-                    createDoor(this, object.x + 16,object.y + 16,object.Lever,object.rotation);
+                    createDoor(this, object.x + 16,object.y + 16,object.Lever);
                     break;
                 case "Lizard":
                     lizardCoords.x = object.x;
@@ -102,11 +108,14 @@ class Example extends Phaser.Scene
                     break;
                 case "Bubble":
                     createBubble(this,object.x,object.y);
+                    break;
+                case "EnemyDoor":
+                    createDoor(this, object.x + 16,object.y + 16,object.enemy,"enemy")
                     
             }   
         })
                //We tried making the lizard a custom class that extended Matter.Sprite, but we got all kinds of errors for some reason so instead we made a function that creates the lizard and returns it (no issue with this)
-        this.lizardHead = createLizard(this, lizardCoords.x, lizardCoords.y);
+        this.lizardHead = createLizard(this, lizardCoords.x, lizardCoords.y, lizardCoords.xOrient, lizardCoords.yOrient);
         createHUD(this, this.lizardHead);
         this.raycaster.mapGameObjects(this.lizardHead.bodyParts.head, true);
         this.lizardLight = this.lights.addLight(0,0,500).setIntensity(3);

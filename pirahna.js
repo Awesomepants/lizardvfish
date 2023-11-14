@@ -8,9 +8,13 @@ const provideDamage = (e) => {
 }
 
 const pirahnaAttack = (pirahna) => {
-        pirahna.thrust(0.05);
         pirahna.anims.play({key:"Attack"});
         pirahna.anims.nextAnim = {key: "Swim", repeat :-1};
+        setTimeout(()=>{
+            pirahna.thrust(0.05);
+        }, 300)
+        
+        
 }
 const fireSpike = (scene, x, y, direction, force) => {
     let spikeDangerous = true;
@@ -43,7 +47,7 @@ const spikePirahnaAttack = (scene, pirahna) => {
         pirahna.spikeCooldown = 10;
         fireSpike(scene, pirahna.x, pirahna.y, pirahna.angle, 0.02)
     //The pirahna flips when it collides, I did this so it would bounce off walls and keep moving, but it also does it when it detects the collision with the spike! (Which is a sensor), the quick and dirty solution to this is to simply rotate the pirahna back to how they were before
-    pirahna.setAngle(pirahna.angle + 180);
+    //pirahna.setAngle(pirahna.angle + 180);
     }
     
 }
@@ -58,6 +62,7 @@ const multiPirahnaAttack = (scene, pirahna) => {
 const createPirahna = (scene, x, y, rotation, config = {type:"pirahna"}) => {
     let raycastCooldown = 0;
     let movementSpeed;
+    
     if(config.type != "spikePirahna"){
         movementSpeed = 0.0001;
     } else {
@@ -66,6 +71,7 @@ const createPirahna = (scene, x, y, rotation, config = {type:"pirahna"}) => {
     let notDrowningForce = new Phaser.Math.Vector2(0,-0.00165);
     const pirahna = scene.matter.add.sprite(x,y,"pirahna",0,{shape: "circle", circleRadius: 25, ignoreGravity: false, frictionAir: 0, restitution: 0.5, onCollideCallback: pirahnaCollision});
     pirahna.spikeCooldown = 0;
+    pirahna.tiledId = config.id;
     pirahna.anims.createFromAseprite(config.type);
     pirahna.anims.play({key:"Swim", repeat: -1});
     pirahna.setAngle(rotation);
@@ -82,7 +88,7 @@ const createPirahna = (scene, x, y, rotation, config = {type:"pirahna"}) => {
     const raycaster = scene.raycaster;
     let ray = raycaster.createRay();
     let damageCooldown = 20;
-    let health = 3;
+    pirahna.health = 2;
     let dead = false;
     pirahna.damage = () => {
         if(damageCooldown >= 20){
@@ -90,14 +96,15 @@ const createPirahna = (scene, x, y, rotation, config = {type:"pirahna"}) => {
             pirahna.anims.play("Stagger");
             pirahna.anims.nextAnim = "Swim";
             console.log("pirahna go ouchie wawa");
-            health --;
-            if(health <= 0){
+            pirahna.health --;
+            if(pirahna.health <= 0){
                 pirahna.die();
             }
         }
         
     }
     pirahna.die = () => {
+        scene.emitter.emit("pirahnaDeath",pirahna.tiledId);
         createBubble(scene,pirahna.x,pirahna.y);
         scene.heroRaycaster.removeMappedObjects(pirahna);
         pirahna.anims.play("Dead");
@@ -108,7 +115,10 @@ const createPirahna = (scene, x, y, rotation, config = {type:"pirahna"}) => {
         }
     }
     function pirahnaCollision(e){
+        if(config.type != "spikePirahna"){
             pirahna.setAngle(pirahna.angle + 180);
+        }
+            
             
             switch ("lizardSkull") {
                 case e.bodyA.label:
