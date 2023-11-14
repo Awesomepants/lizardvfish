@@ -2,14 +2,15 @@ class Example extends Phaser.Scene
 {   
     init (data){
         this.map = data.map;
-        if(!data.map){
-            data.map = "sampleMap";
+        if(!this.map){
+            this.map = "Level2";
         }
     }
     preload ()
     {
         this.load.aseprite('bodySegment','assets/sprites/bodysegment.png','assets/sprites/bodysegment.json');
         this.load.tilemapTiledJSON("sampleMap","assets/maps/Level1.tmj");
+        this.load.tilemapTiledJSON("Level2","assets/maps/Level2.tmj");
         this.load.image("AquaTile","assets/StaticImages/tilesheet.png");
         this.load.aseprite('head','assets/sprites/head.png','assets/sprites/head.json');
         this.load.aseprite('legs','assets/sprites/legs.png','assets/sprites/legs.json');
@@ -30,7 +31,7 @@ class Example extends Phaser.Scene
         this.emitter = new Phaser.Events.EventEmitter();
         this.raycaster = this.raycasterPlugin.createRaycaster({debug:false});
         this.heroRaycaster = this.raycasterPlugin.createRaycaster({debug:false})
-        const map = this.make.tilemap({ key: "sampleMap"});
+        const map = this.make.tilemap({ key: this.map});
         const tileset = map.addTilesetImage("AquaTile");
         const groundLayer = map.createLayer("Ground", tileset, 0, 0);
         groundLayer.setCollisionByProperty({ collides: true }).setPipeline('Light2D');
@@ -70,10 +71,10 @@ class Example extends Phaser.Scene
                     this.lights.addLight(object.x,object.y,128,0xbf0b0b,6);
                     break;
                 case "Lever":
-                    createLever(this, object.x,object.y,object.id);
+                    createLever(this, object.x,object.y,object.id,object.rotation);
                     break;
                 case "Door":
-                    createDoor(this, object.x,object.y,object.Lever,object.rotation);
+                    createDoor(this, object.x + 16,object.y + 16,object.Lever,object.rotation);
                     break;
                 case "Lizard":
                     lizardCoords.x = object.x;

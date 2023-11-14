@@ -1,7 +1,8 @@
 const createLever = (scene, x, y, TiledId, rotation) => {
-    const lever = scene.matter.add.sprite(x,y,"lever",0,{label: "lever", isSensor: true, isStatic:true, onCollideCallback: leverCollision
+    const lever = scene.matter.add.sprite(x,y,"lever",0,{label: "lever", isSensor: true, onCollideCallback: leverCollision
     });
     lever.setAngle(rotation);
+    lever.setStatic(true);
     lever.anims.createFromAseprite("lever");
     lever.flipped = false;
     lever.anims.play("UnFlipped");
