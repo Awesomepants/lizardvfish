@@ -36,7 +36,7 @@ class Example extends Phaser.Scene
         groundLayer.setCollisionByProperty({ collides: true }).setPipeline('Light2D');
         this.lights.setAmbientColor(0x070918);
         this.raycaster.mapGameObjects(groundLayer,false,{
-            collisionTiles:[1]
+            collisionTiles: [...Array(64).keys()]
         })
         this.matter.world.convertTilemapLayer(groundLayer);
 
