@@ -1,15 +1,17 @@
 class Example extends Phaser.Scene
-{   
+{   constructor(){
+    super('levelGenerator')
+}
     init (data){
         this.map = data.map;
         if(!this.map){
-            this.map = "Level2";
+            this.map = "Level1";
         }
     }
     preload ()
     {
         this.load.aseprite('bodySegment','assets/sprites/bodysegment.png','assets/sprites/bodysegment.json');
-        this.load.tilemapTiledJSON("sampleMap","assets/maps/Level1.tmj");
+        this.load.tilemapTiledJSON("Level1","assets/maps/Level1.tmj");
         this.load.tilemapTiledJSON("Level2","assets/maps/Level2.tmj");
         this.load.image("AquaTile","assets/StaticImages/tilesheet.png");
         this.load.aseprite('head','assets/sprites/head.png','assets/sprites/head.json');
@@ -84,6 +86,7 @@ class Example extends Phaser.Scene
                     this.matter.add.rectangle(object.x,object.y, 40,40,{isStatic:true,isSensor:true,onCollideCallback: (e)=>{
                         if(isLizardBodyPart(e.bodyA) || isLizardBodyPart(e.bodyB)){
                             console.log(`Switching to scene ${object.Level}`);
+                            this.scene.start("levelGenerator",{map:object.Level});
                         }
                     }});
                     break;

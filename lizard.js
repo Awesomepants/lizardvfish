@@ -29,6 +29,8 @@ function createLizard(scene, x, y){
     const backLeg = scene.add.sprite(x,y,'legs').setDepth(1);
     frontLeg.anims.createFromAseprite("legs");
     backLeg.anims.createFromAseprite("legs");
+    frontLeg.anims.play("Idle");
+    backLeg.anims.play("Idle");
     lizardHead.anims.createFromAseprite("head");
     lizardHead.anims.play("Nuetral");
     lizard.health = 3;
