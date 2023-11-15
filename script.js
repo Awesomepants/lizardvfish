@@ -5,12 +5,13 @@ class Example extends Phaser.Scene
     init (data){
         this.map = data.map;
         if(!this.map){
-            this.map = "Level1";
+            this.map = "Tutorial";
         }
     }
     preload ()
     {
         this.load.aseprite('bodySegment','assets/sprites/bodysegment.png','assets/sprites/bodysegment.json');
+        this.load.tilemapTiledJSON("Tutorial","assets/maps/Tutorial.tmj");
         this.load.tilemapTiledJSON("Level1","assets/maps/Level1.tmj");
         this.load.tilemapTiledJSON("Level2","assets/maps/Level2.tmj");
         this.load.tilemapTiledJSON("Level3","assets/maps/Level3.tmj");
@@ -70,7 +71,10 @@ class Example extends Phaser.Scene
                 lizardCoords.y = object.y;
                 break;
                 case "Pirahna":
-                    createPirahna(this, object.x,object.y,object.rotation, {type: "pirahna", id: object.id});
+                    const pirahna = createPirahna(this, object.x,object.y,object.rotation, {type: "pirahna", id: object.id});
+                    if(object.health){
+                        pirahna.health = object.health;
+                    }
                     break;
                 case "spikePirahna":
                     createPirahna(this, object.x, object.y, object.rotation, {type: "spikePirahna", id: object.id});
@@ -110,7 +114,14 @@ class Example extends Phaser.Scene
                     createBubble(this,object.x,object.y);
                     break;
                 case "EnemyDoor":
-                    createDoor(this, object.x + 16,object.y + 16,object.enemy,"enemy")
+                    createDoor(this, object.x + 16,object.y + 16,object.enemy,"enemy");
+                    break;
+                case "Text":
+                    this.add.text(object.x,object.y,object.content);
+                    break;
+                case "CollisionSquare":
+                    console.log("square",object);
+                    this.matter.add.rectangle(object.x + (object.width/2), object.y + (object.height/2), object.width, object.height, {isStatic: true});
                     
             }   
         })

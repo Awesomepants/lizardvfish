@@ -569,7 +569,7 @@
   <object id="41" name="Lizard" x="124.758" y="539.061">
    <point/>
   </object>
-  <object id="42" name="SceneSwitch" x="218.788" y="2.515">
+  <object id="42" name="SceneSwitch" x="201.788" y="-30.485">
    <properties>
     <property name="Level" value="Level5"/>
    </properties>
