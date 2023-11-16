@@ -26,7 +26,10 @@ function createLizard(scene, x, y, xOrient, yOrient, axolotl = false){
     const stickyVectorStrengthNotIdling = 0.02;
     const stickyVectorStrengthIdling = 0.5;
     let stickyVectorStrength = stickyVectorStrengthNotIdling;
-    lizardHead = scene.matter.add.sprite(x+(20 * xOrient),y+(20 * yOrient), lizardBodyImages.head, 0, {isSensor: true, frictionAir:0.01, mass:0, inverseMass:0, ignoreGravity: true, frictionAir:0, label: "lizardSkull"}).setDepth(2);
+    lizardHead = scene.matter.add.sprite(x+(20 * xOrient),y+(20 * yOrient), lizardBodyImages.head, 0, {isSensor: true, frictionAir:0.01, mass:0, inverseMass:0, ignoreGravity: true, frictionAir:0, label: "lizardSkull"});
+    if(axolotl){
+        lizardHead.setDepth(2);
+    }
     lizard = scene.matter.add.sprite(x, y, lizardBodyImages.bodySegment, 0, {shape:'circle', restitution: 0, friction: 0, density: 0.003, frictionStatic: 0, frictionAir: 0.1, onCollideCallback: collideCallback});
     lizardButt = scene.matter.add.sprite(x - (40*xOrient), y - (40*yOrient), lizardBodyImages.bodySegment, 0, {shape: 'circle', friction: 0, restitution: 0, density: 0.002, frictionAir: 0.12});
     scene.matter.add.constraint(lizard, lizardButt, 40, 0.9);

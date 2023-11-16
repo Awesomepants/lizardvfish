@@ -6,6 +6,7 @@ class Intro extends Phaser.Scene {
         console.log("Initializing");
     }
     preload(){
+        this.add.text(100,200,"Loading the game...",{fontSize: 60});
         console.log("preloading");
         this.load.aseprite('bodySegment','assets/sprites/bodysegment.png','assets/sprites/bodysegment.json');
         this.load.aseprite('axolotlBodySegment','assets/sprites/axolotlbodysegment.png','assets/sprites/axolotlbodysegment.json');
