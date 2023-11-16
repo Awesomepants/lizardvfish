@@ -11,6 +11,7 @@ class Example extends Phaser.Scene
     preload ()
     {
         this.load.aseprite('bodySegment','assets/sprites/bodysegment.png','assets/sprites/bodysegment.json');
+        this.load.aseprite('axolotlBodySegment','assets/sprites/axolotlbodysegment.png','assets/sprites/axolotlbodysegment.json');
         this.load.tilemapTiledJSON("Tutorial","assets/maps/Tutorial.tmj");
         this.load.tilemapTiledJSON("Level1","assets/maps/Level1.tmj");
         this.load.tilemapTiledJSON("Level2","assets/maps/Level2.tmj");
@@ -20,7 +21,9 @@ class Example extends Phaser.Scene
         this.load.tilemapTiledJSON("Level6","assets/maps/Level6.tmj");
         this.load.image("AquaTile","assets/StaticImages/tilesheet.png");
         this.load.aseprite('head','assets/sprites/head.png','assets/sprites/head.json');
+        this.load.aseprite('axolotlHead','assets/sprites/axolotlhead.png','assets/sprites/axolotlhead.json');
         this.load.aseprite('legs','assets/sprites/legs.png','assets/sprites/legs.json');
+        this.load.aseprite('axolotlLegs','assets/sprites/axolotllegs.png','assets/sprites/axolotllegs.json');
         this.load.aseprite('pirahna','assets/sprites/Pirahna.png','assets/sprites/Pirahna.json');
         this.load.aseprite('spikePirahna','assets/sprites/spikePirahna.png','assets/sprites/spikePirahna.json');
         this.load.aseprite('multiPirahna','assets/sprites/multiPirahna.png','assets/sprites/multiPirahna.json');
@@ -45,7 +48,7 @@ class Example extends Phaser.Scene
             
         })
         this.raycaster = this.raycasterPlugin.createRaycaster({debug:false});
-        this.heroRaycaster = this.raycasterPlugin.createRaycaster({debug:false})
+        this.heroRaycaster = this.raycasterPlugin.createRaycaster({debug:false});
         const map = this.make.tilemap({ key: this.map});
         const tileset = map.addTilesetImage("AquaTile");
         const groundLayer = map.createLayer("Ground", tileset, 0, 0);
@@ -126,7 +129,7 @@ class Example extends Phaser.Scene
             }   
         })
                //We tried making the lizard a custom class that extended Matter.Sprite, but we got all kinds of errors for some reason so instead we made a function that creates the lizard and returns it (no issue with this)
-        this.lizardHead = createLizard(this, lizardCoords.x, lizardCoords.y, lizardCoords.xOrient, lizardCoords.yOrient);
+        this.lizardHead = createLizard(this, lizardCoords.x, lizardCoords.y, lizardCoords.xOrient, lizardCoords.yOrient, false);
         createHUD(this, this.lizardHead);
         this.raycaster.mapGameObjects(this.lizardHead.bodyParts.head, true);
         this.lizardLight = this.lights.addLight(0,0,500).setIntensity(3);
@@ -153,7 +156,7 @@ class Example extends Phaser.Scene
         //this allows dynamic graphics without the need for each entity to have it's own graphics object
         this.matter.world.on("beforeupdate",()=>{
             this.graphics.clear();
-        })
+        });
         //this.lights.debug();
     }
     update()
@@ -240,7 +243,7 @@ const config = {
     input: {
         gamepad: true
     },
-    scene: Example
+    scene: [Intro, Example]
 };
 
 const game = new Phaser.Game(config);

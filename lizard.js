@@ -1,37 +1,53 @@
-function createLizard(scene, x, y, xOrient, yOrient){
+function createLizard(scene, x, y, xOrient, yOrient, axolotl = false){
     let movingBuffer = 0;
     let lizard;
     let lizardButt;
     let stickyConstraint;
     let stuckTile;
+    let lizardBodyImages;
+    if(!axolotl){
+        lizardBodyImages = {
+        bodySegment: 'bodySegment',
+        head: 'head',
+        legs: 'legs',
+        color: 0x3d824e
+    }
+} else {
+    lizardBodyImages = {
+        bodySegment: 'axolotlBodySegment',
+        head: 'axolotlHead',
+        legs: 'axolotlLegs',
+        color: 0xffae80
+    }
+}
     const attackThrustAmount = 0.4;
     const thrustCooldown = 60;
     let thrustCooldownTimer = 0;
     const stickyVectorStrengthNotIdling = 0.02;
     const stickyVectorStrengthIdling = 0.5;
     let stickyVectorStrength = stickyVectorStrengthNotIdling;
-    lizardHead = scene.matter.add.sprite(x+(20 * xOrient),y+(20 * yOrient), 'head', 0, {isSensor: true, frictionAir:0.01, mass:0, inverseMass:0, ignoreGravity: true, frictionAir:0, label: "lizardSkull"});
-    lizard = scene.matter.add.sprite(x, y, 'bodySegment', 0, {shape:'circle', restitution: 0, friction: 0, density: 0.003, frictionStatic: 0, frictionAir: 0.1, onCollideCallback: collideCallback});
-    lizardButt = scene.matter.add.sprite(x - (40*xOrient), y - (40*yOrient), 'bodySegment', 0, {shape: 'circle', friction: 0, restitution: 0, density: 0.002, frictionAir: 0.12});
+    lizardHead = scene.matter.add.sprite(x+(20 * xOrient),y+(20 * yOrient), lizardBodyImages.head, 0, {isSensor: true, frictionAir:0.01, mass:0, inverseMass:0, ignoreGravity: true, frictionAir:0, label: "lizardSkull"}).setDepth(2);
+    lizard = scene.matter.add.sprite(x, y, lizardBodyImages.bodySegment, 0, {shape:'circle', restitution: 0, friction: 0, density: 0.003, frictionStatic: 0, frictionAir: 0.1, onCollideCallback: collideCallback});
+    lizardButt = scene.matter.add.sprite(x - (40*xOrient), y - (40*yOrient), lizardBodyImages.bodySegment, 0, {shape: 'circle', friction: 0, restitution: 0, density: 0.002, frictionAir: 0.12});
     scene.matter.add.constraint(lizard, lizardButt, 40, 0.9);
     scene.matter.add.constraint(lizardHead, lizard, 5, 0.9);
     lizard.dead = false;
     const tailPhysicsConfig = {friction: 0, mass: 0, inverseMass: 0, frictionAir: 0.2}
-    const lizardTail1 = scene.matter.add.circle(x - (60 * xOrient),y+(60*yOrient),2, tailPhysicsConfig);
+    const lizardTail1 = scene.matter.add.circle(x - (55 * xOrient),y+(60*yOrient),2, tailPhysicsConfig);
     scene.matter.add.constraint(lizardTail1, lizardButt, 15, 0.9);
-    const lizardTail2 = scene.matter.add.circle(x-(80+xOrient),y-(80+yOrient),4, tailPhysicsConfig);
+    const lizardTail2 = scene.matter.add.circle(x-(70+xOrient),y-(80+yOrient),4, tailPhysicsConfig);
     scene.matter.add.constraint(lizardTail1, lizardTail2, 15, 0.9);
-    const lizardTail3 = scene.matter.add.circle(x-(100+xOrient),y-(100+yOrient),2, tailPhysicsConfig);
+    const lizardTail3 = scene.matter.add.circle(x-(85+xOrient),y-(100+yOrient),2, tailPhysicsConfig);
     scene.matter.add.constraint(lizardTail2, lizardTail3, 15, 0.9);
-    const lizardTail4 = scene.matter.add.circle(x-(120*xOrient),y-(120*yOrient), 2, tailPhysicsConfig);
+    const lizardTail4 = scene.matter.add.circle(x-(100*xOrient),y-(120*yOrient), 2, tailPhysicsConfig);
     scene.matter.add.constraint(lizardTail3, lizardTail4, 15, 0.9);
-    const frontLeg = scene.add.sprite(x,y,'legs').setDepth(1);
-    const backLeg = scene.add.sprite(x,y,'legs').setDepth(1);
-    frontLeg.anims.createFromAseprite("legs");
-    backLeg.anims.createFromAseprite("legs");
+    const frontLeg = scene.add.sprite(x,y,lizardBodyImages.legs).setDepth(1);
+    const backLeg = scene.add.sprite(x,y,lizardBodyImages.legs).setDepth(1);
+    frontLeg.anims.createFromAseprite(lizardBodyImages.legs);
+    backLeg.anims.createFromAseprite(lizardBodyImages.legs);
     frontLeg.anims.play("Idle");
     backLeg.anims.play("Idle");
-    lizardHead.anims.createFromAseprite("head");
+    lizardHead.anims.createFromAseprite(lizardBodyImages.head);
     lizardHead.anims.play("Nuetral");
     lizard.health = 3;
     lizard.oxygen = 100;
@@ -48,7 +64,8 @@ function createLizard(scene, x, y, xOrient, yOrient){
     lizard.bodyParts = {
         frontLeg: lizard,
         backLeg: lizardButt,
-        head: lizardHead
+        head: lizardHead,
+        tailTip: lizardTail4
     }
     lizard.verticalFlip = false;
     lizard.horizontalFlip = false;
@@ -205,11 +222,11 @@ function createLizard(scene, x, y, xOrient, yOrient){
         }
         //draw the lizard body
         
-    scene.graphics.fillStyle(0x00aa00);
+    //scene.graphics.fillStyle(0x00aa00);
      scene.graphics.setDepth(0);
      const lizardThiccness = 16;
      let lineWidth = lizardThiccness;
-     scene.graphics.lineStyle(lineWidth,0x3d824e,1);
+     scene.graphics.lineStyle(lineWidth,lizardBodyImages.color,1);
      scene.lizardBody = new Phaser.Curves.Spline([
         lizard.getCenter(),
         lizardButt.getCenter(),
@@ -224,7 +241,7 @@ function createLizard(scene, x, y, xOrient, yOrient){
         scene.graphics.strokeLineShape(new Phaser.Geom.Line(bodyPoints[i -1].x, bodyPoints[i-1].y, bodyPoints[i+1].x,bodyPoints[i+1].y));
         if(i > bodyPoints.length - lizardThiccness){
             lineWidth--;
-            scene.graphics.lineStyle(lineWidth,0x3d824e,1);
+            scene.graphics.lineStyle(lineWidth,lizardBodyImages.color,1);
         }
      }
      //rotate the lizard's head so it is facing the right way
