@@ -5,13 +5,14 @@ class Example extends Phaser.Scene
     init (data){
         this.map = data.map;
         if(!this.map){
-            this.map = "Tutorial";
+            this.map = "TitleDrop";
         }
     }
     preload ()
     {
         this.load.aseprite('bodySegment','assets/sprites/bodysegment.png','assets/sprites/bodysegment.json');
         this.load.aseprite('axolotlBodySegment','assets/sprites/axolotlbodysegment.png','assets/sprites/axolotlbodysegment.json');
+        this.load.tilemapTiledJSON('TitleDrop',"assets/maps/TitleDrop.tmj")
         this.load.tilemapTiledJSON("Tutorial","assets/maps/Tutorial.tmj");
         this.load.tilemapTiledJSON("Level1","assets/maps/Level1.tmj");
         this.load.tilemapTiledJSON("Level2","assets/maps/Level2.tmj");
@@ -38,7 +39,7 @@ class Example extends Phaser.Scene
 
     create ()
     {
-        this.add.image(620,400,"Background").setScrollFactor(0.01,0.01).setPipeline('Light2D').setScale(1.4);
+        let bg = this.add.image(620,400,"Background").setScrollFactor(0.01,0.01).setPipeline('Light2D').setScale(1.4);
         //this.lights.enable();
         this.emitter = new Phaser.Events.EventEmitter();
         this.emitter.on("lizardDeath", ()=>{
@@ -150,9 +151,7 @@ class Example extends Phaser.Scene
         this.input.gamepad.on("down",(pad,button,value)=>{
             this.lizardHead.attack();
         })
-        document.getElementById('fullScreenButton').addEventListener('click',()=>{
-            this.scale.startFullscreen();
-        })
+        
         //this allows dynamic graphics without the need for each entity to have it's own graphics object
         this.matter.world.on("beforeupdate",()=>{
             this.graphics.clear();

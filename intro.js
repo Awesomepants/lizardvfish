@@ -6,6 +6,9 @@ class Intro extends Phaser.Scene {
         console.log("Initializing");
     }
     preload(){
+        document.getElementById('fullScreenButton').addEventListener('click',()=>{
+            this.scale.startFullscreen();
+        })
         this.add.text(100,200,"Loading the game...",{fontSize: 60});
         console.log("preloading");
         this.load.aseprite('bodySegment','assets/sprites/bodysegment.png','assets/sprites/bodysegment.json');
@@ -147,7 +150,7 @@ class Intro extends Phaser.Scene {
         {
             at: 24000,
             run: () => {
-                dialouge(540,200, "None of that really matters...");
+                dialouge(540,200, "Most of all...");
             }
         },
         {
@@ -222,7 +225,7 @@ class Intro extends Phaser.Scene {
         {
             at: 63000,
             run: () => {
-                this.scene.start("levelGenerator",{map:"Tutorial"});
+                this.scene.start("levelGenerator",{map:"TitleDrop"});
             }
         }
     ])  
