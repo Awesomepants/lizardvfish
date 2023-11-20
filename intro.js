@@ -156,7 +156,7 @@ class Intro extends Phaser.Scene {
         {
             at: 28000,
             run: () => {
-                dialouge(540,200, "But I breathe water");
+                dialouge(540,200, "I breathe water");
             }
         },
         {

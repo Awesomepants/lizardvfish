@@ -85,10 +85,34 @@
     "trimmed": true,
     "spriteSourceSize": { "x": 0, "y": 6, "w": 64, "h": 55 },
     "sourceSize": { "w": 64, "h": 64 },
-    "duration": 200
+    "duration": 400
    },
    "11": {
     "frame": { "x": 135, "y": 117, "w": 66, "h": 57 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 0, "y": 6, "w": 64, "h": 55 },
+    "sourceSize": { "w": 64, "h": 64 },
+    "duration": 400
+   },
+   "12": {
+    "frame": { "x": 202, "y": 117, "w": 66, "h": 57 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 0, "y": 6, "w": 64, "h": 55 },
+    "sourceSize": { "w": 64, "h": 64 },
+    "duration": 200
+   },
+   "13": {
+    "frame": { "x": 1, "y": 175, "w": 66, "h": 57 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 0, "y": 6, "w": 64, "h": 55 },
+    "sourceSize": { "w": 64, "h": 64 },
+    "duration": 200
+   },
+   "14": {
+    "frame": { "x": 68, "y": 175, "w": 66, "h": 57 },
     "rotated": false,
     "trimmed": true,
     "spriteSourceSize": { "x": 0, "y": 6, "w": 64, "h": 55 },
@@ -101,18 +125,18 @@
   "version": "1.3-rc6-x64",
   "image": "Pirahna.png",
   "format": "RGBA8888",
-  "size": { "w": 268, "h": 174 },
+  "size": { "w": 268, "h": 232 },
   "scale": "1",
   "frameTags": [
    { "name": "Swim", "from": 0, "to": 8, "direction": "forward", "color": "#000000ff" },
    { "name": "Attack", "from": 9, "to": 9, "direction": "forward", "color": "#000000ff" },
    { "name": "Stagger", "from": 10, "to": 10, "direction": "forward", "color": "#000000ff" },
-   { "name": "Dead", "from": 11, "to": 11, "direction": "forward", "color": "#000000ff" }
+   { "name": "Dead", "from": 11, "to": 14, "direction": "forward", "color": "#000000ff" }
   ],
   "layers": [
    { "name": "Colors", "opacity": 255, "blendMode": "normal" },
    { "name": "Details", "opacity": 255, "blendMode": "normal" },
-   { "name": "Overlay", "opacity": 133, "blendMode": "normal" }
+   { "name": "Overlay", "opacity": 227, "blendMode": "normal" }
   ],
   "slices": [
   ]

@@ -70,6 +70,7 @@ const createPirahna = (scene, x, y, rotation, config = {type:"pirahna"}) => {
     }
     let notDrowningForce = new Phaser.Math.Vector2(0,-0.00165);
     const pirahna = scene.matter.add.sprite(x,y,"pirahna",0,{shape: "circle", circleRadius: 25, ignoreGravity: false, frictionAir: 0, restitution: 0.5, onCollideCallback: pirahnaCollision});
+    pirahna.setPipeline("Light2D");
     pirahna.spikeCooldown = 0;
     pirahna.tiledId = config.id;
     pirahna.anims.createFromAseprite(config.type);
@@ -84,7 +85,7 @@ const createPirahna = (scene, x, y, rotation, config = {type:"pirahna"}) => {
         })
     }
     scene.heroRaycaster.mapGameObjects(pirahna,true);
-    const light = scene.lights.addLight(0,0,140).setColor(0x36b5f5).setIntensity(1);
+    pirahna.light = scene.lights.addLight(0,0,140).setColor(0x36b5f5).setIntensity(1);
     const raycaster = scene.raycaster;
     let ray = raycaster.createRay();
     let damageCooldown = 20;
@@ -107,6 +108,7 @@ const createPirahna = (scene, x, y, rotation, config = {type:"pirahna"}) => {
         scene.emitter.emit("pirahnaDeath",pirahna.tiledId);
         createBubble(scene,pirahna.x,pirahna.y);
         scene.heroRaycaster.removeMappedObjects(pirahna);
+        scene.lights.removeLight(pirahna.light);
         pirahna.anims.play("Dead");
         pirahna.dead = true;
         notDrowningForce = new Phaser.Math.Vector2(0,-0.004);
@@ -172,8 +174,11 @@ const createPirahna = (scene, x, y, rotation, config = {type:"pirahna"}) => {
         
         
         pirahna.applyForce(notDrowningForce);
-        light.x = pirahna.x;
-        light.y = pirahna.y;
+        if(!pirahna.dead){
+            pirahna.light.x = pirahna.x;
+            pirahna.light.y = pirahna.y;
+        }
+        
     })
     return pirahna;
 }

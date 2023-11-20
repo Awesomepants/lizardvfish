@@ -5,7 +5,7 @@ class Example extends Phaser.Scene
     init (data){
         this.map = data.map;
         if(!this.map){
-            this.map = "TitleDrop";
+            this.map = "Tutorial";
         }
     }
     preload ()
@@ -242,7 +242,7 @@ const config = {
     input: {
         gamepad: true
     },
-    scene: [Intro, Example]
+    scene: [Example, Intro]
 };
 
 const game = new Phaser.Game(config);

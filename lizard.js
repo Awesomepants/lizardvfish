@@ -186,6 +186,8 @@ function createLizard(scene, x, y, xOrient, yOrient, axolotl = false){
     lizard.damage = (amount) => {
         console.log(`Lizard go OuchieWawa x${amount}`);
         if(damageCooldown < 1){
+            lizardHead.anims.play({key: "Damage", repeat: 2});
+            lizardHead.anims.nextAnim = "Nuetral";
             damageCooldown = 60;
             lizard.health --;
             scene.emitter.emit("lizardHurt");
