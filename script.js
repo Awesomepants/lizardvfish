@@ -5,7 +5,7 @@ class Example extends Phaser.Scene
     init (data){
         this.map = data.map;
         if(!this.map){
-            this.map = "Level7";
+            this.map = "Level9";
         }
     }
     preload ()
@@ -21,6 +21,8 @@ class Example extends Phaser.Scene
         this.load.tilemapTiledJSON("Level5","assets/maps/Level5.tmj");
         this.load.tilemapTiledJSON("Level6","assets/maps/Level6.tmj");
         this.load.tilemapTiledJSON("Level7","assets/maps/Level7.tmj");
+        this.load.tilemapTiledJSON("Level8","assets/maps/Level8.tmj");
+        this.load.tilemapTiledJSON("Level9","assets/maps/Level9.tmj");
         this.load.image("AquaTile","assets/StaticImages/tilesheet.png");
         this.load.aseprite('head','assets/sprites/head.png','assets/sprites/head.json');
         this.load.aseprite('axolotlHead','assets/sprites/axolotlhead.png','assets/sprites/axolotlhead.json');
@@ -83,11 +85,14 @@ class Example extends Phaser.Scene
                     }
                     break;
                 case "spikePirahna":
-                    createPirahna(this, object.x, object.y, object.rotation, {type: "spikePirahna", id: object.id});
+                    const spikePirahna = createPirahna(this, object.x, object.y, object.rotation, {type: "spikePirahna", id: object.id});
+                    if(object.health){
+                        spikePirahna.health = object.health;
+                    }
                     break;
                 case "multiPirahna":
                     const multiBoy = createPirahna(this, object.x, object.y, object.rotation, {type: "multiPirahna", id: object.id});
-                    multiBoy.health = 4;
+                    multiBoy.health = object.health;
                     break;
                 case "Urchin":
                     const urchin = this.matter.add.sprite(object.x,object.y,"urchin",0,{isStatic: true, shape: "circle",circleRadius: 10,restitution:"40",onCollideCallback: provideDamage});

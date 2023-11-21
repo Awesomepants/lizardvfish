@@ -587,6 +587,7 @@
   </object>
   <object id="52" name="multiPirahna" x="356" y="366">
    <properties>
+    <property name="health" type="int" value="3"/>
     <property name="rotation" type="int" value="90"/>
    </properties>
    <point/>

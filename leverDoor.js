@@ -58,6 +58,7 @@ const createBubble = (scene,x,y) => {
     function gibvoxygen(e){
         if(isLizardBodyPart(e.bodyA) || isLizardBodyPart(e.bodyB)){
             scene.lizardHead.oxygen = 100;
+            scene.lizardHead.health++;
             scene.lizardHead.oxygenDepletion.restart();
             bubble.destroy();
         }
