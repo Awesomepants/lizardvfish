@@ -5,7 +5,7 @@ class Example extends Phaser.Scene
     init (data){
         this.map = data.map;
         if(!this.map){
-            this.map = "Tutorial";
+            this.map = "Level7";
         }
     }
     preload ()
@@ -20,6 +20,7 @@ class Example extends Phaser.Scene
         this.load.tilemapTiledJSON("Level4","assets/maps/Level4.tmj");
         this.load.tilemapTiledJSON("Level5","assets/maps/Level5.tmj");
         this.load.tilemapTiledJSON("Level6","assets/maps/Level6.tmj");
+        this.load.tilemapTiledJSON("Level7","assets/maps/Level7.tmj");
         this.load.image("AquaTile","assets/StaticImages/tilesheet.png");
         this.load.aseprite('head','assets/sprites/head.png','assets/sprites/head.json');
         this.load.aseprite('axolotlHead','assets/sprites/axolotlhead.png','assets/sprites/axolotlhead.json');
@@ -35,6 +36,7 @@ class Example extends Phaser.Scene
         this.load.aseprite('door',"assets/sprites/door.png","assets/sprites/door.json");
         this.load.image("bubble","assets/StaticImages/o2bubble.png");
         this.load.aseprite("enemyDoor","assets/sprites/enemydoor.png","assets/sprites/enemydoor.json");
+        this.load.aseprite("jellyHead","assets/sprites/jellyhead.png","assets/sprites/jellyhead.json");
     }
 
     create ()
@@ -126,7 +128,9 @@ class Example extends Phaser.Scene
                 case "CollisionSquare":
                     console.log("square",object);
                     this.matter.add.rectangle(object.x + (object.width/2), object.y + (object.height/2), object.width, object.height, {isStatic: true});
-                    
+                    break;
+                case "Jelly":
+                    createJelly(this, object.x, object.y, object.ceiling, object.floor);
             }   
         })
                //We tried making the lizard a custom class that extended Matter.Sprite, but we got all kinds of errors for some reason so instead we made a function that creates the lizard and returns it (no issue with this)
@@ -242,7 +246,7 @@ const config = {
     input: {
         gamepad: true
     },
-    scene: [Example, Intro]
+    scene: [Intro, Example]
 };
 
 const game = new Phaser.Game(config);

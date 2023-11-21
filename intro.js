@@ -38,6 +38,7 @@ class Intro extends Phaser.Scene {
         this.load.image("bubble","assets/StaticImages/o2bubble.png");
         this.load.aseprite("enemyDoor","assets/sprites/enemydoor.png","assets/sprites/enemydoor.json");
         this.load.aseprite("emotes","assets/sprites/emotes.png","assets/sprites/emotes.json");
+        this.load.aseprite("jellyHead","assets/sprites/jellyhead.png","assets/sprites/jellyhead.json");
         this.load.audio('Lizard and Juliette',["assets/Music/Lizard and Juliette.ogg","assets/Music/Lizard and Juliette.mp3"])
     }
     create(){
