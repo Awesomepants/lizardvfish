@@ -13,7 +13,13 @@ const createJelly = (scene, x, y, ceiling, floor) => {
         const rootY = root.position.y;
         let tentacle1 = [root];
     for (i = 1;i<5;i++){
-        const tentacleSeg = scene.matter.add.circle(rootX,rootY+(i*30),10, {frictionAir: 0.05, ignoreGravity: false, onCollideCallback: provideDamage});
+        let segmentThickness = 0;
+        if(i === 1){
+            segmentThickness = 10;
+        } else {
+            segmentThickness = 2;
+        }
+        const tentacleSeg = scene.matter.add.circle(rootX,rootY+(i*30),segmentThickness, {frictionAir: 0.05, ignoreGravity: false, onCollideCallback: provideDamage});
         tentacle1.push(tentacleSeg);
         if(tentacle1[i - 1]){
             scene.matter.add.constraint(tentacle1[i-1],tentacle1[i], 30, 0.05);

@@ -5,7 +5,7 @@ class Example extends Phaser.Scene
     init (data){
         this.map = data.map;
         if(!this.map){
-            this.map = "Level9";
+            this.map = "bossEncounter";
         }
     }
     preload ()
@@ -23,6 +23,7 @@ class Example extends Phaser.Scene
         this.load.tilemapTiledJSON("Level7","assets/maps/Level7.tmj");
         this.load.tilemapTiledJSON("Level8","assets/maps/Level8.tmj");
         this.load.tilemapTiledJSON("Level9","assets/maps/Level9.tmj");
+        this.load.tilemapTiledJSON("bossEncounter","assets/maps/bossEncounter.tmj");
         this.load.image("AquaTile","assets/StaticImages/tilesheet.png");
         this.load.aseprite('head','assets/sprites/head.png','assets/sprites/head.json');
         this.load.aseprite('axolotlHead','assets/sprites/axolotlhead.png','assets/sprites/axolotlhead.json');
@@ -39,6 +40,8 @@ class Example extends Phaser.Scene
         this.load.image("bubble","assets/StaticImages/o2bubble.png");
         this.load.aseprite("enemyDoor","assets/sprites/enemydoor.png","assets/sprites/enemydoor.json");
         this.load.aseprite("jellyHead","assets/sprites/jellyhead.png","assets/sprites/jellyhead.json");
+        this.load.aseprite("anglerFish","assets/sprites/anglerfish.png","assets/sprites/anglerfish.json");
+        this.load.aseprite("anglerLure","assets/sprites/anglerLure.png","assets/sprites/anglerLure.json")
     }
 
     create ()
@@ -136,6 +139,10 @@ class Example extends Phaser.Scene
                     break;
                 case "Jelly":
                     createJelly(this, object.x, object.y, object.ceiling, object.floor);
+                    break;
+                case "AnglerFish":
+                    createAnglerfish(this, object.x, object.y, object.lureX, object.lureY);
+                    break;
             }   
         })
                //We tried making the lizard a custom class that extended Matter.Sprite, but we got all kinds of errors for some reason so instead we made a function that creates the lizard and returns it (no issue with this)
@@ -251,7 +258,7 @@ const config = {
     input: {
         gamepad: true
     },
-    scene: [Intro, Example]
+    scene: [Example]
 };
 
 const game = new Phaser.Game(config);

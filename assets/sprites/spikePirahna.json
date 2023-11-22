@@ -85,9 +85,17 @@
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
     "sourceSize": { "w": 64, "h": 64 },
-    "duration": 200
+    "duration": 400
    },
    "11": {
+    "frame": { "x": 135, "y": 135, "w": 66, "h": 66 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 64, "h": 64 },
+    "sourceSize": { "w": 64, "h": 64 },
+    "duration": 400
+   },
+   "12": {
     "frame": { "x": 202, "y": 135, "w": 66, "h": 66 },
     "rotated": false,
     "trimmed": false,
@@ -107,14 +115,14 @@
    { "name": "Swim", "from": 0, "to": 8, "direction": "forward", "color": "#000000ff" },
    { "name": "Attack", "from": 9, "to": 9, "direction": "forward", "color": "#000000ff" },
    { "name": "Stagger", "from": 10, "to": 10, "direction": "forward", "color": "#000000ff" },
-   { "name": "Dead", "from": 11, "to": 11, "direction": "forward", "color": "#000000ff" }
+   { "name": "Dead", "from": 11, "to": 12, "direction": "forward", "color": "#000000ff" }
   ],
   "layers": [
    { "name": "Spikes", "opacity": 255, "blendMode": "normal" },
    { "name": "Colors", "opacity": 255, "blendMode": "normal" },
    { "name": "Stripes", "opacity": 255, "blendMode": "normal" },
    { "name": "Details", "opacity": 255, "blendMode": "normal" },
-   { "name": "Overlay", "opacity": 133, "blendMode": "normal" }
+   { "name": "Overlay", "opacity": 229, "blendMode": "normal" }
   ],
   "slices": [
   ]

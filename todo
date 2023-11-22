@@ -1,5 +1,6 @@
-too many lights is slowing down the game, don't give each urchin it's own light and instead have a seperate light object to light up a few at a time. Also make the lights of a defeated enemy disapear. (During the "Pirahna Swarm" scene, manually stop the pirahnas from making their lights and have a big light in the scene instead)
-
+fix the oxygen resetting to 0 then not replenishing glitch (maybe change it to a repeating tween that subtracts 1 from the amount instead of a big tween that resets it to 0)
+telegraph that you can't attack the jellyfish (maybe a little sign with a circle and a cross going through a picture of the lizard bashing the jelly)
+add collision squares to places where we've seen the clipping occur
 Enemy ideas:
 -(done) Pirahna that spins around and attacks you when you are in it's direct line of sight
 -(done)Spiky urchin that is stationary but damages you if you touch it (more of an obstacle than an enemy)
