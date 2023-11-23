@@ -10,6 +10,7 @@ class Example extends Phaser.Scene
     }
     preload ()
     {
+        this.load.plugin('rexvirtualjoystickplugin', "rexVirtualJoystick.min.js", true);
         this.load.aseprite('bodySegment','assets/sprites/bodysegment.png','assets/sprites/bodysegment.json');
         this.load.aseprite('axolotlBodySegment','assets/sprites/axolotlbodysegment.png','assets/sprites/axolotlbodysegment.json');
         this.load.tilemapTiledJSON('TitleDrop',"assets/maps/TitleDrop.tmj")
@@ -54,7 +55,30 @@ class Example extends Phaser.Scene
                 this.scene.start("levelGenerator",{map:this.map});
             }, 3000)
             
+        });
+        this.joystick = this.plugins.get('rexvirtualjoystickplugin').add(this,
+            {
+                x: 140,
+                y: config.scale.height - 90,
+                radius: 100,
+                base: this.add.circle(0, 0, 100, 0x888888, 0.5).setDepth(2),
+                thumb: this.add.circle(0, 0, 50, 0xcccccc, 0.5).setDepth(2),
+                dir: '8dir',   // 'up&down'|0|'left&right'|1|'4dir'|2|'8dir'|3
+                forceMin: 16,
+                enable: true
+            });
+            if (this.sys.game.device.os.desktop){
+                this.joystick.setVisible(false);           
+    } else {
+        this.input.addPointer(1);
+        this.input.on('pointerdown',(pointer)=>{
+            if(pointer.downX > window.innerWidth/2){
+                this.lizardHead.attack();
+            }
         })
+    }
+            this.joystickKeys = this.joystick.createCursorKeys();
+        
         this.raycaster = this.raycasterPlugin.createRaycaster({debug:false});
         this.heroRaycaster = this.raycasterPlugin.createRaycaster({debug:false});
         const map = this.make.tilemap({ key: this.map});
@@ -164,6 +188,7 @@ class Example extends Phaser.Scene
         this.cameras.main.useBounds = true;
         this.lights.enable();
         console.log(this.lights);
+
         this.input.gamepad.on("down",(pad,button,value)=>{
             this.lizardHead.attack();
         })
@@ -186,14 +211,14 @@ class Example extends Phaser.Scene
        if(this.cursors.space.isDown){
         this.lizardHead.attack();
        }
-       if(this.cursors.left.isDown){
+       if(this.cursors.left.isDown || this.joystickKeys.left.isDown){
             this.lizardHead.moveLizard(-1,0);
-       } else if (this.cursors.right.isDown){
+       } else if (this.cursors.right.isDown || this.joystickKeys.right.isDown){
             this.lizardHead.moveLizard(1,0);
        } 
-       if (this.cursors.down.isDown){
+       if (this.cursors.down.isDown || this.joystickKeys.down.isDown){
         this.lizardHead.moveLizard(0,1);
-       } else if (this.cursors.up.isDown){
+       } else if (this.cursors.up.isDown || this.joystickKeys.up.isDown){
         this.lizardHead.moveLizard(0,-1);
        }
        //gamepad controls
@@ -220,12 +245,14 @@ class Example extends Phaser.Scene
 
 const config = {
     type: Phaser.WEBGL,
+    width: 960,
+    height: 540,
     scale: {
         mode:Phaser.Scale.FIT,
         parent:'game',
         autoCenter: Phaser.Scale.CENTER_BOTH,
         width: 960,
-        height: 640,
+        height: 540,
     },
     
     backgroundColor: '#090f33',

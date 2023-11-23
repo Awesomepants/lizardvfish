@@ -92,7 +92,7 @@ function createLizard(scene, x, y, xOrient, yOrient, axolotl = false){
     lizardButt.body.label = "lizardButt"
     lizard.sticking = {isSticking:false, x:0, y:0};
     scene.graphics = scene.add.graphics();
-    scene.matter.add.mouseSpring();
+    //scene.matter.add.mouseSpring();
     const ray = scene.heroRaycaster.createRay().setConeDeg(50);
     lizard.moveLizard = (x,y) => {
         if(!lizard.dead){

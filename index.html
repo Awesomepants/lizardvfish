@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <head>
     <title>Lizard vs Fish</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
 </head>
 <body>
     <div id="game"></div>
-    <p id="fpsmeter">FPS</p>
+    <div id="extra" style="display:none">
+       <p id="fpsmeter">FPS</p>
     <button id="fullScreenButton">FullScreen</button>
     <p>Welcome to the lizard game!
         Use arrow keys or the joystick of an Xbox controller to move around. Stick to the walls, keep moving against a wall while running to build up more speed. Press the spacebar or your favorite button on your gamepad to boost. Boost into fishes to damage them.
-    </p>
+    </p> 
+    </div>
+    
     <script src = "pythagoreanTheorem.js"></script>
     <script src="//cdn.jsdelivr.net/npm/phaser@3.70.0/dist/phaser.js"></script>
 <script src=" https://cdn.jsdelivr.net/npm/phaser-raycaster@0.10.9/dist/phaser-raycaster.min.js "></script>
