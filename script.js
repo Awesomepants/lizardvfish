@@ -248,9 +248,9 @@ const config = {
     width: 960,
     height: 540,
     scale: {
-        mode:Phaser.Scale.FIT,
+        mode:Phaser.Scale.ENVELOP,
         parent:'game',
-        autoCenter: Phaser.Scale.CENTER_BOTH,
+        autoCenter: Phaser.Scale.NO_CENTER,
         width: 960,
         height: 540,
     },
