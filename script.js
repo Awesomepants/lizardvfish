@@ -282,6 +282,16 @@ class Example extends Phaser.Scene {
         case "Jelly":
           createJelly(this, object.x, object.y, object.ceiling, object.floor);
           break;
+        case "bgm":
+          if(this.registry.bgm.key != object.key){
+            console.log("Background music detected");
+            this.sound.stopByKey(this.registry.bgm.key);
+            this.bgm = this.sound.add(object.key);
+            this.bgm.setLoop(true);
+            this.bgm.play();
+            this.registry.bgm = this.bgm;
+          }
+          break;
         case "AnglerFish":
           createAnglerfish(
             this,

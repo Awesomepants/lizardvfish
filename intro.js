@@ -39,11 +39,13 @@ class Intro extends Phaser.Scene {
         this.load.aseprite("enemyDoor","assets/sprites/enemydoor.png","assets/sprites/enemydoor.json");
         this.load.aseprite("emotes","assets/sprites/emotes.png","assets/sprites/emotes.json");
         this.load.aseprite("jellyHead","assets/sprites/jellyhead.png","assets/sprites/jellyhead.json");
-        this.load.audio('Lizard and Juliette',["assets/Music/Lizard and Juliette.ogg","assets/Music/Lizard and Juliette.mp3"])
+        this.load.audio('Lizard and Juliette',["assets/Music/Lizard and Juliette.ogg","assets/Music/Lizard and Juliette.mp3"]);
+        this.load.audio("underwaterdig",["assets/Music/underwaterdig.ogg","assets/Music/underwaterdig.mp3"]);
     }
     create(){
         this.bgm = this.sound.add("Lizard and Juliette");
-        
+        this.registry.bgm = this.bgm;
+        console.log(this.registry);
         console.log("Here we are");
         this.add.image(480,315,'Sunset').setScale(2.2);
         const map = this.make.tilemap({ key: "IntroCutscene"});
