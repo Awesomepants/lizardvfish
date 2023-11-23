@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="40" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="80">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="40" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="83">
  <editorsettings>
   <export target="../maps/Level4.tmj" format="json"/>
  </editorsettings>
@@ -643,5 +643,8 @@
    <point/>
   </object>
   <object id="79" name="CollisionSquare" x="318" y="-86" width="960" height="114"/>
+  <object id="80" name="CollisionSquare" x="834" y="95" width="221" height="63"/>
+  <object id="81" name="CollisionSquare" x="833" y="255" width="221" height="63"/>
+  <object id="82" name="CollisionSquare" x="161" y="129" width="446" height="62"/>
  </objectgroup>
 </map>

@@ -327,6 +327,39 @@
                  "width":960,
                  "x":318,
                  "y":-86
+                }, 
+                {
+                 "height":63,
+                 "id":80,
+                 "name":"CollisionSquare",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":221,
+                 "x":834,
+                 "y":95
+                }, 
+                {
+                 "height":63,
+                 "id":81,
+                 "name":"CollisionSquare",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":221,
+                 "x":833,
+                 "y":255
+                }, 
+                {
+                 "height":62,
+                 "id":82,
+                 "name":"CollisionSquare",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":446,
+                 "x":161,
+                 "y":129
                 }],
          "opacity":1,
          "properties":[
@@ -341,7 +374,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":80,
+ "nextobjectid":83,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
