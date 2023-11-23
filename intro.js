@@ -233,6 +233,7 @@ class Intro extends Phaser.Scene {
         let playing = false;
         const startingText = this.add.text(300,400,"Click or tap to start!", {fontFamily: 'Arial', fontSize: '20px', backgroundColor: '#5f2f45 ', padding: {x: 10, y: 10}});
         const StartScene = () => {
+            this.scale.startFullscreen();
             if(!playing){
                 this.bgm.play();
                 playing = true;
