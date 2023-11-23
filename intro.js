@@ -198,7 +198,7 @@ class Intro extends Phaser.Scene {
 
                 for(let i=0;i<100;i++){
                     setTimeout(()=>{
-                        sceneEmote(300  + Math.floor(Math.random() * 300),600,`Action${1 + Math.floor(Math.random() * 3)}`);
+                        sceneEmote(300  + Math.floor(Math.random() * 300),530,`Action${1 + Math.floor(Math.random() * 3)}`);
                     },Math.floor(Math.random() * 3000))
                 }
                 
@@ -207,7 +207,7 @@ class Intro extends Phaser.Scene {
         {
             at: 51000,
             run: () => {
-                dialouge(340,550,"HELP!");
+                dialouge(340,500,"HELP!");
             }
         },
         {
