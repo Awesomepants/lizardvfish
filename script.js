@@ -267,6 +267,10 @@ class Example extends Phaser.Scene {
           createDoor(this, object.x + 16, object.y + 16, object.enemy, "enemy");
           break;
         case "Text":
+          if(object.mobileContent && !this.sys.game.device.os.desktop){
+            object.content = object.mobileContent;
+          }
+          
           this.add.text(object.x, object.y, object.content);
           break;
         case "CollisionSquare":

@@ -78,7 +78,7 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":185.7576,
+                 "x":185.758,
                  "y":492.061
                 }, 
                 {
@@ -150,6 +150,11 @@
                          "name":"content",
                          "type":"string",
                          "value":"Use arrow keys or Controller Joystick to move the Lizard"
+                        }, 
+                        {
+                         "name":"mobileContent",
+                         "type":"string",
+                         "value":"Use the joystick on the left side of the screen to move"
                         }],
                  "rotation":0,
                  "type":"",
@@ -222,6 +227,11 @@
                          "name":"content",
                          "type":"string",
                          "value":"Spacebar or A button on gamepad"
+                        }, 
+                        {
+                         "name":"mobileContent",
+                         "type":"string",
+                         "value":"Tap the right side of the screen to attack!"
                         }],
                  "rotation":0,
                  "type":"",

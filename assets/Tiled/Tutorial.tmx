@@ -591,6 +591,7 @@
   <object id="72" name="Text" x="180" y="392">
    <properties>
     <property name="content" value="Use arrow keys or Controller Joystick to move the Lizard"/>
+    <property name="mobileContent" value="Use the joystick on the left side of the screen to move"/>
    </properties>
    <point/>
   </object>
@@ -615,6 +616,7 @@
   <object id="76" name="Text" x="1000" y="130">
    <properties>
     <property name="content" value="Spacebar or A button on gamepad"/>
+    <property name="mobileContent" value="Tap the right side of the screen to attack!"/>
    </properties>
    <point/>
   </object>
