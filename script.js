@@ -258,7 +258,7 @@ const config = {
     input: {
         gamepad: true
     },
-    scene: [Example]
+    scene: [Intro, Example]
 };
 
 const game = new Phaser.Game(config);
