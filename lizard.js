@@ -70,6 +70,13 @@ function createLizard(scene, x, y, xOrient, yOrient, axolotl = false){
         head: lizardHead,
         tailTip: lizardTail4
     }
+    lizard.displayParts = [
+        lizard,
+        lizardButt,
+        frontLeg,
+        backLeg,
+        lizardHead
+    ]
     lizard.verticalFlip = false;
     lizard.horizontalFlip = false;
     lizard.setVerticalFlip = (input) => {

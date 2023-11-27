@@ -5,7 +5,7 @@ class Example extends Phaser.Scene {
   init(data) {
     this.map = data.map;
     if (!this.map) {
-      this.map = "bossEncounter";
+      this.map = "Chase2";
     }
   }
   preload() {
@@ -35,6 +35,8 @@ class Example extends Phaser.Scene {
     this.load.tilemapTiledJSON("Level7", "assets/maps/Level7.tmj");
     this.load.tilemapTiledJSON("Level8", "assets/maps/Level8.tmj");
     this.load.tilemapTiledJSON("Level9", "assets/maps/Level9.tmj");
+    this.load.tilemapTiledJSON("Chase", "assets/maps/Chase.tmj");
+    this.load.tilemapTiledJSON("Chase2","assets/maps/Chase2.tmj");
     this.load.tilemapTiledJSON(
       "bossEncounter",
       "assets/maps/bossEncounter.tmj"
@@ -302,9 +304,16 @@ class Example extends Phaser.Scene {
             object.x,
             object.y,
             object.lureX,
-            object.lureY
+            object.lureY,
+            object.realAxolotl
           );
           break;
+        case "escapeAxolotl":
+          console.log("henlo")
+          createEscapeAxolotl(this,
+            object.x,
+            object.y,
+            object.id)
       }
     });
     //We tried making the lizard a custom class that extended Matter.Sprite, but we got all kinds of errors for some reason so instead we made a function that creates the lizard and returns it (no issue with this)
@@ -337,6 +346,7 @@ class Example extends Phaser.Scene {
     this.input.gamepad.on("down", (pad, button, value) => {
       this.lizardHead.attack();
     });
+    console.log(this.graphics);
 
     //this allows dynamic graphics without the need for each entity to have it's own graphics object
     this.matter.world.on("beforeupdate", () => {
@@ -425,7 +435,8 @@ const config = {
   input: {
     gamepad: true,
   },
-  scene: [Intro, Example],
+  //scene: [Intro, Example],
+  scene: [Example]
 };
 
 const game = new Phaser.Game(config);

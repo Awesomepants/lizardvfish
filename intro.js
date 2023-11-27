@@ -1,3 +1,9 @@
+const dialouge = (scene, x,y,content) => {
+    const text = scene.add.text(x,y,content, {fontFamily: 'Arial', fontSize: '20px', backgroundColor: '#5f2f45 ', padding: {x: 10, y: 10}});
+    setTimeout(()=>{
+        text.destroy();
+    }, 2000);
+}
 class Intro extends Phaser.Scene {
     constructor(){
         super('intro')
@@ -73,12 +79,6 @@ class Intro extends Phaser.Scene {
             emotingSprite.anims.createFromAseprite("emotes");
             emotingSprite.anims.play(emote);
         }
-        const dialouge = (x,y,content) => {
-            const text = this.add.text(x,y,content, {fontFamily: 'Arial', fontSize: '20px', backgroundColor: '#5f2f45 ', padding: {x: 10, y: 10}});
-            setTimeout(()=>{
-                text.destroy();
-            }, 2000);
-        }
         //The Cutscene
         const timeline = this.add.timeline([{
             at: 2000,
@@ -123,7 +123,7 @@ class Intro extends Phaser.Scene {
         {
             at: 10000,
             run: () => {
-                dialouge(540,200, "We can't keep meeting like this forever");
+                dialouge(this,540,200, "We can't keep meeting like this forever");
             }
         },
         {
@@ -135,37 +135,37 @@ class Intro extends Phaser.Scene {
         {
             at: 16500,
             run: () => {
-                dialouge(540,200, "You're a Lizard");
+                dialouge(this, 540,200, "You're a Lizard");
             }
         },
         {
             at: 18500,
             run: () => {
-                dialouge(540,200, "I'm an Axolotl");
+                dialouge(this, 540,200, "I'm an Axolotl");
             }
         },
         {
             at: 22000,
             run: () => {
-                dialouge(540,200, "You're scaly, I'm slimy");
+                dialouge(this, 540,200, "You're scaly, I'm slimy");
             }
         },
         {
             at: 24000,
             run: () => {
-                dialouge(540,200, "Most of all...");
+                dialouge(this, 540,200, "Most of all...");
             }
         },
         {
             at: 28000,
             run: () => {
-                dialouge(540,200, "I breathe water");
+                dialouge(this, 540,200, "I breathe water");
             }
         },
         {
             at: 31000,
             run: () => {
-                dialouge(540,200, "And you breathe air");
+                dialouge(this, 540,200, "And you breathe air");
             }
         },
         {
@@ -177,7 +177,7 @@ class Intro extends Phaser.Scene {
         {
             at: 37000,
             run: () => {
-                dialouge(540,200,"I hope to see you again someday");
+                dialouge(this, 540,200,"I hope to see you again someday");
             }
         },
         {
@@ -209,7 +209,7 @@ class Intro extends Phaser.Scene {
         {
             at: 51000,
             run: () => {
-                dialouge(340,500,"HELP!");
+                dialouge(this, 340,500,"HELP!");
             }
         },
         {

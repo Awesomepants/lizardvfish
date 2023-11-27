@@ -1,3 +1,11 @@
+TO FINISH THE GAME:
+- Make the scripted axolotl event after the anglerfish lights up, the axolotl says "we need to get out of here! Follow me!" and you follow it out of the level
+- Vertical escape sequence from the anglerfish
+- Use raycasting to stop the gecko from boosting when it is close enough to a wall to clip through it
+- Ending screen
+- Title logo during title drop scene
+- Connecting levels for those early levels where you don't exit the previous level the same direction you enter the next level
+Improvements:
 fix the oxygen resetting to 0 then not replenishing glitch (maybe change it to a repeating tween that subtracts 1 from the amount instead of a big tween that resets it to 0)
 telegraph that you can't attack the jellyfish (maybe a little sign with a circle and a cross going through a picture of the lizard bashing the jelly)
 add collision squares to places where we've seen the clipping occur

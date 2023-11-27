@@ -365,7 +365,7 @@
                         {
                          "name":"health",
                          "type":"int",
-                         "value":4
+                         "value":3
                         }, 
                         {
                          "name":"rotation",
@@ -706,44 +706,26 @@
                  "y":175.758
                 }, 
                 {
-                 "height":0,
-                 "id":238,
-                 "name":"Text",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"content",
-                         "type":"string",
-                         "value":"This is the end so far, thanks for playing and stay tuned for updates!"
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":1815.15,
-                 "y":1381.82
-                }, 
-                {
                  "height":84.6667,
                  "id":239,
-                 "name":"CollisionSqure",
+                 "name":"CollisionSquare",
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":2531.33,
                  "x":-3.33333,
-                 "y":1407
+                 "y":1413
                 }, 
                 {
-                 "height":68,
+                 "height":48,
                  "id":240,
-                 "name":"CollisionSqure",
+                 "name":"CollisionSquare",
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":1180,
                  "x":1356,
-                 "y":988
+                 "y":1000
                 }, 
                 {
                  "height":1146,
@@ -752,9 +734,49 @@
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":60,
-                 "x":1090,
+                 "width":52,
+                 "x":1094,
                  "y":194
+                }, 
+                {
+                 "height":0,
+                 "id":242,
+                 "name":"SceneSwitch",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"Level",
+                         "type":"string",
+                         "value":"bossEncounter"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":2514,
+                 "y":1326
+                }, 
+                {
+                 "height":828,
+                 "id":243,
+                 "name":"CollisionSquare",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":48,
+                 "x":1258,
+                 "y":574
+                }, 
+                {
+                 "height":198,
+                 "id":244,
+                 "name":"CollisionSquare",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":72,
+                 "x":2466,
+                 "y":1044
                 }],
          "opacity":1,
          "properties":[
@@ -769,7 +791,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":242,
+ "nextobjectid":245,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

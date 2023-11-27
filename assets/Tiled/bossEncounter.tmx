@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="60" height="40" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="123">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="60" height="40" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="125">
  <editorsettings>
   <export target="../maps/bossEncounter.tmj" format="json"/>
  </editorsettings>
@@ -626,6 +626,7 @@
    <properties>
     <property name="lureX" type="int" value="900"/>
     <property name="lureY" type="int" value="400"/>
+    <property name="realAxolotl" type="object" value="123"/>
    </properties>
    <point/>
   </object>
@@ -638,6 +639,15 @@
   <object id="122" name="Door" x="288" y="1088">
    <properties>
     <property name="Lever" type="object" value="121"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="123" name="escapeAxolotl" x="196" y="1224">
+   <point/>
+  </object>
+  <object id="124" name="SceneSwitch" x="1900" y="1206">
+   <properties>
+    <property name="Level" value="Chase"/>
    </properties>
    <point/>
   </object>
