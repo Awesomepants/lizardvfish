@@ -21,7 +21,7 @@ function createLizard(scene, x, y, xOrient, yOrient, axolotl = false){
     }
 }
     const attackThrustAmount = 0.4;
-    const thrustCooldown = 60;
+    const thrustCooldown = 30;
     let thrustCooldownTimer = 0;
     const stickyVectorStrengthNotIdling = 0.02;
     const stickyVectorStrengthIdling = 0.5;
@@ -133,8 +133,19 @@ function createLizard(scene, x, y, xOrient, yOrient, axolotl = false){
     }
     }
     lizard.attack = () => {
+        
         if(thrustCooldownTimer > thrustCooldown && !lizard.dead){
-            lizardHead.thrust(attackThrustAmount);
+            ray.setAngleDeg(lizardHead.angle);
+            const inFrontOf = ray.cast();
+            const segment = inFrontOf.segment;
+            const object = inFrontOf.object.type;
+            const distance = Phaser.Math.Distance.Between(segment.x1,segment.y1,segment.x2,segment.y2);
+            console.log(object);
+            if(distance > 200 || object != "TilemapLayer"){
+                console.log("lizard attacked");
+                console.log(distance);
+                lizardHead.thrust(attackThrustAmount);
+            } 
             lizardHead.anims.play("Attack");
             lizardHead.anims.nextAnim = "Nuetral";
             thrustCooldownTimer = 0;
@@ -284,7 +295,7 @@ function createLizard(scene, x, y, xOrient, yOrient, axolotl = false){
             }
         })
         //console.log(closestObject);
-        if(closestObject){
+        if(closestObject && closestObject.body){
             const angleBetween = Phaser.Math.Angle.Between(lizardHead.x, lizardHead.y, closestObject.body.position.x, closestObject.body.position.y);
             //console.log(angleBetween);
             lizardHead.rotation = angleBetween ;

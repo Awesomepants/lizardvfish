@@ -5,7 +5,7 @@ class Example extends Phaser.Scene {
   init(data) {
     this.map = data.map;
     if (!this.map) {
-      this.map = "Chase2";
+      this.map = "TitleDrop";
     }
   }
   preload() {
@@ -41,6 +41,7 @@ class Example extends Phaser.Scene {
       "bossEncounter",
       "assets/maps/bossEncounter.tmj"
     );
+    this.load.image("gameLogo", "assets/StaticImages/gameLogo.png")
     this.load.image("AquaTile", "assets/StaticImages/tilesheet.png");
     this.load.aseprite(
       "head",
@@ -162,6 +163,9 @@ class Example extends Phaser.Scene {
       .setPipeline("Light2D");
     this.lights.setAmbientColor(0x070918);
     this.raycaster.mapGameObjects(groundLayer, false, {
+      collisionTiles: [...Array(64).keys()],
+    });
+    this.heroRaycaster.mapGameObjects(groundLayer, false, {
       collisionTiles: [...Array(64).keys()],
     });
     this.matter.world.convertTilemapLayer(groundLayer);
@@ -314,6 +318,16 @@ class Example extends Phaser.Scene {
             object.x,
             object.y,
             object.id)
+            break;
+          case "chaseAngler":
+            createChaseAngler(this, object.x, object.y);
+            break;
+          case "Image":
+            const image = this.add.image(object.x, object.y, object.image);
+            if(object.scale){
+              image.setScale(object.scale);
+            }
+            break;
       }
     });
     //We tried making the lizard a custom class that extended Matter.Sprite, but we got all kinds of errors for some reason so instead we made a function that creates the lizard and returns it (no issue with this)

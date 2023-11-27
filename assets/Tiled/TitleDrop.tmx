@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="50" height="160" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="87">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="50" height="160" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="88">
  <editorsettings>
   <export target="../maps/TitleDrop.tmj" format="json"/>
  </editorsettings>
@@ -852,13 +852,20 @@
    </properties>
    <point/>
   </object>
-  <object id="84" name="Lizard" x="776" y="612">
+  <object id="84" name="Lizard" x="788.121" y="548.364">
    <point/>
   </object>
-  <object id="85" name="Light" x="804.364" y="226.909">
+  <object id="85" name="Light" x="792.243" y="-12.4849">
    <properties>
     <property name="intensity" type="int" value="6"/>
     <property name="radius" type="int" value="10000"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="87" name="Image" x="800" y="1736.36">
+   <properties>
+    <property name="image" value="gameLogo"/>
+    <property name="scale" type="int" value="4"/>
    </properties>
    <point/>
   </object>

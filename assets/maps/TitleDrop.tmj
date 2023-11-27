@@ -399,8 +399,31 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":804.363636363636,
-                 "y":226.909090909091
+                 "x":804.364,
+                 "y":226.909
+                }, 
+                {
+                 "height":0,
+                 "id":87,
+                 "name":"Image",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"image",
+                         "type":"string",
+                         "value":"gameLogo"
+                        }, 
+                        {
+                         "name":"scale",
+                         "type":"int",
+                         "value":4
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":800,
+                 "y":1736.36363636364
                 }],
          "opacity":1,
          "properties":[
@@ -415,7 +438,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":87,
+ "nextobjectid":88,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

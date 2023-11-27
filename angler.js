@@ -43,6 +43,26 @@ const createAnglerfish = (scene, x, y, lureX, lureY) => {
         }
     })
 }
+const createChaseAngler = (scene, x, y) => {
+    console.log("scary!");
+    const chasingAngler = scene.matter.add.sprite(x,y,"anglerFish",0,{ignoreGravity: true, shape: "circle", circleRadius: 40,isSensor: true, onCollideCallback: (e)=>{
+       if(isLizardBodyPart(e.bodyA) || isLizardBodyPart(e.bodyB)){
+        scene.lizardHead.die();
+       }
+    }}).setScale(3).setDepth(2);
+    chasingAngler.anims.createFromAseprite("anglerFish");
+    chasingAngler.anims.play({key: "Chase", repeat: -1});
+    scene.matter.world.on("afterupdate",()=>{
+        const angle = Phaser.Math.Angle.Between(chasingAngler.x, chasingAngler.y, scene.lizardHead.x, scene.lizardHead.y);
+        chasingAngler.setRotation(angle);
+        if(Phaser.Math.Distance.Between(chasingAngler.x, chasingAngler.y, scene.lizardHead.x, scene.lizardHead.y) > 400){
+        chasingAngler.thrust(0.03);    
+        } else {
+            chasingAngler.thrust(0.005)
+        }
+        
+    })
+}
 const createEscapeAxolotl = (scene, x, y, id) => {
     const escapeAxolotl = createLizard(scene, x, y, 1, 0, true);
     let axolotlTriggered = false;
