@@ -43,7 +43,7 @@
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 7, 7, 8, 8, 8, 8, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 8, 8, 8, 8, 8, 9, 0, 0, 0, 0,
+            0, 0, 7, 8, 8, 8, 8, 8, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 8, 8, 8, 8, 8, 9, 0, 0, 0, 0,
             0, 0, 17, 18, 18, 18, 18, 18, 19, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 17, 18, 18, 18, 18, 18, 19, 0, 0, 0, 0,
             0, 0, 17, 18, 18, 18, 18, 18, 19, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 17, 18, 18, 18, 18, 18, 19, 0, 0, 0, 0,
             0, 0, 17, 18, 18, 18, 18, 18, 19, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 17, 18, 18, 18, 18, 18, 19, 0, 0, 0, 0,
@@ -71,227 +71,33 @@
          "objects":[
                 {
                  "height":0,
-                 "id":41,
+                 "id":84,
                  "name":"Lizard",
                  "point":true,
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":70.4243,
-                 "y":539.394
+                 "x":334.479958662435,
+                 "y":702.974828375286
                 }, 
                 {
                  "height":0,
-                 "id":42,
-                 "name":"SceneSwitch",
+                 "id":85,
+                 "name":"Text",
                  "point":true,
                  "properties":[
                         {
-                         "name":"Level",
+                         "name":"content",
                          "type":"string",
-                         "value":"Level3"
+                         "value":"Thanks for playing!"
                         }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":138.788,
-                 "y":632.182
-                }, 
-                {
-                 "height":0,
-                 "id":63,
-                 "name":"Light",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"intensity",
-                         "type":"int",
-                         "value":5
-                        }, 
-                        {
-                         "name":"radius",
-                         "type":"int",
-                         "value":600
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":145.333,
-                 "y":694.667
-                }, 
-                {
-                 "height":0,
-                 "id":64,
-                 "name":"Light",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"intensity",
-                         "type":"int",
-                         "value":3
-                        }, 
-                        {
-                         "name":"radius",
-                         "type":"int",
-                         "value":600
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":372,
-                 "y":409.333
-                }, 
-                {
-                 "height":0,
-                 "id":65,
-                 "name":"Door",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"Lever",
-                         "type":"object",
-                         "value":66
-                        }, 
-                        {
-                         "name":"rotation",
-                         "type":"int",
-                         "value":90
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":128,
-                 "y":544
-                }, 
-                {
-                 "height":0,
-                 "id":66,
-                 "name":"Lever",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"rotation",
-                         "type":"object",
-                         "value":180
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":528.667,
-                 "y":45.3333
-                }, 
-                {
-                 "height":0,
-                 "id":76,
-                 "name":"spikePirahna",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"rotation",
-                         "type":"int",
-                         "value":0
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":590.667,
-                 "y":241.333
-                }, 
-                {
-                 "height":0,
-                 "id":78,
-                 "name":"spikePirahna",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"rotation",
-                         "type":"int",
-                         "value":-90
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":321.333,
-                 "y":433.333
-                }, 
-                {
-                 "height":0,
-                 "id":79,
-                 "name":"spikePirahna",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"rotation",
-                         "type":"int",
-                         "value":90
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":537.333,
-                 "y":270.667
-                }, 
-                {
-                 "height":0,
-                 "id":80,
-                 "name":"spikePirahna",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"rotation",
-                         "type":"int",
-                         "value":0
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":277.334,
-                 "y":248
-                }, 
-                {
-                 "height":0,
-                 "id":81,
-                 "name":"Light",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"intensity",
-                         "type":"int",
-                         "value":8
-                        }, 
-                        {
-                         "name":"radius",
-                         "type":"int",
-                         "value":600
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":530.667,
-                 "y":21.3333
-                }, 
-                {
-                 "height":0,
-                 "id":82,
-                 "name":"Urchin",
-                 "point":true,
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":774.667,
-                 "y":444.667
+                 "x":430.855539971949,
+                 "y":178.57828301469
                 }],
          "opacity":1,
          "properties":[
@@ -301,12 +107,12 @@
                  "value":"Level2"
                 }],
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
          "x":0,
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":83,
+ "nextobjectid":86,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

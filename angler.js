@@ -12,6 +12,14 @@ const createAnglerfish = (scene, x, y, lureX, lureY) => {
     let triggered = false;
     const trigger = () => {
         console.log("triggered!");
+        if(scene.registry.bgm.key != "underwaterbattle"){
+            console.log("Background music detected");
+            scene.sound.stopByKey(scene.registry.bgm.key);
+            scene.bgm = scene.sound.add("underwaterbattle");
+            scene.bgm.setLoop(true);
+            scene.bgm.play();
+            scene.registry.bgm = scene.bgm;
+          }
         triggered = true;
         lure.anims.play("Transform");
         scene.emitter.emit("AnglerTriggered");

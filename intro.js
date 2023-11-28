@@ -1,4 +1,5 @@
 const dialouge = (scene, x,y,content) => {
+    scene.sound.add("dialouge").play();
     const text = scene.add.text(x,y,content, {fontFamily: 'Arial', fontSize: '20px', backgroundColor: '#5f2f45 ', padding: {x: 10, y: 10}});
     setTimeout(()=>{
         text.destroy();
@@ -47,6 +48,9 @@ class Intro extends Phaser.Scene {
         this.load.aseprite("jellyHead","assets/sprites/jellyhead.png","assets/sprites/jellyhead.json");
         this.load.audio('Lizard and Juliette',["assets/Music/Lizard and Juliette.ogg","assets/Music/Lizard and Juliette.mp3"]);
         this.load.audio("underwaterdig",["assets/Music/underwaterdig.ogg","assets/Music/underwaterdig.mp3"]);
+        this.load.audio("underwaterbattle",["assets/Music/underwaterbattle.ogg","assets/Music/underwaterbattle.mp3"]);
+        this.load.audio("dialouge",["assets/sfx/dialouge.ogg","assets/sfx/dialouge.mp3"]);
+        this.load.audio("lizardhurt",["assets/sfx/lizardhurt.ogg","assets/sfx/lizardhurt.mp3"]);
     }
     create(){
         this.bgm = this.sound.add("Lizard and Juliette");

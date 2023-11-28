@@ -7,7 +7,15 @@ const provideDamage = (e) => {
     }
 }
 
-const pirahnaAttack = (pirahna) => {
+const pirahnaAttack = (pirahna, scene) => {
+    if(!pirahna.playedAggroSound){
+        scene.sound.play("pirahnaagro");
+    }    
+    
+        pirahna.playedAggroSound = true;
+        setTimeout(()=>{
+            pirahna.playedAggroSound = false
+        }, 500)
         pirahna.anims.play({key:"Attack"});
         pirahna.anims.nextAnim = {key: "Swim", repeat :-1};
         setTimeout(()=>{
@@ -93,6 +101,7 @@ const createPirahna = (scene, x, y, rotation, config = {type:"pirahna"}) => {
     let dead = false;
     pirahna.damage = () => {
         if(damageCooldown >= 20){
+            scene.sound.play("pirahnahurt");
             damageCooldown = 0;
             pirahna.anims.play("Stagger");
             pirahna.anims.nextAnim = "Swim";
@@ -154,7 +163,7 @@ const createPirahna = (scene, x, y, rotation, config = {type:"pirahna"}) => {
                     pirahna.setAngularSpeed(0);
                     switch (config.type) {
                         case "pirahna":
-                            pirahnaAttack(pirahna);
+                            pirahnaAttack(pirahna, scene);
                             console.log("uwu");
                             break;
                         case "spikePirahna":

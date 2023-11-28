@@ -891,12 +891,12 @@
                         {
                          "name":"intensity",
                          "type":"int",
-                         "value":500
+                         "value":3
                         }, 
                         {
                          "name":"radius",
                          "type":"int",
-                         "value":2
+                         "value":600
                         }],
                  "rotation":0,
                  "type":"",
@@ -930,233 +930,233 @@
                 }, 
                 {
                  "height":0,
-                 "id":153,
+                 "id":163,
                  "name":"Light",
                  "point":true,
                  "properties":[
                         {
                          "name":"intensity",
                          "type":"int",
-                         "value":500
+                         "value":3
                         }, 
                         {
                          "name":"radius",
                          "type":"int",
-                         "value":2
+                         "value":600
                         }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":915,
-                 "y":2810
+                 "x":922,
+                 "y":2782
                 }, 
                 {
                  "height":0,
-                 "id":154,
+                 "id":164,
                  "name":"Light",
                  "point":true,
                  "properties":[
                         {
                          "name":"intensity",
                          "type":"int",
-                         "value":500
+                         "value":3
                         }, 
                         {
                          "name":"radius",
                          "type":"int",
-                         "value":2
+                         "value":600
                         }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":120,
-                 "y":2802
+                 "x":114,
+                 "y":2776
                 }, 
                 {
                  "height":0,
-                 "id":155,
+                 "id":165,
                  "name":"Light",
                  "point":true,
                  "properties":[
                         {
                          "name":"intensity",
                          "type":"int",
-                         "value":500
+                         "value":3
                         }, 
                         {
                          "name":"radius",
                          "type":"int",
-                         "value":2
+                         "value":600
                         }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":541,
-                 "y":1517
+                 "x":540,
+                 "y":1488
                 }, 
                 {
                  "height":0,
-                 "id":156,
+                 "id":166,
                  "name":"Light",
                  "point":true,
                  "properties":[
                         {
                          "name":"intensity",
                          "type":"int",
-                         "value":500
+                         "value":3
                         }, 
                         {
                          "name":"radius",
                          "type":"int",
-                         "value":2
+                         "value":600
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":532,
+                 "y":1160
+                }, 
+                {
+                 "height":0,
+                 "id":167,
+                 "name":"Light",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"intensity",
+                         "type":"int",
+                         "value":3
+                        }, 
+                        {
+                         "name":"radius",
+                         "type":"int",
+                         "value":600
                         }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
                  "x":544,
-                 "y":1167
+                 "y":1032
                 }, 
                 {
                  "height":0,
-                 "id":157,
+                 "id":168,
                  "name":"Light",
                  "point":true,
                  "properties":[
                         {
                          "name":"intensity",
                          "type":"int",
-                         "value":500
+                         "value":3
                         }, 
                         {
                          "name":"radius",
                          "type":"int",
-                         "value":2
+                         "value":600
                         }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":546,
-                 "y":1069
+                 "x":540,
+                 "y":732
                 }, 
                 {
                  "height":0,
-                 "id":158,
+                 "id":169,
                  "name":"Light",
                  "point":true,
                  "properties":[
                         {
                          "name":"intensity",
                          "type":"int",
-                         "value":500
+                         "value":3
                         }, 
                         {
                          "name":"radius",
                          "type":"int",
-                         "value":2
+                         "value":600
                         }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":539,
-                 "y":754
+                 "x":540,
+                 "y":618
                 }, 
                 {
                  "height":0,
-                 "id":159,
+                 "id":170,
                  "name":"Light",
                  "point":true,
                  "properties":[
                         {
                          "name":"intensity",
                          "type":"int",
-                         "value":500
+                         "value":3
                         }, 
                         {
                          "name":"radius",
                          "type":"int",
-                         "value":2
+                         "value":600
                         }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":546,
-                 "y":651
+                 "x":550,
+                 "y":264
                 }, 
                 {
                  "height":0,
-                 "id":160,
+                 "id":171,
                  "name":"Light",
                  "point":true,
                  "properties":[
                         {
                          "name":"intensity",
                          "type":"int",
-                         "value":500
+                         "value":3
                         }, 
                         {
                          "name":"radius",
                          "type":"int",
-                         "value":2
+                         "value":600
                         }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":545,
-                 "y":275
+                 "x":340,
+                 "y":54
                 }, 
                 {
                  "height":0,
-                 "id":161,
+                 "id":172,
                  "name":"Light",
                  "point":true,
                  "properties":[
                         {
                          "name":"intensity",
                          "type":"int",
-                         "value":500
+                         "value":3
                         }, 
                         {
                          "name":"radius",
                          "type":"int",
-                         "value":2
+                         "value":600
                         }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":208,
-                 "y":83
-                }, 
-                {
-                 "height":0,
-                 "id":162,
-                 "name":"Light",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"intensity",
-                         "type":"int",
-                         "value":500
-                        }, 
-                        {
-                         "name":"radius",
-                         "type":"int",
-                         "value":2
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":341,
-                 "y":82
+                 "x":210,
+                 "y":60
                 }],
          "opacity":1,
          "properties":[
@@ -1171,7 +1171,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":163,
+ "nextobjectid":173,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

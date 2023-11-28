@@ -63,6 +63,8 @@ function createLizard(scene, x, y, xOrient, yOrient, axolotl = false){
             lizard.die();
         }
     })
+    //load the appropriate sfx into the game
+    lizard.hurtSFX = scene.sound.add("lizardhurt");
     //when the lizard gets an oxygen power-up use lizard.oxygenDepletion.restart() to make the oxygen full again
     lizard.bodyParts = {
         frontLeg: lizard,
@@ -133,19 +135,9 @@ function createLizard(scene, x, y, xOrient, yOrient, axolotl = false){
     }
     }
     lizard.attack = () => {
-        
         if(thrustCooldownTimer > thrustCooldown && !lizard.dead){
-            ray.setAngleDeg(lizardHead.angle);
-            const inFrontOf = ray.cast();
-            const segment = inFrontOf.segment;
-            const object = inFrontOf.object.type;
-            const distance = Phaser.Math.Distance.Between(segment.x1,segment.y1,segment.x2,segment.y2);
-            console.log(object);
-            if(distance > 200 || object != "TilemapLayer"){
-                console.log("lizard attacked");
-                console.log(distance);
                 lizardHead.thrust(attackThrustAmount);
-            } 
+           
             lizardHead.anims.play("Attack");
             lizardHead.anims.nextAnim = "Nuetral";
             thrustCooldownTimer = 0;
@@ -204,6 +196,7 @@ function createLizard(scene, x, y, xOrient, yOrient, axolotl = false){
     lizard.damage = (amount) => {
         console.log(`Lizard go OuchieWawa x${amount}`);
         if(damageCooldown < 1){
+            lizard.hurtSFX.play();
             lizardHead.anims.play({key: "Damage", repeat: 2});
             lizardHead.anims.nextAnim = "Nuetral";
             damageCooldown = 60;
@@ -282,6 +275,7 @@ function createLizard(scene, x, y, xOrient, yOrient, axolotl = false){
         ray.setAngleDeg(lizardHeadAngle);
         ray.setOrigin(lizardHead.x,lizardHead.y);
         const findings = ray.castCone();
+        //const findings = [];
         //calculate the nearest enemy
         let closestDistance = 0;
         let closestObject;

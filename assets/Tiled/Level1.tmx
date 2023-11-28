@@ -574,7 +574,7 @@
   </object>
   <object id="42" name="SceneSwitch" x="18.7879" y="531.515">
    <properties>
-    <property name="Level" value="Level2"/>
+    <property name="Level" value="preLevel2"/>
    </properties>
    <point/>
   </object>

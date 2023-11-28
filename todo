@@ -1,15 +1,10 @@
 TO FINISH THE GAME:
 - Ending screen
-- Title logo during title drop scene
-- Connecting levels for those early levels where you don't exit the previous level the same direction you enter the next level
+- SOUND EFFECTS
+- Fix the loader to be less redundant
+- DO SOMETHING ABOUT CLIPPING
 Improvements:
+Find out why Chase level runs so slow
 fix the oxygen resetting to 0 then not replenishing glitch (maybe change it to a repeating tween that subtracts 1 from the amount instead of a big tween that resets it to 0)
 telegraph that you can't attack the jellyfish (maybe a little sign with a circle and a cross going through a picture of the lizard bashing the jelly)
 add collision squares to places where we've seen the clipping occur
-Enemy ideas:
--(done) Pirahna that spins around and attacks you when you are in it's direct line of sight
--(done)Spiky urchin that is stationary but damages you if you touch it (more of an obstacle than an enemy)
--(done)Pirahna that is spiky and shoots a spike at you when you are in it's line of sight
--Jellyfish (tops are harmless, spines on the bottom will hurt you)
--Final boss is an anglerfish
--Anglerfish boss triggers escape sequence from kraken

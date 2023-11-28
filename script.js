@@ -5,7 +5,7 @@ class Example extends Phaser.Scene {
   init(data) {
     this.map = data.map;
     if (!this.map) {
-      this.map = "TitleDrop";
+      this.map = "Tutorial";
     }
   }
   preload() {
@@ -27,7 +27,9 @@ class Example extends Phaser.Scene {
     this.load.tilemapTiledJSON("TitleDrop", "assets/maps/TitleDrop.tmj");
     this.load.tilemapTiledJSON("Tutorial", "assets/maps/Tutorial.tmj");
     this.load.tilemapTiledJSON("Level1", "assets/maps/Level1.tmj");
+    this.load.tilemapTiledJSON("preLevel2", "assets/maps/preLevel2.tmj");
     this.load.tilemapTiledJSON("Level2", "assets/maps/Level2.tmj");
+    this.load.tilemapTiledJSON("preLevel3", "assets/maps/preLevel3.tmj");
     this.load.tilemapTiledJSON("Level3", "assets/maps/Level3.tmj");
     this.load.tilemapTiledJSON("Level4", "assets/maps/Level4.tmj");
     this.load.tilemapTiledJSON("Level5", "assets/maps/Level5.tmj");
@@ -116,9 +118,18 @@ class Example extends Phaser.Scene {
       "assets/sprites/anglerLure.png",
       "assets/sprites/anglerLure.json"
     );
+    this.load.audio("underwaterbattle",["assets/Music/underwaterbattle.ogg","assets/Music/underwaterbattle.mp3"]);
+    this.load.audio("lizardhurt",["assets/sfx/lizardhurt.ogg","assets/sfx/lizardhurt.mp3"]);
+    this.load.audio("pirahnahurt",["assets/sfx/pirahnahurt.ogg","assets/sfx/pirahnahurt.mp3"]);
+    this.load.audio("pirahnaagro",["assets/sfx/pirahnaagro.ogg","assets/sfx/pirahnaagro.mp3"]);
   }
 
   create() {
+    if(!this.registry.bgm){
+      this.registry.bgm = {key:
+      "nothing"
+      }
+    }
     let bg = this.add
       .image(620, 400, "Background")
       .setScrollFactor(0.01, 0.01)
@@ -162,11 +173,16 @@ class Example extends Phaser.Scene {
       .setCollisionByProperty({ collides: true })
       .setPipeline("Light2D");
     this.lights.setAmbientColor(0x070918);
+    let collisionTiles = [];
+    for(let i = 1; i <= 70; i++){
+      collisionTiles.push(i);
+    }
+    console.log(collisionTiles);
     this.raycaster.mapGameObjects(groundLayer, false, {
-      collisionTiles: [...Array(64).keys()],
+      collisionTiles: collisionTiles,
     });
     this.heroRaycaster.mapGameObjects(groundLayer, false, {
-      collisionTiles: [...Array(64).keys()],
+      collisionTiles: collisionTiles,
     });
     this.matter.world.convertTilemapLayer(groundLayer);
 

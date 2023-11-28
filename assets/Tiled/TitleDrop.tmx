@@ -858,7 +858,7 @@
   <object id="85" name="Light" x="792.243" y="-12.4849">
    <properties>
     <property name="intensity" type="int" value="6"/>
-    <property name="radius" type="int" value="10000"/>
+    <property name="radius" type="int" value="1000000"/>
    </properties>
    <point/>
   </object>
