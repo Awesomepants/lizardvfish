@@ -25,6 +25,7 @@ const pirahnaAttack = (pirahna, scene) => {
         
 }
 const fireSpike = (scene, x, y, direction, force) => {
+    
     let spikeDangerous = true;
     const spike = scene.matter.add.sprite(x, y, "spike", 0, {isSensor: true, onCollideEndCallback: ()=>{
         if(spikeDangerous){
@@ -53,6 +54,7 @@ const spikePirahnaAttack = (scene, pirahna) => {
     pirahna.spikeCooldown--;
     if(pirahna.spikeCooldown < 1){
         pirahna.spikeCooldown = 10;
+        scene.sound.play("spike");
         fireSpike(scene, pirahna.x, pirahna.y, pirahna.angle, 0.02)
     //The pirahna flips when it collides, I did this so it would bounce off walls and keep moving, but it also does it when it detects the collision with the spike! (Which is a sensor), the quick and dirty solution to this is to simply rotate the pirahna back to how they were before
     //pirahna.setAngle(pirahna.angle + 180);
@@ -61,6 +63,7 @@ const spikePirahnaAttack = (scene, pirahna) => {
 }
 const multiPirahnaAttack = (scene, pirahna) => {
     const firingForce = 0.01;
+    scene.sound.play("spike");
     for(i=0;i<9;i++){
         fireSpike(scene, pirahna.x, pirahna.y, pirahna.angle + (i*45),firingForce);
     }

@@ -122,6 +122,11 @@ class Example extends Phaser.Scene {
     this.load.audio("lizardhurt",["assets/sfx/lizardhurt.ogg","assets/sfx/lizardhurt.mp3"]);
     this.load.audio("pirahnahurt",["assets/sfx/pirahnahurt.ogg","assets/sfx/pirahnahurt.mp3"]);
     this.load.audio("pirahnaagro",["assets/sfx/pirahnaagro.ogg","assets/sfx/pirahnaagro.mp3"]);
+    this.load.audio("ambience",["assets/sfx/ambience.ogg","assets/sfx/ambience.mp3"]);
+    this.load.audio("attack",["assets/sfx/attack.ogg","assets/sfx/attack.mp3"]);
+    this.load.audio("pickupbubble",["assets/sfx/pickupbubble.ogg","assets/sfx/pickupbubble.mp3"]);
+    this.load.audio("spike",["assets/sfx/spike.ogg","assets/sfx/spike.mp3"]);
+    this.load.audio("switch",["assets/sfx/switch.ogg","assets/sfx/switch.mp3"]);
   }
 
   create() {

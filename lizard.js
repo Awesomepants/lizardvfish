@@ -136,6 +136,7 @@ function createLizard(scene, x, y, xOrient, yOrient, axolotl = false){
     }
     lizard.attack = () => {
         if(thrustCooldownTimer > thrustCooldown && !lizard.dead){
+            scene.sound.play("attack");
                 lizardHead.thrust(attackThrustAmount);
            
             lizardHead.anims.play("Attack");

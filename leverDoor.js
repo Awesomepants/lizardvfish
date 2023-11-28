@@ -30,6 +30,7 @@ const createDoor = (scene, x, y, lever, type="lever") => {
     const openDoor = () => {
         //the if block is just to make sure we don't play this animation again if the door is already open
         if(!door.body.isSensor){
+            scene.sound.play("switch");
            door.anims.play("Open");
             door.body.isSensor = true; 
         }
@@ -57,6 +58,7 @@ const createBubble = (scene,x,y) => {
     const bubble = scene.matter.add.sprite(x,y,"bubble",0,{isSensor: true, isStatic: true, onCollideCallback:gibvoxygen});
     function gibvoxygen(e){
         if(isLizardBodyPart(e.bodyA) || isLizardBodyPart(e.bodyB)){
+            scene.sound.play("pickupbubble");
             scene.lizardHead.oxygen = 100;
             scene.lizardHead.health++;
             scene.lizardHead.oxygenDepletion.restart();

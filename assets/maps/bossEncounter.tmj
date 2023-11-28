@@ -255,6 +255,24 @@
                  "width":0,
                  "x":1900,
                  "y":1206
+                }, 
+                {
+                 "height":0,
+                 "id":125,
+                 "name":"bgm",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"key",
+                         "type":"string",
+                         "value":"ambience"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":100,
+                 "y":730
                 }],
          "opacity":1,
          "properties":[
@@ -269,7 +287,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":125,
+ "nextobjectid":126,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

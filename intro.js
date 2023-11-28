@@ -243,7 +243,19 @@ class Intro extends Phaser.Scene {
             if(!playing){
                 this.bgm.play();
                 playing = true;
-                startingText.destroy();
+                startingText.setText("Click or tap again to skip");
+                this.input.on("pointerdown",()=>{
+                    this.scene.start("levelGenerator",{map:"TitleDrop"});
+                })
+                console.log(startingText)
+                this.tweens.add({
+                    targets: startingText,
+                    alpha: 0,
+                    duration: 2000,
+                    onComplete:()=>{
+                        console.log("text is faded");
+                    }
+                })
                 timeline.play();
             }
         }
