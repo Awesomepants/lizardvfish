@@ -5,6 +5,135 @@ const dialouge = (scene, x,y,content) => {
         text.destroy();
     }, 2000);
 }
+const loadAssets = (scene)=>{
+    scene.load.image('Sunset','assets/StaticImages/sunset.png');
+    scene.load.tilemapTiledJSON("IntroCutscene", "assets/maps/IntroCutscene.tmj");
+    scene.load.tilemapTiledJSON("TitleDrop", "assets/maps/TitleDrop.tmj");
+    scene.load.tilemapTiledJSON("Tutorial", "assets/maps/Tutorial.tmj");
+    scene.load.tilemapTiledJSON("Level1", "assets/maps/Level1.tmj");
+    scene.load.tilemapTiledJSON("preLevel2", "assets/maps/preLevel2.tmj");
+    scene.load.tilemapTiledJSON("Level2", "assets/maps/Level2.tmj");
+    scene.load.tilemapTiledJSON("preLevel3", "assets/maps/preLevel3.tmj");
+    scene.load.tilemapTiledJSON("Level3", "assets/maps/Level3.tmj");
+    scene.load.tilemapTiledJSON("Level4", "assets/maps/Level4.tmj");
+    scene.load.tilemapTiledJSON("Level5", "assets/maps/Level5.tmj");
+    scene.load.tilemapTiledJSON("Level6", "assets/maps/Level6.tmj");
+    scene.load.tilemapTiledJSON("Level7", "assets/maps/Level7.tmj");
+    scene.load.tilemapTiledJSON("Level8", "assets/maps/Level8.tmj");
+    scene.load.tilemapTiledJSON("Level9", "assets/maps/Level9.tmj");
+    scene.load.tilemapTiledJSON("Chase", "assets/maps/Chase.tmj");
+    scene.load.tilemapTiledJSON("Chase2","assets/maps/Chase2.tmj");
+    scene.load.tilemapTiledJSON(
+      "bossEncounter",
+      "assets/maps/bossEncounter.tmj"
+    );
+    scene.load.plugin(
+        "rexvirtualjoystickplugin",
+        "rexVirtualJoystick.min.js",
+        true
+      );
+      scene.load.aseprite('emotes', "assets/sprites/emotes.png","assets/sprites/emotes.json");
+      scene.load.aseprite(
+        "bodySegment",
+        "assets/sprites/bodysegment.png",
+        "assets/sprites/bodysegment.json"
+      );
+      scene.load.aseprite(
+        "axolotlBodySegment",
+        "assets/sprites/axolotlbodysegment.png",
+        "assets/sprites/axolotlbodysegment.json"
+      );
+  
+      scene.load.image("gameLogo", "assets/StaticImages/gameLogo.png")
+      scene.load.image("AquaTile", "assets/StaticImages/tilesheet.png");
+      scene.load.aseprite(
+        "head",
+        "assets/sprites/head.png",
+        "assets/sprites/head.json"
+      );
+      scene.load.aseprite(
+        "axolotlHead",
+        "assets/sprites/axolotlhead.png",
+        "assets/sprites/axolotlhead.json"
+      );
+      scene.load.aseprite(
+        "legs",
+        "assets/sprites/legs.png",
+        "assets/sprites/legs.json"
+      );
+      scene.load.aseprite(
+        "axolotlLegs",
+        "assets/sprites/axolotllegs.png",
+        "assets/sprites/axolotllegs.json"
+      );
+      scene.load.aseprite(
+        "pirahna",
+        "assets/sprites/Pirahna.png",
+        "assets/sprites/Pirahna.json"
+      );
+      scene.load.aseprite(
+        "spikePirahna",
+        "assets/sprites/spikePirahna.png",
+        "assets/sprites/spikePirahna.json"
+      );
+      scene.load.aseprite(
+        "multiPirahna",
+        "assets/sprites/multiPirahna.png",
+        "assets/sprites/multiPirahna.json"
+      );
+      scene.load.image("Background", "assets/waterBG.png");
+      scene.load.image("spike", "assets/sprites/spike.png");
+      scene.load.aseprite(
+        "urchin",
+        "assets/sprites/urchin.png",
+        "assets/sprites/urchin.json"
+      );
+      scene.load.aseprite(
+        "lever",
+        "assets/sprites/lever.png",
+        "assets/sprites/lever.json"
+      );
+      scene.load.aseprite(
+        "door",
+        "assets/sprites/door.png",
+        "assets/sprites/door.json"
+      );
+      scene.load.image("bubble", "assets/StaticImages/o2bubble.png");
+      scene.load.aseprite(
+        "enemyDoor",
+        "assets/sprites/enemydoor.png",
+        "assets/sprites/enemydoor.json"
+      );
+      scene.load.aseprite(
+        "jellyHead",
+        "assets/sprites/jellyhead.png",
+        "assets/sprites/jellyhead.json"
+      );
+      scene.load.aseprite(
+        "anglerFish",
+        "assets/sprites/anglerfish.png",
+        "assets/sprites/anglerfish.json"
+      );
+      scene.load.aseprite(
+        "anglerLure",
+        "assets/sprites/anglerLure.png",
+        "assets/sprites/anglerLure.json"
+      );
+      scene.load.audio("underwaterbattle",["assets/Music/underwaterbattle.ogg","assets/Music/underwaterbattle.mp3"]);
+      scene.load.audio("underwaterdig",["assets/Music/underwaterdig.ogg","assets/Music/underwaterdig.mp3"])
+      scene.load.audio("lizardhurt",["assets/sfx/lizardhurt.ogg","assets/sfx/lizardhurt.mp3"]);
+      scene.load.audio("pirahnahurt",["assets/sfx/pirahnahurt.ogg","assets/sfx/pirahnahurt.mp3"]);
+      scene.load.audio("pirahnaagro",["assets/sfx/pirahnaagro.ogg","assets/sfx/pirahnaagro.mp3"]);
+      scene.load.audio("ambience",["assets/sfx/ambience.ogg","assets/sfx/ambience.mp3"]);
+      scene.load.audio("attack",["assets/sfx/attack.ogg","assets/sfx/attack.mp3"]);
+      scene.load.audio("dialouge",["assets/sfx/dialouge.ogg","assets/sfx/dialouge.mp3"])
+      scene.load.audio("pickupbubble",["assets/sfx/pickupbubble.ogg","assets/sfx/pickupbubble.mp3"]);
+      scene.load.audio("spike",["assets/sfx/spike.ogg","assets/sfx/spike.mp3"]);
+      scene.load.audio("switch",["assets/sfx/switch.ogg","assets/sfx/switch.mp3"]);
+      scene.load.audio('Lizard and Juliette',["assets/Music/Lizard and Juliette.ogg","assets/Music/Lizard and Juliette.mp3"]);
+        
+
+}
 class Intro extends Phaser.Scene {
     constructor(){
         super('intro')
@@ -18,39 +147,8 @@ class Intro extends Phaser.Scene {
         })
         this.add.text(100,200,"Loading the game...",{fontSize: 60});
         console.log("preloading");
-        this.load.aseprite('bodySegment','assets/sprites/bodysegment.png','assets/sprites/bodysegment.json');
-        this.load.aseprite('axolotlBodySegment','assets/sprites/axolotlbodysegment.png','assets/sprites/axolotlbodysegment.json');
-        this.load.tilemapTiledJSON("IntroCutscene","assets/maps/IntroCutscene.tmj");
-        this.load.tilemapTiledJSON("Tutorial","assets/maps/Tutorial.tmj");
-        this.load.tilemapTiledJSON("Level1","assets/maps/Level1.tmj");
-        this.load.tilemapTiledJSON("Level2","assets/maps/Level2.tmj");
-        this.load.tilemapTiledJSON("Level3","assets/maps/Level3.tmj");
-        this.load.tilemapTiledJSON("Level4","assets/maps/Level4.tmj");
-        this.load.tilemapTiledJSON("Level5","assets/maps/Level5.tmj");
-        this.load.tilemapTiledJSON("Level6","assets/maps/Level6.tmj");
-        this.load.image("AquaTile","assets/StaticImages/tilesheet.png");
-        this.load.aseprite('head','assets/sprites/head.png','assets/sprites/head.json');
-        this.load.aseprite('axolotlHead','assets/sprites/axolotlhead.png','assets/sprites/axolotlhead.json');
-        this.load.aseprite('legs','assets/sprites/legs.png','assets/sprites/legs.json');
-        this.load.aseprite('axolotlLegs','assets/sprites/axolotllegs.png','assets/sprites/axolotllegs.json');
-        this.load.aseprite('pirahna','assets/sprites/Pirahna.png','assets/sprites/Pirahna.json');
-        this.load.aseprite('spikePirahna','assets/sprites/spikePirahna.png','assets/sprites/spikePirahna.json');
-        this.load.aseprite('multiPirahna','assets/sprites/multiPirahna.png','assets/sprites/multiPirahna.json');
-        this.load.image('Background','assets/waterBG.png');
-        this.load.image('Sunset','assets/StaticImages/sunset.png');
-        this.load.image("spike","assets/sprites/spike.png");
-        this.load.aseprite('urchin',"assets/sprites/urchin.png","assets/sprites/urchin.json");
-        this.load.aseprite('lever',"assets/sprites/lever.png","assets/sprites/lever.json");
-        this.load.aseprite('door',"assets/sprites/door.png","assets/sprites/door.json");
-        this.load.image("bubble","assets/StaticImages/o2bubble.png");
-        this.load.aseprite("enemyDoor","assets/sprites/enemydoor.png","assets/sprites/enemydoor.json");
-        this.load.aseprite("emotes","assets/sprites/emotes.png","assets/sprites/emotes.json");
-        this.load.aseprite("jellyHead","assets/sprites/jellyhead.png","assets/sprites/jellyhead.json");
-        this.load.audio('Lizard and Juliette',["assets/Music/Lizard and Juliette.ogg","assets/Music/Lizard and Juliette.mp3"]);
-        this.load.audio("underwaterdig",["assets/Music/underwaterdig.ogg","assets/Music/underwaterdig.mp3"]);
-        this.load.audio("underwaterbattle",["assets/Music/underwaterbattle.ogg","assets/Music/underwaterbattle.mp3"]);
-        this.load.audio("dialouge",["assets/sfx/dialouge.ogg","assets/sfx/dialouge.mp3"]);
-        this.load.audio("lizardhurt",["assets/sfx/lizardhurt.ogg","assets/sfx/lizardhurt.mp3"]);
+       loadAssets(this);
+            
     }
     create(){
         this.bgm = this.sound.add("Lizard and Juliette");
@@ -245,7 +343,7 @@ class Intro extends Phaser.Scene {
                 playing = true;
                 startingText.setText("Click or tap again to skip");
                 this.input.on("pointerdown",()=>{
-                    this.scene.start("levelGenerator",{map:"TitleDrop"});
+                    this.scene.start("levelGenerator",{map:"Tutorial"});
                 })
                 console.log(startingText)
                 this.tweens.add({

@@ -19,7 +19,11 @@ const pirahnaAttack = (pirahna, scene) => {
         pirahna.anims.play({key:"Attack"});
         pirahna.anims.nextAnim = {key: "Swim", repeat :-1};
         setTimeout(()=>{
-            pirahna.thrust(0.05);
+            //the if condition here basically stops this from confusing phaser if the timeout event fires when the scene has already switched to a scene not containing this pirahna
+            if(pirahna.body){
+                pirahna.thrust(0.05);
+            }
+            
         }, 300)
         
         
