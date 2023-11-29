@@ -344,7 +344,7 @@ class Intro extends Phaser.Scene {
                 startingText.setText("Click or tap again to skip");
                 setTimeout(()=>{
                   this.input.on("pointerdown",()=>{
-                    this.scene.start("levelGenerator",{map:"Tutorial"});
+                    this.scene.start("levelGenerator",{map:"bossEncounter"});
                 })  
                 },2000)
                 

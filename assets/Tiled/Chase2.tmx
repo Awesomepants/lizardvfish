@@ -989,7 +989,7 @@
   <object id="177" name="chaseAngler" x="266.667" y="5075.76">
    <point/>
   </object>
-  <object id="178" name="SceneSwitch" x="239.394" y="45.4545">
+  <object id="178" name="SceneSwitch" x="242.061" y="22.7878">
    <properties>
     <property name="Level" value="IntroCutscene"/>
    </properties>

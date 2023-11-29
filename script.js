@@ -74,7 +74,7 @@ class Example extends Phaser.Scene {
     });
     this.matter.world.convertTilemapLayer(groundLayer);
 
-    const lizardCoords = { x: 0, y: 0, xOrient: 1, yOrient: 1 };
+    const lizardCoords = { x: 0, y: 0, xOrient: 1, yOrient: 0 };
     map.objects[0].objects.forEach((object) => {
       //extrapolate the weird array of properties on this object and convert it to more accessible properties on the object itself
       if (object.properties) {
@@ -86,6 +86,12 @@ class Example extends Phaser.Scene {
       switch (object.name) {
         case "Lizard":
           (lizardCoords.x = object.x), (lizardCoords.y = object.y);
+          if(object.xOrient){
+            lizardCoords.xOrient = object.xOrient;
+          }
+          if(object.yOrient){
+            lizardCoords.yOrient = object.yOrient;
+          }
           break;
         case "Pirahna":
           const pirahna = createPirahna(

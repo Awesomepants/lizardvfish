@@ -680,30 +680,6 @@
                 }, 
                 {
                  "height":0,
-                 "id":123,
-                 "name":"multiPirahna",
-                 "point":true,
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":558,
-                 "y":248
-                }, 
-                {
-                 "height":0,
-                 "id":124,
-                 "name":"multiPirahna",
-                 "point":true,
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":550,
-                 "y":1132
-                }, 
-                {
-                 "height":0,
                  "id":125,
                  "name":"Urchin",
                  "point":true,
@@ -802,8 +778,7 @@
                  "width":0,
                  "x":827,
                  "y":1702
-                },
-            
+                }, 
                 {
                  "height":0,
                  "id":145,
@@ -827,7 +802,8 @@
                  "width":0,
                  "x":589,
                  "y":1357
-                }, 
+                },
+            
                 {
                  "height":0,
                  "id":147,
@@ -1063,8 +1039,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":540,
-                 "y":732
+                 "x":548,
+                 "y":792
                 }, 
                 {
                  "height":0,
@@ -1166,7 +1142,7 @@
                  "value":"Level2"
                 }],
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
          "x":0,
          "y":0
         }],

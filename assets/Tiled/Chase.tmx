@@ -848,7 +848,7 @@
 14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14
 </data>
  </layer>
- <objectgroup id="2" name="ObjectLayer" visible="0">
+ <objectgroup id="2" name="ObjectLayer">
   <properties>
    <property name="Level" value="Level2"/>
   </properties>
@@ -941,12 +941,6 @@
    <properties>
     <property name="rotation" type="int" value="180"/>
    </properties>
-   <point/>
-  </object>
-  <object id="123" name="multiPirahna" x="558" y="248">
-   <point/>
-  </object>
-  <object id="124" name="multiPirahna" x="550" y="1132">
    <point/>
   </object>
   <object id="125" name="Urchin" x="214" y="1124">
@@ -1047,7 +1041,7 @@
    </properties>
    <point/>
   </object>
-  <object id="168" name="Light" x="540" y="732">
+  <object id="168" name="Light" x="548" y="792">
    <properties>
     <property name="intensity" type="int" value="3"/>
     <property name="radius" type="int" value="600"/>

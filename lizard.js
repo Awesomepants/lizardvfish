@@ -141,7 +141,7 @@ function createLizard(scene, x, y, xOrient, yOrient, axolotl = false){
             const distanceToWall = Phaser.Math.Distance.Between(peepeepoopoo.x, peepeepoopoo.y, lizardHead.x, lizardHead.y);
             console.log(distanceToWall);
             console.log(peepeepoopoo.object);
-            if(distanceToWall < 40 && (peepeepoopoo.object.type === "TilemapLayer" || (peepeepoopoo.body && peepeepoopoo.body.label === "Rectangle Body"))){
+            if(distanceToWall < 60 && (peepeepoopoo.object.type === "TilemapLayer" || (peepeepoopoo.object.body && peepeepoopoo.object.body.label === "Rectangle Body"))){
                 console.log("an appropriate time to not boost");
                 boostingAppropriate = false;
             }
