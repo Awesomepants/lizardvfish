@@ -287,8 +287,8 @@ function createLizard(scene, x, y, xOrient, yOrient, axolotl = false){
      //Detect enemies in line of sight
         ray.setAngleDeg(lizardHeadAngle);
         ray.setOrigin(lizardHead.x,lizardHead.y);
-        //const findings = ray.castCone();
-        const findings = [];
+        const findings = ray.castCone();
+        //const findings = [];
         //calculate the nearest enemy
         let closestDistance = 0;
         let closestObject;

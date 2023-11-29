@@ -61,9 +61,9 @@ const createBubble = (scene,x,y) => {
     function gibvoxygen(e){
         if(isLizardBodyPart(e.bodyA) || isLizardBodyPart(e.bodyB)){
             scene.sound.play("pickupbubble");
-            scene.lizardHead.oxygen = 100;
             scene.lizardHead.health++;
             scene.lizardHead.oxygenDepletion.restart();
+            scene.lizardHead.oxygen = 100;
             bubble.destroy();
         }
     }
