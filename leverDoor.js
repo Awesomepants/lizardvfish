@@ -15,6 +15,7 @@ const createLever = (scene, x, y, TiledId, rotation) => {
 }}
 const createDoor = (scene, x, y, lever, type="lever") => {
     const door = scene.matter.add.sprite(x,y,"door",0,{isSensor: false, isStatic: true});
+    scene.heroRaycaster.mapGameObjects(door, false);
     switch(type){
         case "lever":
             door.anims.createFromAseprite("door");  
@@ -30,6 +31,7 @@ const createDoor = (scene, x, y, lever, type="lever") => {
     const openDoor = () => {
         //the if block is just to make sure we don't play this animation again if the door is already open
         if(!door.body.isSensor){
+            scene.heroRaycaster.removeMappedObjects(door);
             scene.sound.play("switch");
            door.anims.play("Open");
             door.body.isSensor = true; 

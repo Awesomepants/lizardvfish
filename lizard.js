@@ -136,8 +136,20 @@ function createLizard(scene, x, y, xOrient, yOrient, axolotl = false){
     }
     lizard.attack = () => {
         if(thrustCooldownTimer > thrustCooldown && !lizard.dead){
+            const peepeepoopoo = ray.cast();
+            let boostingAppropriate = true;
+            const distanceToWall = Phaser.Math.Distance.Between(peepeepoopoo.x, peepeepoopoo.y, lizardHead.x, lizardHead.y);
+            console.log(distanceToWall);
+            console.log(peepeepoopoo.object);
+            if(distanceToWall < 40 && (peepeepoopoo.object.type === "TilemapLayer" || (peepeepoopoo.body && peepeepoopoo.body.label === "Rectangle Body"))){
+                console.log("an appropriate time to not boost");
+                boostingAppropriate = false;
+            }
             scene.sound.play("attack");
-                lizardHead.thrust(attackThrustAmount);
+                if(boostingAppropriate){
+                    lizardHead.thrust(attackThrustAmount);
+                }
+                
            
             lizardHead.anims.play("Attack");
             lizardHead.anims.nextAnim = "Nuetral";
@@ -275,8 +287,8 @@ function createLizard(scene, x, y, xOrient, yOrient, axolotl = false){
      //Detect enemies in line of sight
         ray.setAngleDeg(lizardHeadAngle);
         ray.setOrigin(lizardHead.x,lizardHead.y);
-        const findings = ray.castCone();
-        //const findings = [];
+        //const findings = ray.castCone();
+        const findings = [];
         //calculate the nearest enemy
         let closestDistance = 0;
         let closestObject;
