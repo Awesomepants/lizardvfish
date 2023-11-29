@@ -138,8 +138,13 @@ class Intro extends Phaser.Scene {
     constructor(){
         super('intro')
     }
-    init(){
+    init(data){
         console.log("Initializing");
+        if(!data.outro){
+            this.outro = false;
+        } else {
+            this.outro = true;
+        }
     }
     preload(){
         document.getElementById('fullScreenButton').addEventListener('click',()=>{
@@ -147,7 +152,10 @@ class Intro extends Phaser.Scene {
         })
         this.add.text(100,200,"Loading the game...",{fontSize: 60});
         console.log("preloading");
-       loadAssets(this);
+        if(!this.outro){
+            loadAssets(this);
+        }
+       
             
     }
     create(){
@@ -166,8 +174,12 @@ class Intro extends Phaser.Scene {
         this.matter.world.convertTilemapLayer(groundLayer);
         //We won't use the raycaster at all in this cutscene but the lizard prefabs are expecting it to be here so it's easier to just add it
         this.heroRaycaster = this.raycasterPlugin.createRaycaster({debug:false});
-        this.LizardActor = createLizard(this, 120,270,1,0);
-        this.AxolotlActor = createLizard(this, 780,270,-1,0,true);
+        let lizardsY = 270;
+        if(this.outro){
+            lizardsY = 0;
+        }
+        this.LizardActor = createLizard(this, 120,lizardsY,1,0);
+        this.AxolotlActor = createLizard(this, 780,lizardsY,-1,0,true);
         
         
         //no suffocating in this cutscene lol
@@ -335,7 +347,13 @@ class Intro extends Phaser.Scene {
         }
     ])  
         let playing = false;
-        const startingText = this.add.text(300,400,"Click or tap to start!", {fontFamily: 'Arial', fontSize: '20px', backgroundColor: '#5f2f45 ', padding: {x: 10, y: 10}});
+        let startingText;
+        if(!this.outro){
+           startingText = this.add.text(300,400,"Click or tap to start!", {fontFamily: 'Arial', fontSize: '20px', backgroundColor: '#5f2f45 ', padding: {x: 10, y: 10}});
+         
+        } else {
+            this.add.text(300,400,"CONGRATULATIONS!",{fontFamily:'Arial', fontSize: '40px', backgroundColor: '#5f2f45 '})
+        }
         const StartScene = () => {
             this.scale.startFullscreen();
             if(!playing){
@@ -360,10 +378,13 @@ class Intro extends Phaser.Scene {
                 timeline.play();
             }
         }
-        this.input.on("pointerdown",()=>{
+        if(!this.outro){
+            this.input.on("pointerdown",()=>{
             StartScene();
         })
     }
+        }
+        
     update(){
         if(this.LizardActor.movingRight){
             this.LizardActor.moveLizard(0.5,0)

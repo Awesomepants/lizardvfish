@@ -1,6 +1,7 @@
 TO FINISH THE GAME:
 - Ending screen
 Improvements:
+Pirahna deaths more interesting/satisfying (add an animation?)
 End of game records your time
 fix the oxygen resetting to 0 then not replenishing glitch (maybe change it to a repeating tween that subtracts 1 from the amount instead of a big tween that resets it to 0)
 telegraph that you can't attack the jellyfish (maybe a little sign with a circle and a cross going through a picture of the lizard bashing the jelly)

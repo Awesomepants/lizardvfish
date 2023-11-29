@@ -238,6 +238,17 @@ class Example extends Phaser.Scene {
               image.setScale(object.scale);
             }
             break;
+          case "endTrigger":
+            this.matter.add.rectangle(object.x, object.y, 40, 40, {
+              isStatic: true,
+              isSensor: true,
+              onCollideCallback: (e) => {
+                if (isLizardBodyPart(e.bodyA) || isLizardBodyPart(e.bodyB)) {
+                  this.scene.start("intro",{outro: true});
+                }
+              },
+            });
+            break;
       }
     });
     //We tried making the lizard a custom class that extended Matter.Sprite, but we got all kinds of errors for some reason so instead we made a function that creates the lizard and returns it (no issue with this)
