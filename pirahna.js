@@ -122,6 +122,7 @@ const createPirahna = (scene, x, y, rotation, config = {type:"pirahna"}) => {
     }
     pirahna.die = () => {
         pirahna.light.setColor(0xFF0000).setIntensity(20).setRadius(10000);
+        scene.sound.play("pirahnadeath");
         scene.tweens.add({
             targets: pirahna.light,
             intensity: 0,

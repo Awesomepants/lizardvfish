@@ -129,6 +129,7 @@ const loadAssets = (scene)=>{
       scene.load.audio("dialouge",["assets/sfx/dialouge.ogg","assets/sfx/dialouge.mp3"])
       scene.load.audio("pickupbubble",["assets/sfx/pickupbubble.ogg","assets/sfx/pickupbubble.mp3"]);
       scene.load.audio("spike",["assets/sfx/spike.ogg","assets/sfx/spike.mp3"]);
+      scene.load.audio("pirahnadeath",["assets/sfx/pirahnadeath.ogg","assets/sfx/pirahnadeath.mp3"])
       scene.load.audio("switch",["assets/sfx/switch.ogg","assets/sfx/switch.mp3"]);
       scene.load.audio('Lizard and Juliette',["assets/Music/Lizard and Juliette.ogg","assets/Music/Lizard and Juliette.mp3"]);
         
