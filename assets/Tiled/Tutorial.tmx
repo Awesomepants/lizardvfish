@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="80" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="87">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="80" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="89">
  <editorsettings>
   <export target="../maps/Tutorial.tmj" format="json"/>
  </editorsettings>
@@ -562,7 +562,7 @@
 14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14
 </data>
  </layer>
- <objectgroup id="2" name="ObjectLayer" visible="0">
+ <objectgroup id="2" name="ObjectLayer">
   <properties>
    <property name="Level" value="Level2"/>
   </properties>
@@ -668,6 +668,9 @@
     <property name="intensity" type="int" value="5"/>
     <property name="radius" type="int" value="1000"/>
    </properties>
+   <point/>
+  </object>
+  <object id="87" name="startTimer" x="30" y="44">
    <point/>
   </object>
  </objectgroup>

@@ -368,6 +368,17 @@
                  "width":0,
                  "x":1920,
                  "y":192
+                }, 
+                {
+                 "height":333.333333333333,
+                 "id":109,
+                 "name":"CollisionSquare",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":104,
+                 "x":1709.33333333333,
+                 "y":269.333333333333
                 }],
          "opacity":1,
          "properties":[
@@ -382,7 +393,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":109,
+ "nextobjectid":110,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

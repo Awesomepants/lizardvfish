@@ -352,7 +352,7 @@ class Intro extends Phaser.Scene {
            startingText = this.add.text(300,400,"Click or tap to start!", {fontFamily: 'Arial', fontSize: '20px', backgroundColor: '#5f2f45 ', padding: {x: 10, y: 10}});
          
         } else {
-            this.add.text(300,400,"CONGRATULATIONS!",{fontFamily:'Arial', fontSize: '40px', backgroundColor: '#5f2f45 '})
+            this.add.text(250,300,["CONGRATULATIONS!",`You finished the game in`, `${Math.floor(this.registry.totalTime / 60000)} Minutes`, `${(this.registry.totalTime % 60000) / 1000} Seconds!`],{fontFamily:'Arial', fontSize: '40px', backgroundColor: '#5f2f45 '})
         }
         const StartScene = () => {
             this.scale.startFullscreen();

@@ -13,11 +13,7 @@ class Example extends Phaser.Scene {
   }
 
   create() {
-    if(!this.registry.bgm){
-      this.registry.bgm = {key:
-      "nothing"
-      }
-    }
+    
     let bg = this.add
       .image(620, 400, "Background")
       .setScrollFactor(0.01, 0.01)
@@ -244,11 +240,24 @@ class Example extends Phaser.Scene {
               isSensor: true,
               onCollideCallback: (e) => {
                 if (isLizardBodyPart(e.bodyA) || isLizardBodyPart(e.bodyB)) {
+                  //I can't think of a scenario where this will evaluate to false but you can't be too careful
+                  if(!this.registry.endTime && this.registry.startTime){
+                    this.registry.endTime = new Date().getTime();
+                    this.registry.totalTime = this.registry.endTime - this.registry.startTime;
+                    console.log(`Game was completed in ${this.registry.totalTime}`);
+                  }
                   this.scene.start("intro",{outro: true});
+                  
                 }
               },
             });
             break;
+          case "startTimer":
+            if(!this.registry.startTime){
+              this.registry.startTime = new Date().getTime();
+              console.log(`Timer started at ${this.registry.startTime}`)
+            }
+            
       }
     });
     //We tried making the lizard a custom class that extended Matter.Sprite, but we got all kinds of errors for some reason so instead we made a function that creates the lizard and returns it (no issue with this)

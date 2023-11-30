@@ -121,10 +121,20 @@ const createPirahna = (scene, x, y, rotation, config = {type:"pirahna"}) => {
         
     }
     pirahna.die = () => {
+        pirahna.light.setColor(0xFF0000).setIntensity(20).setRadius(10000);
+        scene.tweens.add({
+            targets: pirahna.light,
+            intensity: 0,
+            duration: 5000,
+            onComplete: ()=>{
+                scene.lights.removeLight(pirahna.light)
+            }
+        })
+
         scene.emitter.emit("pirahnaDeath",pirahna.tiledId);
         createBubble(scene,pirahna.x,pirahna.y);
         scene.heroRaycaster.removeMappedObjects(pirahna);
-        scene.lights.removeLight(pirahna.light);
+        //scene.lights.removeLight(pirahna.light);
         pirahna.anims.play("Dead");
         pirahna.dead = true;
         notDrowningForce = new Phaser.Math.Vector2(0,-0.004);
