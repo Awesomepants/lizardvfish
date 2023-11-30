@@ -13,7 +13,7 @@ class Example extends Phaser.Scene {
   }
 
   create() {
-    
+    this.matter.set60Hz();
     let bg = this.add
       .image(620, 400, "Background")
       .setScrollFactor(0.01, 0.01)
@@ -297,8 +297,8 @@ class Example extends Phaser.Scene {
       this.graphics.clear();
     });
     //this.lights.debug();
-  }
-  update() {
+    this.matter.world.on("afterupdate",()=>{
+      
     this.lizardLight.x = this.lizardHead.x;
     this.lizardLight.y = this.lizardHead.y;
     //console.log(this.lizardLight.x, this.lizardLight.y);
@@ -335,6 +335,9 @@ class Example extends Phaser.Scene {
       }
     }
   }
+    )
+  }
+  
 }
 
 const config = {
@@ -361,7 +364,6 @@ const config = {
       },
       fps: {
         target: 60,
-        forceSetTimeout: true,
       },
       debug: false,
     },

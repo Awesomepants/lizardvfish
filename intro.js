@@ -160,6 +160,7 @@ class Intro extends Phaser.Scene {
             
     }
     create(){
+        this.matter.set60Hz();
         this.bgm = this.sound.add("Lizard and Juliette");
         this.registry.bgm = this.bgm;
         console.log(this.registry);
@@ -176,9 +177,6 @@ class Intro extends Phaser.Scene {
         //We won't use the raycaster at all in this cutscene but the lizard prefabs are expecting it to be here so it's easier to just add it
         this.heroRaycaster = this.raycasterPlugin.createRaycaster({debug:false});
         let lizardsY = 270;
-        if(this.outro){
-            lizardsY = 0;
-        }
         this.LizardActor = createLizard(this, 120,lizardsY,1,0);
         this.AxolotlActor = createLizard(this, 780,lizardsY,-1,0,true);
         
@@ -384,9 +382,13 @@ class Intro extends Phaser.Scene {
             StartScene();
         })
     }
+    this.matter.world.on('afterupdate', this.glupdate,this);
         }
         
-    update(){
+    glupdate(msg){
+        if(!this.LizardActor){
+            return;
+        }
         if(this.LizardActor.movingRight){
             this.LizardActor.moveLizard(0.5,0)
         }
