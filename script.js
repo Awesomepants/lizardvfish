@@ -343,7 +343,7 @@ const config = {
   backgroundColor: "#090f33",
   parent: "game",
   pixelArt: true,
-  maxLights: 20,
+  maxLights: 12,
   physics: {
     default: "matter",
     matter: {

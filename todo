@@ -1,5 +1,8 @@
+Credits on game completion
+
 Improvements:
-Pirahna deaths more interesting/satisfying (add an animation?)
+Automatically going to fullscreen should only happen on mobile
+Pirahna deaths more interesting/satisfying (add an animation? as well as sound?)
 End of game records your time
-fix the oxygen resetting to 0 then not replenishing glitch (maybe change it to a repeating tween that subtracts 1 from the amount instead of a big tween that resets it to 0)
+fix the oxygen resetting to 0 then not replenishing glitch (maybe change it to a repeating tween that subtracts 1 from the amount instead of a big tween that resets it to 0) (fixed as far as I know)
 telegraph that you can't attack the jellyfish (maybe a little sign with a circle and a cross going through a picture of the lizard bashing the jelly)
