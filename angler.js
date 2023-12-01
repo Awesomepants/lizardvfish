@@ -22,8 +22,10 @@ const createAnglerfish = (scene, x, y, lureX, lureY) => {
           }
         triggered = true;
         lure.anims.play("Transform");
+        
         scene.emitter.emit("AnglerTriggered");
         setTimeout(() => {
+           scene.sound.play("jumpscare"); 
             angler.anims.play("Activate");
           scene.tweens.add({
         

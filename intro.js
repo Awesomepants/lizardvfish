@@ -134,7 +134,7 @@ const loadAssets = (scene)=>{
       scene.load.audio("pirahnadeath",["assets/sfx/pirahnadeath.ogg","assets/sfx/pirahnadeath.mp3"])
       scene.load.audio("switch",["assets/sfx/switch.ogg","assets/sfx/switch.mp3"]);
       scene.load.audio('Lizard and Juliette',["assets/Music/Lizard and Juliette.ogg","assets/Music/Lizard and Juliette.mp3"]);
-        
+      scene.load.audio("jumpscare",["assets/sfx/jumpscare.ogg","assets/sfx/jumpscare.mp3"]); 
 
 }
 class Intro extends Phaser.Scene {
