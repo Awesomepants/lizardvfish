@@ -14,8 +14,8 @@ class Example extends Phaser.Scene {
   }
 
   create() {
-     this.matter.set60Hz();
-     this.matter.world.on("afterupdate",this.glupdate, this)
+     //this.matter.set60Hz();
+     //this.matter.world.on("afterupdate",this.glupdate, this)
     let bg = this.add
       .image(620, 400, "Background")
       .setScrollFactor(0.01, 0.01)
@@ -341,6 +341,18 @@ class Example extends Phaser.Scene {
     
       
   }
+  update(time, delta) {
+    frameTime += delta;
+    if (frameTime > 16.5) {
+        frameTime -= 16.5;
+
+       this.glupdate();
+
+
+        this.matter.world.step();
+        this.gameCycle++;
+    }
+}
   
 }
 
