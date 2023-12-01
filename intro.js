@@ -1,3 +1,12 @@
+let theMatterWorld;
+let accumulatedTime = 0;
+const worldStep = () => {
+  try {
+    theMatterWorld.step(16)
+  } catch (error) {
+    console.log(error);
+  }
+}
 let accumulator = 0;
 matterTimeStep = 16.6
 const dialouge = (scene, x,y,content) => {
@@ -162,7 +171,9 @@ class Intro extends Phaser.Scene {
             
     }
     create(){
-        this.matter.set60Hz();
+        this.matter.world.autoUpdate = false;
+        theMatterWorld = this.matter.world;
+        //setInterval(worldStep,16)
         this.matter.world.on("afterupdate", this.glupdate, this);
         this.bgm = this.sound.add("Lizard and Juliette");
         this.registry.bgm = this.bgm;
@@ -404,6 +415,17 @@ class Intro extends Phaser.Scene {
         }
         if(this.LizardActor.movingDown){
             this.LizardActor.moveLizard(0,2);
+        }
+    }
+    update(time, delta){
+        accumulatedTime += delta
+        if(accumulatedTime <= 16){
+            
+            console.log("not updating physics");
+        } else {
+            accumulatedTime -=delta;
+            this.matter.world.step(16);
+            console.log("updating physics");
         }
     }
 }

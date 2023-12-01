@@ -14,7 +14,8 @@ class Example extends Phaser.Scene {
   }
 
   create() {
-     this.matter.set60Hz();
+    theMatterWorld = this.matter.world;
+     this.matter.world.autoUpdate = false;
      this.matter.world.on("afterupdate",this.glupdate, this)
     let bg = this.add
       .image(620, 400, "Background")
@@ -341,6 +342,17 @@ class Example extends Phaser.Scene {
     
       
   }
+  update(time, delta){
+    accumulatedTime += delta
+    if(accumulatedTime <= 16){
+        
+        console.log("not updating physics");
+    } else {
+        accumulatedTime -=delta;
+        this.matter.world.step(16);
+        console.log("updating physics");
+    }
+}
   
 }
 
@@ -363,6 +375,9 @@ const config = {
   physics: {
     default: "matter",
     matter: {
+      getDelta: () => {
+        return 16.6;
+      },
       gravity: {
         y: 0.5,
       },
