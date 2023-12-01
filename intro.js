@@ -423,7 +423,7 @@ class Intro extends Phaser.Scene {
             
             console.log("not updating physics");
         } else {
-            accumulatedTime -=delta;
+            accumulatedTime = 0;
             this.matter.world.step(16);
             console.log("updating physics");
         }
