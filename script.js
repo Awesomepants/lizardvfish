@@ -1,3 +1,4 @@
+
 class Example extends Phaser.Scene {
   constructor() {
     super("levelGenerator");
@@ -13,7 +14,10 @@ class Example extends Phaser.Scene {
   }
 
   create() {
-    this.matter.set60Hz();
+    accumulator = 0;
+this.matter.world.autoUpdate = false;
+
+    //this.matter.set60Hz();
     let bg = this.add
       .image(620, 400, "Background")
       .setScrollFactor(0.01, 0.01)
@@ -297,45 +301,51 @@ class Example extends Phaser.Scene {
       this.graphics.clear();
     });
     //this.lights.debug();
-    this.matter.world.on("afterupdate",()=>{
-      
-    this.lizardLight.x = this.lizardHead.x;
-    this.lizardLight.y = this.lizardHead.y;
-    //console.log(this.lizardLight.x, this.lizardLight.y);
-    document.getElementById(
-      "fpsmeter"
-    ).innerHTML = `FPS: ${this.sys.game.loop.actualFps} LizardSticking: ${this.lizardHead.sticking.isSticking} ${this.lizardHead.breakingInformation}`;
-
-    //keyboard controls
-    if (this.cursors.space.isDown) {
-      this.lizardHead.attack();
-    }
-    if (this.cursors.left.isDown || this.joystickKeys.left.isDown) {
-      this.lizardHead.moveLizard(-1, 0);
-    } else if (this.cursors.right.isDown || this.joystickKeys.right.isDown) {
-      this.lizardHead.moveLizard(1, 0);
-    }
-    if (this.cursors.down.isDown || this.joystickKeys.down.isDown) {
-      this.lizardHead.moveLizard(0, 1);
-    } else if (this.cursors.up.isDown || this.joystickKeys.up.isDown) {
-      this.lizardHead.moveLizard(0, -1);
-    }
-    //gamepad controls
-    if (this.input.gamepad.total === 0) {
-      return;
-    }
-
-    const pad = this.input.gamepad.getPad(0);
-
-    if (pad.axes.length) {
-      const axisH = pad.axes[0].getValue();
-      const axisV = pad.axes[1].getValue();
-      if (axisH || axisV) {
-        this.lizardHead.moveLizard(axisH, axisV);
-      }
-    }
+    
   }
-    )
+  update(time, delta) {      
+    accumulator += delta;
+            while(accumulator >= matterTimeStep) {
+                accumulator -= matterTimeStep;
+                this.matter.world.step(matterTimeStep);
+            }
+      this.lizardLight.x = this.lizardHead.x;
+      this.lizardLight.y = this.lizardHead.y;
+      //console.log(this.lizardLight.x, this.lizardLight.y);
+      document.getElementById(
+        "fpsmeter"
+      ).innerHTML = `FPS: ${this.sys.game.loop.actualFps} LizardSticking: ${this.lizardHead.sticking.isSticking} ${this.lizardHead.breakingInformation}`;
+  
+      //keyboard controls
+      if (this.cursors.space.isDown) {
+        this.lizardHead.attack();
+      }
+      if (this.cursors.left.isDown || this.joystickKeys.left.isDown) {
+        this.lizardHead.moveLizard(-1, 0);
+      } else if (this.cursors.right.isDown || this.joystickKeys.right.isDown) {
+        this.lizardHead.moveLizard(1, 0);
+      }
+      if (this.cursors.down.isDown || this.joystickKeys.down.isDown) {
+        this.lizardHead.moveLizard(0, 1);
+      } else if (this.cursors.up.isDown || this.joystickKeys.up.isDown) {
+        this.lizardHead.moveLizard(0, -1);
+      }
+      //gamepad controls
+      if (this.input.gamepad.total === 0) {
+        return;
+      }
+  
+      const pad = this.input.gamepad.getPad(0);
+  
+      if (pad.axes.length) {
+        const axisH = pad.axes[0].getValue();
+        const axisV = pad.axes[1].getValue();
+        if (axisH || axisV) {
+          this.lizardHead.moveLizard(axisH, axisV);
+        }
+      }
+    
+      
   }
   
 }
@@ -356,18 +366,19 @@ const config = {
   parent: "game",
   pixelArt: true,
   maxLights: 12,
-  fps: {
-        target: 60,
-        forceSetTimeOut: true
-      },
-  forceSetTimeOut: true,
   physics: {
     default: "matter",
     matter: {
       gravity: {
         y: 0.5,
       },
-      
+      getDelta: function () {
+        return this.scene.game.loop.delta;
+      },
+      runner: {
+        // `isFixed` means use `getDelta()`
+        isFixed: true
+      },
       debug: false,
     },
   },

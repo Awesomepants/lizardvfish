@@ -1,3 +1,5 @@
+let accumulator = 0;
+matterTimeStep = 16.6
 const dialouge = (scene, x,y,content) => {
     scene.sound.add("dialouge").play();
     const text = scene.add.text(x,y,content, {fontFamily: 'Arial', fontSize: '20px', backgroundColor: '#5f2f45 ', padding: {x: 10, y: 10}});
@@ -160,7 +162,9 @@ class Intro extends Phaser.Scene {
             
     }
     create(){
-        this.matter.set60Hz();
+        accumulator = 0;
+        this.matter.world.autoUpdate = false;
+        //this.matter.set60Hz();
         this.bgm = this.sound.add("Lizard and Juliette");
         this.registry.bgm = this.bgm;
         console.log(this.registry);
@@ -382,10 +386,15 @@ class Intro extends Phaser.Scene {
             StartScene();
         })
     }
-    this.matter.world.on('afterupdate', this.glupdate,this);
+
         }
         
-    glupdate(msg){
+    update(time, delta){
+        accumulator += delta;
+            while(accumulator >= matterTimeStep) {
+                accumulator -= matterTimeStep;
+                this.matter.world.step(matterTimeStep);
+            }
         if(!this.LizardActor){
             return;
         }
