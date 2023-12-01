@@ -14,10 +14,8 @@ class Example extends Phaser.Scene {
   }
 
   create() {
-    accumulator = 0;
-this.matter.world.autoUpdate = false;
-
-    //this.matter.set60Hz();
+     this.matter.set60Hz();
+     this.matter.world.on("afterupdate",this.glupdate, this)
     let bg = this.add
       .image(620, 400, "Background")
       .setScrollFactor(0.01, 0.01)
@@ -303,12 +301,8 @@ this.matter.world.autoUpdate = false;
     //this.lights.debug();
     
   }
-  update(time, delta) {      
-    accumulator += delta;
-            while(accumulator >= matterTimeStep) {
-                accumulator -= matterTimeStep;
-                this.matter.world.step(matterTimeStep);
-            }
+  glupdate(time, delta) {      
+
       this.lizardLight.x = this.lizardHead.x;
       this.lizardLight.y = this.lizardHead.y;
       //console.log(this.lizardLight.x, this.lizardLight.y);

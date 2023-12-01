@@ -162,9 +162,8 @@ class Intro extends Phaser.Scene {
             
     }
     create(){
-        accumulator = 0;
-        this.matter.world.autoUpdate = false;
-        //this.matter.set60Hz();
+        this.matter.set60Hz();
+        this.matter.world.on("afterupdate", this.glupdate, this);
         this.bgm = this.sound.add("Lizard and Juliette");
         this.registry.bgm = this.bgm;
         console.log(this.registry);
@@ -389,12 +388,8 @@ class Intro extends Phaser.Scene {
 
         }
         
-    update(time, delta){
-        accumulator += delta;
-            while(accumulator >= matterTimeStep) {
-                accumulator -= matterTimeStep;
-                this.matter.world.step(matterTimeStep);
-            }
+    glupdate(time, delta){
+        
         if(!this.LizardActor){
             return;
         }
