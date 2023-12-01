@@ -360,6 +360,7 @@ const config = {
         target: 60,
         forceSetTimeOut: true
       },
+  forceSetTimeOut: true,
   physics: {
     default: "matter",
     matter: {
