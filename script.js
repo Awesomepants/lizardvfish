@@ -356,15 +356,17 @@ const config = {
   parent: "game",
   pixelArt: true,
   maxLights: 12,
+  fps: {
+        target: 60,
+        forceSetTimeOut: true
+      },
   physics: {
     default: "matter",
     matter: {
       gravity: {
         y: 0.5,
       },
-      fps: {
-        target: 60,
-      },
+      
       debug: false,
     },
   },
