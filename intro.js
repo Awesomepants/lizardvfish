@@ -162,8 +162,8 @@ class Intro extends Phaser.Scene {
             
     }
     create(){
-        //this.matter.set60Hz();
-        //this.matter.world.on("afterupdate", this.glupdate, this);
+        this.matter.set60Hz();
+        this.matter.world.on("afterupdate", this.glupdate, this);
         this.bgm = this.sound.add("Lizard and Juliette");
         this.registry.bgm = this.bgm;
         console.log(this.registry);
@@ -385,7 +385,7 @@ class Intro extends Phaser.Scene {
             StartScene();
         })
     }
-    this.frameTime = 0;
+
         }
         
     glupdate(time, delta){
@@ -406,16 +406,4 @@ class Intro extends Phaser.Scene {
             this.LizardActor.moveLizard(0,2);
         }
     }
-    update(time, delta) {
-        this.frameTime += delta;
-        if (this.frameTime > 16.5) {
-            this.frameTime -= 16.5;
-
-           this.glupdate();
-
-
-            this.matter.world.step();
-            this.gameCycle++;
-        }
-}
 }
