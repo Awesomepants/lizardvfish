@@ -96,8 +96,8 @@ const loadAssets = (scene)=>{
       scene.load.image("spike", "assets/sprites/spike.png");
       scene.load.aseprite(
         "urchin",
-        "assets/sprites/urchin.png",
-        "assets/sprites/urchin.json"
+        "assets/sprites/spiky.png",
+        "assets/sprites/spiky.json"
       );
       scene.load.aseprite(
         "lever",
