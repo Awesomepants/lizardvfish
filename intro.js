@@ -54,7 +54,7 @@ const loadAssets = (scene)=>{
         "assets/sprites/axolotlbodysegment.png",
         "assets/sprites/axolotlbodysegment.json"
       );
-  
+    scene.load.aseprite('icons','assets/sprites/icons.png','assets/sprites/icons.json')
       scene.load.image("gameLogo", "assets/StaticImages/gameLogo.png")
       scene.load.image("AquaTile", "assets/StaticImages/tilesheet.png");
       scene.load.aseprite(
@@ -383,7 +383,7 @@ class Intro extends Phaser.Scene {
                   this.input.on("pointerdown",()=>{
                     this.scene.start("levelGenerator",{map:"Tutorial"});
                 })  
-                },2000)
+                },500)
                 
                 console.log(startingText)
                 this.tweens.add({
@@ -427,11 +427,11 @@ class Intro extends Phaser.Scene {
         accumulatedTime += delta
         if(accumulatedTime <= 16){
             
-            console.log("not updating physics");
+       
         } else {
             accumulatedTime = 0;
             this.matter.world.step(16);
-            console.log("updating physics");
+           
         }
     }
 }

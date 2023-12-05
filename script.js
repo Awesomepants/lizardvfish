@@ -15,6 +15,8 @@ class Example extends Phaser.Scene {
 
   create() {
     PokiSDK.gameplayStart();
+    //for testing, remove this after
+    
     theMatterWorld = this.matter.world;
      this.matter.world.autoUpdate = false;
      this.matter.world.on("afterupdate",this.glupdate, this)
@@ -26,19 +28,10 @@ class Example extends Phaser.Scene {
     //this.lights.enable();
     this.emitter = new Phaser.Events.EventEmitter();
     this.emitter.on("lizardDeath", () => {
-      PokiSDK.gameplayStop();
-      setTimeout(() => {
-        PokiSDK.commercialBreak(() => {
-          console.log("commercial");
-          this.scene.pause("levelGenerator");
-          game.sound.mute = true;
-        }).then(() => {
-          console.log("commercial over");
-          this.scene.resume("levelGenerator");
-          game.sound.mute = false;
-        })
-        this.scene.start("levelGenerator", { map: this.map });
-      }, 3000);
+      setTimeout(()=>{
+        reviveordie(this);
+      }, 1000)
+      
     });
     this.joystick = this.plugins.get("rexvirtualjoystickplugin").add(this, {
       x: 140,
@@ -368,11 +361,11 @@ class Example extends Phaser.Scene {
     accumulatedTime += delta
     if(accumulatedTime <= 16){
         
-        console.log("not updating physics");
+        
     } else {
         accumulatedTime = 0;
         this.matter.world.step(16);
-        console.log("updating physics");
+
     }
 }
   
