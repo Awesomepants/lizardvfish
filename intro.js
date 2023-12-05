@@ -171,6 +171,10 @@ class Intro extends Phaser.Scene {
             
     }
     create(){
+        if(!this.outro){
+            PokiSDK.gameLoadingFinished();
+        }
+        
         this.matter.world.autoUpdate = false;
         theMatterWorld = this.matter.world;
         //setInterval(worldStep,16)
@@ -207,7 +211,9 @@ class Intro extends Phaser.Scene {
             emotingSprite.anims.play(emote);
         }
         //The Cutscene
-        const timeline = this.add.timeline([{
+        const timeline = this.add.timeline([
+            {
+            
             at: 2000,
             run: () => {
                 console.log("uwu");
@@ -368,7 +374,7 @@ class Intro extends Phaser.Scene {
             this.add.text(250,300,["CONGRATULATIONS!",`You finished the game in`, `${Math.floor(this.registry.totalTime / 60000)} Minutes`, `${(this.registry.totalTime % 60000) / 1000} Seconds!`],{fontFamily:'Arial', fontSize: '40px', backgroundColor: '#5f2f45 '})
         }
         const StartScene = () => {
-            this.scale.startFullscreen();
+            //this.scale.startFullscreen();
             if(!playing){
                 this.bgm.play();
                 playing = true;

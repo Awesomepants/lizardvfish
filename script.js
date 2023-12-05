@@ -14,6 +14,7 @@ class Example extends Phaser.Scene {
   }
 
   create() {
+    PokiSDK.gameplayStart();
     theMatterWorld = this.matter.world;
      this.matter.world.autoUpdate = false;
      this.matter.world.on("afterupdate",this.glupdate, this)
@@ -25,7 +26,17 @@ class Example extends Phaser.Scene {
     //this.lights.enable();
     this.emitter = new Phaser.Events.EventEmitter();
     this.emitter.on("lizardDeath", () => {
+      PokiSDK.gameplayStop();
       setTimeout(() => {
+        PokiSDK.commercialBreak(() => {
+          console.log("commercial");
+          this.scene.pause("levelGenerator");
+          game.sound.mute = true;
+        }).then(() => {
+          console.log("commercial over");
+          this.scene.resume("levelGenerator");
+          game.sound.mute = false;
+        })
         this.scene.start("levelGenerator", { map: this.map });
       }, 3000);
     });
@@ -161,7 +172,18 @@ class Example extends Phaser.Scene {
             onCollideCallback: (e) => {
               if (isLizardBodyPart(e.bodyA) || isLizardBodyPart(e.bodyB)) {
                 console.log(`Switching to scene ${object.Level}`);
-                this.scene.start("levelGenerator", { map: object.Level });
+                PokiSDK.gameplayStop();
+      
+        PokiSDK.commercialBreak(() => {
+          console.log("commercial");
+          this.scene.pause("levelGenerator");
+          game.sound.mute = true;
+        }).then(() => {
+          console.log("commercial over");
+          this.scene.resume("levelGenerator");
+          game.sound.mute = false;
+        })
+        this.scene.start("levelGenerator", { map: object.Level });
               }
             },
           });
@@ -408,4 +430,12 @@ const config = {
   //scene: [Example]
 };
 
-const game = new Phaser.Game(config);
+let game;
+PokiSDK.init().then(() => {
+  console.log("Poki SDK successfully initialized");
+  game = new Phaser.Game(config);
+}).catch(() => {
+  console.log("Initialized, something went wrong, load you game anyway");
+  game = new Phaser.Game(config);
+});
+
