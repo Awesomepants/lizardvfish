@@ -9,7 +9,7 @@ const restart = (scene) => {
           scene.scene.resume("levelGenerator");
           game.sound.mute = false;
         })
-        scene.scene.start("levelGenerator", { map: this.map });
+        scene.scene.start("levelGenerator", { map: scene.map });
 }
 const reviveordie = (scene) => {
     console.log("the lizard died")
@@ -45,6 +45,7 @@ const reviveordie = (scene) => {
                     scene.lizardHead.bodyParts.head.anims.play("Nuetral");
                     scene.lizardHead.health = 4;
                     scene.lizardHead.oxygen = 100;
+                    scene.lizardHead.oxygenDepletion.restart();
                     elementsToDestroy.forEach((element)=>{
                         element.destroy();
                     })

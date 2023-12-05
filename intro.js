@@ -174,6 +174,19 @@ class Intro extends Phaser.Scene {
         if(!this.outro){
             PokiSDK.gameLoadingFinished();
         }
+        try {
+        const level = localStorage.getItem('level');
+                if(level){
+                    this.scene.start("levelGenerator",{map: level});
+                }
+                if(this.outro){
+                    localStorage.removeItem("level");
+                }
+        } catch(error) {
+            console.log(error);
+            console.log("No localstorage, client is in incognito mode");
+        }
+        
         
         this.matter.world.autoUpdate = false;
         theMatterWorld = this.matter.world;
@@ -181,8 +194,8 @@ class Intro extends Phaser.Scene {
         this.matter.world.on("afterupdate", this.glupdate, this);
         this.bgm = this.sound.add("Lizard and Juliette");
         this.registry.bgm = this.bgm;
-        console.log(this.registry);
-        console.log("Here we are");
+        //console.log(this.registry);
+        //console.log("Here we are");
         this.add.image(480,315,'Sunset').setScale(2.2);
         const map = this.make.tilemap({ key: "IntroCutscene"});
         const tileset = map.addTilesetImage("AquaTile");
@@ -371,7 +384,13 @@ class Intro extends Phaser.Scene {
            startingText = this.add.text(300,400,"Click or tap to start!", {fontFamily: 'Arial', fontSize: '20px', backgroundColor: '#5f2f45 ', padding: {x: 10, y: 10}});
          
         } else {
-            this.add.text(250,300,["CONGRATULATIONS!",`You finished the game in`, `${Math.floor(this.registry.totalTime / 60000)} Minutes`, `${(this.registry.totalTime % 60000) / 1000} Seconds!`],{fontFamily:'Arial', fontSize: '40px', backgroundColor: '#5f2f45 '})
+            let message;
+            if(this.registry.totalTime){
+                message = ["CONGRATULATIONS!",`You finished the game in`, `${Math.floor(this.registry.totalTime / 60000)} Minutes`, `${(this.registry.totalTime % 60000) / 1000} Seconds!`]
+            } else {
+                message = "Congratulations!"
+            }
+            this.add.text(250,300,message,{fontFamily:'Arial', fontSize: '40px', backgroundColor: '#5f2f45 '})
         }
         const StartScene = () => {
             //this.scale.startFullscreen();

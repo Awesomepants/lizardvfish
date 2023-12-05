@@ -15,9 +15,11 @@ class Example extends Phaser.Scene {
 
   create() {
     PokiSDK.gameplayStart();
-    //for testing, remove this after
-    
+    localStorage.setItem("level",this.map)
     theMatterWorld = this.matter.world;
+    if(this.registry.bgm && !this.registry.bgm.isPlaying){
+      this.registry.bgm.play();
+    }
      this.matter.world.autoUpdate = false;
      this.matter.world.on("afterupdate",this.glupdate, this)
     let bg = this.add
@@ -68,7 +70,7 @@ class Example extends Phaser.Scene {
     for(let i = 1; i <= 70; i++){
       collisionTiles.push(i);
     }
-    console.log(collisionTiles);
+    //console.log(collisionTiles);
     this.raycaster.mapGameObjects(groundLayer, false, {
       collisionTiles: collisionTiles,
     });
@@ -85,7 +87,7 @@ class Example extends Phaser.Scene {
           object[property.name] = property.value;
         });
       }
-      console.log(object);
+      //console.log(object);
       switch (object.name) {
         case "Lizard":
           (lizardCoords.x = object.x), (lizardCoords.y = object.y);
@@ -204,7 +206,7 @@ class Example extends Phaser.Scene {
           this.add.text(object.x, object.y, object.content);
           break;
         case "CollisionSquare":
-          console.log("square", object);
+          //console.log("square", object);
           this.matter.add.rectangle(
             object.x + object.width / 2,
             object.y + object.height / 2,
@@ -297,18 +299,18 @@ class Example extends Phaser.Scene {
         this.lizardLight.setColor(0xfffff).setIntensity(3);
       }, 750);
     });
-    console.log(this.lizardLight);
+    //console.log(this.lizardLight);
     this.cursors = this.input.keyboard.createCursorKeys();
     this.cameras.main.startFollow(this.lizardHead, false, 0.2, 0.2);
     this.cameras.main.setBounds(0, 0, map.width * 32, map.height * 32);
     this.cameras.main.useBounds = true;
     this.lights.enable();
-    console.log(this.lights);
+    //console.log(this.lights);
 
     this.input.gamepad.on("down", (pad, button, value) => {
       this.lizardHead.attack();
     });
-    console.log(this.graphics);
+    //console.log(this.graphics);
 
     //this allows dynamic graphics without the need for each entity to have it's own graphics object
     this.matter.world.on("beforeupdate", () => {
@@ -431,4 +433,3 @@ PokiSDK.init().then(() => {
   console.log("Initialized, something went wrong, load you game anyway");
   game = new Phaser.Game(config);
 });
-
