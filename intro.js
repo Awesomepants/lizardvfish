@@ -384,6 +384,7 @@ class Intro extends Phaser.Scene {
                 setTimeout(()=>{
                   this.input.on("pointerdown",()=>{
                     this.scene.start("levelGenerator",{map:"Tutorial"});
+                    //this.scene.start("levelGenerator",{map:"Chase2"});
                 })  
                 },500)
                 

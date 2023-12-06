@@ -256,7 +256,7 @@ class Example extends Phaser.Scene {
                     this.registry.endTime = new Date().getTime();
                     this.registry.totalTime = this.registry.endTime - this.registry.startTime;
                     try {
-                      kongAPIref.submit("Time",this.registry.totalTime);
+                      kongAPIref.stats.submit("Time",this.registry.totalTime);
                     } catch (error){
                       console.log("Error submitting to kongregate");
                       console.log(error);
