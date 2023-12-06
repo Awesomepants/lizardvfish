@@ -14,7 +14,6 @@ class Example extends Phaser.Scene {
   }
 
   create() {
-    PokiSDK.gameplayStart();
     localStorage.setItem("level",this.map)
     theMatterWorld = this.matter.world;
     if(this.registry.bgm && !this.registry.bgm.isPlaying){
@@ -31,7 +30,7 @@ class Example extends Phaser.Scene {
     this.emitter = new Phaser.Events.EventEmitter();
     this.emitter.on("lizardDeath", () => {
       setTimeout(()=>{
-        reviveordie(this);
+        this.scene.start("levelGenerator", {map: this.map})
       }, 1000)
       
     });
@@ -167,17 +166,9 @@ class Example extends Phaser.Scene {
             onCollideCallback: (e) => {
               if (isLizardBodyPart(e.bodyA) || isLizardBodyPart(e.bodyB)) {
                 console.log(`Switching to scene ${object.Level}`);
-                PokiSDK.gameplayStop();
+               
       
-        PokiSDK.commercialBreak(() => {
-          console.log("commercial");
-          this.scene.pause("levelGenerator");
-          game.sound.mute = true;
-        }).then(() => {
-          console.log("commercial over");
-          this.scene.resume("levelGenerator");
-          game.sound.mute = false;
-        })
+      
         this.scene.start("levelGenerator", { map: object.Level });
               }
             },
@@ -264,6 +255,13 @@ class Example extends Phaser.Scene {
                   if(!this.registry.endTime && this.registry.startTime){
                     this.registry.endTime = new Date().getTime();
                     this.registry.totalTime = this.registry.endTime - this.registry.startTime;
+                    try {
+                      kongAPIref.submit("Time",this.registry.totalTime);
+                    } catch (error){
+                      console.log("Error submitting to kongregate");
+                      console.log(error);
+                    }
+                    
                     console.log(`Game was completed in ${this.registry.totalTime}`);
                   }
                   this.scene.start("intro",{outro: true});
@@ -424,12 +422,11 @@ const config = {
   scene: [Intro, Example],
   //scene: [Example]
 };
-
+let kongAPIref;
 let game;
-PokiSDK.init().then(() => {
-  console.log("Poki SDK successfully initialized");
-  game = new Phaser.Game(config);
-}).catch(() => {
-  console.log("Initialized, something went wrong, load you game anyway");
+kongregateAPI.loadAPI(function(){
+  kongAPIref = kongregateAPI.getAPI();
   game = new Phaser.Game(config);
 });
+
+

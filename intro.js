@@ -171,23 +171,6 @@ class Intro extends Phaser.Scene {
             
     }
     create(){
-        if(!this.outro){
-            PokiSDK.gameLoadingFinished();
-        }
-        try {
-        const level = localStorage.getItem('level');
-                if(level){
-                    this.scene.start("levelGenerator",{map: level});
-                }
-                if(this.outro){
-                    localStorage.removeItem("level");
-                }
-        } catch(error) {
-            console.log(error);
-            console.log("No localstorage, client is in incognito mode");
-        }
-        
-        
         this.matter.world.autoUpdate = false;
         theMatterWorld = this.matter.world;
         //setInterval(worldStep,16)
